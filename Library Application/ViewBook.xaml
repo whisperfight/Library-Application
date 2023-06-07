@@ -8,11 +8,159 @@
       d:DesignHeight="1000" d:DesignWidth="1700"
       Title="ViewBook">
 
+    <Page.Resources>
+        <Style x:Key="H1" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Inter"/>
+            <Setter Property="FontSize" Value="40"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+        </Style>
+
+        <Style x:Key="H2" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="22" />
+        </Style>
+
+        <Style x:Key="H3" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+
+
+        <Style x:Key="UsersName" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontFamily" Value="Inter" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+
+
+        <Style x:Key="SearchField" TargetType="TextBox">
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="#727272"/>
+            <Setter Property="FontSize" Value="22" />
+            <Setter Property="FontFamily" Value="Inter" />
+            <Setter Property="BorderBrush" Value="#E35E6A"/>
+            <Setter Property="BorderThickness" Value="3"/>
+        </Style>
+
+        <Style x:Key="ReturnPageButton" TargetType="Button">
+            <Setter Property="Background" Value="#E35E6A"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Inter" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+
+        <Style x:Key="SideMenuButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontFamily" Value="Inter" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="BorderBrush" Value="White" />
+            <Setter Property="BorderThickness" Value="2" />
+        </Style>
+
+        <Style x:Key="LoanStatus" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontFamily" Value="Inter" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+
+        <Style x:Key="BookListingTitle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Inter"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+
+        <Style x:Key="BookListingTitleHover" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Inter"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <Style x:Key="BookListingGenre" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Inter"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+        </Style>
+    </Page.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="150"/>
+            <RowDefinition Height="130"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <WrapPanel Orientation="Vertical">
+
+            <Button x:Name="ReturnPage"
+                        Content="Return to browsing"
+                        Click="ReturnPageButton_Click"             
+                        Width="250" Height="30"
+                        Margin="50,50,0,0"
+                        Style="{StaticResource ReturnPageButton}">
+
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="15"/>
+                    </Style>
+                </Button.Resources>
+
+            </Button>
+
+        </WrapPanel>
+
+        <WrapPanel Grid.Row="1" Orientation="Horizontal" Margin="50,0,0,0">
+
+            <WrapPanel>
+                <Image Source="https://via.placeholder.com/400x630" Width="400" Height="630" Stretch="Fill"/>
+
+            </WrapPanel>
+
+            <WrapPanel Orientation="Vertical" Margin="100,0,0,0" Height="630" Background="AntiqueWhite" VerticalAlignment="Top">
+
+                <TextBlock Text="Book title to be binded checking wrapping" Style="{StaticResource H1}" TextWrapping="Wrap" Width="600" Height="100">
+
+                </TextBlock>
+
+                <TextBlock Text="Authors Name" Style="{StaticResource H3}"></TextBlock>
+                <TextBlock Text="Genre" Style="{StaticResource H3}"></TextBlock>
+
+                <Grid HorizontalAlignment="Left">
+                    <Border CornerRadius="10" Background="{Binding LoanStatusFill}" Width="200" Height="20">
+                        <Rectangle x:Name="LoanStatusRectangle" Fill="red" />
+                    </Border>
+
+                    <TextBlock Text="Loan status binding" Style="{StaticResource LoanStatus}"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center">
+                    </TextBlock>
+
+
+                </Grid>
+
+                <TextBlock Text="Book Description" Style="{StaticResource H2}"></TextBlock>
+
+                <TextBlock Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                               TextWrapping="Wrap"
+                               Width="600"
+                               Height="200"
+                               Style="{StaticResource H3}">
+
+                </TextBlock>
+
+                <TextBlock Text="Member Rating" Style="{StaticResource H3}"></TextBlock>
+
+                <WrapPanel Orientation="Horizontal">
+                    <Button Width="100" Height="40"></Button>
+                    <Button Margin="20,0,0,0" Width="100" Height="40"></Button>
+                </WrapPanel>
+
+            </WrapPanel>
+
+        </WrapPanel>
     </Grid>
 </Page>

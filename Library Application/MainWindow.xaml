@@ -106,13 +106,13 @@
         <!--User profile and name-->
         <WrapPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center">
 
-            <Image Source="{Binding ImageSourceUrl}" Width="150" Height="150" Margin="0,50,0,10">
+            <Image Source="{Binding imageSourceUrl}" Width="150" Height="150" Margin="0,50,0,10">
                 <Image.Clip>
                     <EllipseGeometry RadiusX="75" RadiusY="75" Center="75,75"/>
                 </Image.Clip>
             </Image>
 
-            <TextBlock Text="{Binding UsersName}" Style="{StaticResource UsersName}" TextAlignment="Center"/>
+            <TextBlock Text="{Binding userFullName}" Style="{StaticResource UsersName}" TextAlignment="Center"/>
 
         </WrapPanel>
         

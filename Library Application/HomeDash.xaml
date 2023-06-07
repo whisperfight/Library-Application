@@ -100,7 +100,7 @@
         <!--=====================================================================-->
 
         <!--Page title-->
-        <TextBlock Text="{Binding WelcomeMessage}" Margin="50,50,0,0" Style="{StaticResource H1}"/>
+        <TextBlock Text="{Binding welcomeMessage}" Margin="50,50,0,0" Style="{StaticResource H1}"/>
 
         <!--Search field and button-->
         <TextBlock Text="My loaned books" Margin="50,0,0,10" VerticalAlignment="Bottom" Style="{StaticResource H2}" />

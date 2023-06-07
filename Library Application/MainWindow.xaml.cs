@@ -36,13 +36,16 @@ namespace Library_Application
 
         public class UserDetails
         {
-            public string ImageSourceUrl { get; set; }
-            public string UsersName { get; set; }
+            public string imageSourceUrl { get; set; }
+            public string userFullName { get; set; }
             public UserDetails()
             {
                 // Set the URL for the image source
-                ImageSourceUrl = "https://via.placeholder.com/150x150";
-                UsersName = "Ben Tutheridge";
+                imageSourceUrl = "https://via.placeholder.com/150x150";
+
+                string userFirstName = "Ben";
+                string userLastName = "Tutheridge";
+                userFullName = userFirstName + " " + userLastName;
             }
         }
 

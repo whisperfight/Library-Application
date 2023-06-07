@@ -28,7 +28,9 @@ namespace Library_Application
         {
             InitializeComponent();
 
+            // Adding data contexts to loaded page
             this.DataContext = this;
+            this.DataContext = new UserDetails();
 
             LoadUserLoanList();
 
@@ -63,6 +65,17 @@ namespace Library_Application
                         return new SolidColorBrush(Color.FromRgb(58, 177, 155));
                     }
                 }
+            }
+        }
+
+        public class UserDetails
+        {
+            public string welcomeMessage { get; set; }
+            public UserDetails()
+            {
+                string userFirstName = "Ben";
+                string userLastName = "Tutheridge";
+                welcomeMessage = "Welcome " + userFirstName + " " + userLastName;
             }
         }
 

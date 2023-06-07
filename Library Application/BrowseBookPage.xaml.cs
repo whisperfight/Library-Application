@@ -69,7 +69,6 @@ namespace Library_Application
             }
         }
 
-
         private void LoadBookListings()
         {
             // Read the csv file
@@ -184,10 +183,11 @@ namespace Library_Application
                 BookItem selectedBook = (BookItem)BookListView.SelectedItem;
                 string bookID = selectedBook.bookID;
 
-                // Redirect to the linked page passing the book title as a query parameter
-                NavigationService.Navigate(new Uri("/ViewBook.xaml?bookID=" + bookID, UriKind.Relative));
+                // Redirect to the linked page passing the book ID as a parameter
+                NavigationService?.Navigate(new Uri("/ViewBook.xaml?bookID=" + bookID, UriKind.Relative));
             }
         }
-        
+
+
     }
 }
