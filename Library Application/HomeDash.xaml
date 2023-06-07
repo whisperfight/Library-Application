@@ -93,38 +93,32 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="150"/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!--Main panel content-->
         <!--=====================================================================-->
 
         <!--Page title-->
-        <TextBlock Text="Welcome to your dashboard" Margin="50,50,0,0" Style="{StaticResource H1}"/>
+        <TextBlock Text="{Binding WelcomeMessage}" Margin="50,50,0,0" Style="{StaticResource H1}"/>
 
-        <!--Search field panel-->
-        <WrapPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="50,0,0,0">
-
-            <!--Search field and button-->
-            <TextBlock Text="My loaned books" Margin="0,0,0,5" Style="{StaticResource H2}" />
-
-        </WrapPanel>
+        <!--Search field and button-->
+        <TextBlock Text="My loaned books" Margin="50,0,0,10" VerticalAlignment="Bottom" Style="{StaticResource H2}" />
 
         <WrapPanel Orientation="Vertical" Grid.Row="1">
             
-
             <!--List view content-->
             <!--=====================================================================-->
 
             <!--Listview Template for users books on loan -->
             <ListView x:Name="LoanedListView"
-                  Grid.Row="1"
-                  Height="320"    
-                  Margin="50,0,0,0"
-                  BorderThickness="0"
-                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"  HorizontalAlignment="Left" VerticalAlignment="Top" 
-                  ItemsSource="{Binding PlayerList}">
+                      Grid.Row="1"
+                      Height="320"    
+                      Margin="50,0,0,0"
+                      BorderThickness="0"            
+                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"  HorizontalAlignment="Left" VerticalAlignment="Top" 
+                      ItemsSource="{Binding PlayerList}">
 
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -150,7 +144,7 @@
                                     </Rectangle>
                                 </Border>
 
-                                <TextBlock Text="{Binding name}" Style="{StaticResource BookListingTitle}"
+                                <TextBlock Text="{Binding title}" Style="{StaticResource BookListingTitle}"
                                        TextAlignment="Center"
                                        TextWrapping="Wrap"
                                        Height="20"
@@ -184,7 +178,7 @@
 
                                     <Rectangle Width="140" Height="220" Fill="#E35E6A"/>
 
-                                    <TextBlock Text="{Binding name}" Style="{StaticResource BookListingTitleHover}"
+                                    <TextBlock Text="{Binding title}" Style="{StaticResource BookListingTitleHover}"
                                             Padding="5"
                                             TextAlignment="Center"
                                             TextWrapping="Wrap"
@@ -207,9 +201,14 @@
                         </WrapPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+                
+                
+                
+                
             </ListView>
-
-            <TextBlock Text="My wishlist" Margin="50,0,0,0" Style="{StaticResource H2}" />
+            
+            <!--Wishlist heading-->
+            <TextBlock Text="My wishlist" Margin="50,10,0,10" Style="{StaticResource H2}" />
             
             <!--Listview Template for users saved book wishlist -->
             <ListView x:Name="WishListView"
@@ -245,7 +244,7 @@
                                     </Rectangle>
                                 </Border>
 
-                                <TextBlock Text="{Binding name}" Style="{StaticResource BookListingTitle}"
+                                <TextBlock Text="{Binding title}" Style="{StaticResource BookListingTitle}"
                                        TextAlignment="Center"
                                        TextWrapping="Wrap"
                                        Height="20"
@@ -279,7 +278,7 @@
 
                                     <Rectangle Width="140" Height="220" Fill="#E35E6A"/>
 
-                                    <TextBlock Text="{Binding name}" Style="{StaticResource BookListingTitleHover}"
+                                    <TextBlock Text="{Binding title}" Style="{StaticResource BookListingTitleHover}"
                                             Padding="5"
                                             TextAlignment="Center"
                                             TextWrapping="Wrap"

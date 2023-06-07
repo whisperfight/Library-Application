@@ -40,10 +40,18 @@ namespace Library_Application
 
         public class BookItem
         {
-            public string name { get; set; }
+
+            public string bookID { get; set; }
+            public string title { get; set; }
+            public string author { get; set; }
+            public string summary { get; set; }
+            public string timeToRead { get; set; }
+            public string rating { get; set; }
             public string genre { get; set; }
             public string imgURL { get; set; }
             public string loanState { get; set; }
+            public string newRelease { get; set; }
+            public string dueDate { get; set; }
 
             public Brush LoanStatusFill
             {
@@ -89,31 +97,38 @@ namespace Library_Application
                 //split each line into array of string
                 var line = lines[i].Split(',');
 
+                string loanState = line[8];
 
-                if (line[3] == "TRUE")
+                if (loanState == "TRUE")
                 {
-                    line[3] = "Available";
+                    loanState = "Available";
                 }
                 else
                 {
-                    line[3] = "On Loan";
+                    loanState = "On Loan";
                 }
 
                 //create new animal item instance and add it to the animal list
                 bookItems.Add(new BookItem
                 {
-                    name = line[0],
-                    genre = line[1],
-                    imgURL = line[2],
-                    loanState = line[3]
-                });
+                    bookID = line[0],
+                    title = line[1],
+                    author = line[2],
+                    summary = line[3],
+                    timeToRead = line[4],
+                    rating = line[5],
+                    genre = line[6],
+                    imgURL = line[7],
+                    loanState = loanState, // Assign the loanstate variable
+                    newRelease = line[9],
+                    dueDate = line[10]
+                }) ; ;
             }
 
-            BookList.ItemsSource = bookItems;
+            BookListView.ItemsSource = bookItems;
 
         }
     
-
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
@@ -164,7 +179,15 @@ namespace Library_Application
 
         private void BookList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (BookListView.SelectedItem != null)
+            {
+                BookItem selectedBook = (BookItem)BookListView.SelectedItem;
+                string bookID = selectedBook.bookID;
 
+                // Redirect to the linked page passing the book title as a query parameter
+                NavigationService.Navigate(new Uri("/ViewBook.xaml?bookID=" + bookID, UriKind.Relative));
+            }
         }
+        
     }
 }

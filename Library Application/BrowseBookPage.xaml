@@ -93,7 +93,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="300"/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!--Main panel content-->
@@ -225,7 +225,7 @@
         <!--=====================================================================-->
 
         <!--Listview Template for displaying all the catalog entries withing the library's database-->
-        <ListView x:Name="BookList"
+        <ListView x:Name="BookListView"
                   SelectionChanged="BookList_SelectionChanged"
                   Grid.Row="1"  
                   Margin="50,0,0,0"
@@ -258,7 +258,7 @@
                                 </Rectangle>
                             </Border>
 
-                            <TextBlock Text="{Binding name}" Style="{StaticResource BookListingTitle}"
+                            <TextBlock Text="{Binding title}" Style="{StaticResource BookListingTitle}"
                                        TextAlignment="Center"
                                        TextWrapping="Wrap"
                                        Height="20"
@@ -292,7 +292,7 @@
 
                                 <Rectangle Width="140" Height="220" Fill="#E35E6A"/>
 
-                                <TextBlock Text="{Binding name}" Style="{StaticResource BookListingTitleHover}"
+                                <TextBlock Text="{Binding title}" Style="{StaticResource BookListingTitleHover}"
                                             Padding="5"
                                             TextAlignment="Center"
                                             TextWrapping="Wrap"
