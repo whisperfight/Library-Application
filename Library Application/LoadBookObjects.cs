@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 
 namespace Library_Application
 {
-    public static class CommonFunctions
+    public static class LoadBookObjects
     {
 
     }

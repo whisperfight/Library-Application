@@ -50,6 +50,24 @@
             <Setter Property="FontWeight" Value="SemiBold" />
         </Style>
 
+        <Style x:Key="LoanButton" TargetType="Button">
+            <Setter Property="Background" Value="#E35E6A"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Inter" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+
+        <Style x:Key="AddWishlistButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#4375D8"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Inter" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="BorderBrush" Value="#4375D8" />
+            <Setter Property="BorderThickness" Value="2" />
+        </Style>
+
         <Style x:Key="SideMenuButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="White"/>
@@ -116,25 +134,25 @@
         <WrapPanel Grid.Row="1" Orientation="Horizontal" Margin="50,0,0,0">
 
             <WrapPanel>
-                <Image Source="https://via.placeholder.com/400x630" Width="400" Height="630" Stretch="Fill"/>
+                <Image Source="{Binding BookItem.imgURL}" Width="400" Height="630" Stretch="Fill"/>
 
             </WrapPanel>
 
             <WrapPanel Orientation="Vertical" Margin="100,0,0,0" Height="630" Background="AntiqueWhite" VerticalAlignment="Top">
 
-                <TextBlock Text="Book title to be binded checking wrapping" Style="{StaticResource H1}" TextWrapping="Wrap" Width="600" Height="100">
+                <TextBlock Text="{Binding BookItem.title}" Style="{StaticResource H1}" TextWrapping="Wrap" Width="600" Height="100">
 
                 </TextBlock>
 
-                <TextBlock Text="Authors Name" Style="{StaticResource H3}"></TextBlock>
-                <TextBlock Text="Genre" Style="{StaticResource H3}"></TextBlock>
+                <TextBlock Text="{Binding BookItem.author}" Style="{StaticResource H3}"></TextBlock>
+                <TextBlock Text="{Binding BookItem.genre}" Style="{StaticResource H3}"></TextBlock>
 
                 <Grid HorizontalAlignment="Left">
-                    <Border CornerRadius="10" Background="{Binding LoanStatusFill}" Width="200" Height="20">
-                        <Rectangle x:Name="LoanStatusRectangle" Fill="red" />
+                    <Border CornerRadius="10" Background="{Binding BookItem.LoanStatusFill}" Width="200" Height="20">
+                        <Rectangle x:Name="LoanStatusRectangle"/>
                     </Border>
 
-                    <TextBlock Text="Loan status binding" Style="{StaticResource LoanStatus}"
+                    <TextBlock Text="{Binding BookItem.loanState}" Style="{StaticResource LoanStatus}"
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Center">
                     </TextBlock>
@@ -144,19 +162,50 @@
 
                 <TextBlock Text="Book Description" Style="{StaticResource H2}"></TextBlock>
 
-                <TextBlock Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                               TextWrapping="Wrap"
-                               Width="600"
-                               Height="200"
-                               Style="{StaticResource H3}">
+                <TextBlock Text="{Binding BookItem.summary}"
+                           TextWrapping="Wrap"
+                           Width="600"
+                           Height="200"
+                           Margin="0,0,0,50"
+                           
+                           Style="{StaticResource H3}">
 
                 </TextBlock>
 
-                <TextBlock Text="Member Rating" Style="{StaticResource H3}"></TextBlock>
+                <!--Rating title-->
+                <TextBlock Text="Member Rating" Style="{StaticResource H2}"></TextBlock>
 
                 <WrapPanel Orientation="Horizontal">
-                    <Button Width="100" Height="40"></Button>
-                    <Button Margin="20,0,0,0" Width="100" Height="40"></Button>
+                    <TextBlock Text="test"></TextBlock>
+
+                    <ComboBox>
+                        <ComboBoxItem></ComboBoxItem>
+                        <ComboBoxItem></ComboBoxItem>
+                        <ComboBoxItem></ComboBoxItem>
+                        <ComboBoxItem></ComboBoxItem>
+                        <ComboBoxItem></ComboBoxItem>
+                    </ComboBox>
+
+                </WrapPanel>
+
+                    
+                <WrapPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <Button Content="Loan this book" Width="150" Height="30" Style="{StaticResource LoanButton}">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="15"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Button Content="Add to my wishlist" Margin="20,0,0,0" Width="150" Height="30" Style="{StaticResource AddWishlistButton}">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="15"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    
+                    
                 </WrapPanel>
 
             </WrapPanel>

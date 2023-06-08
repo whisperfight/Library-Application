@@ -167,7 +167,7 @@
         </WrapPanel>
 
 
-        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"   Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" />
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"   Grid.Column="1" Grid.Row="0" Grid.RowSpan="2"  />
 
         <!--Main window grid formatting-->
         <!--=====================================================================-->

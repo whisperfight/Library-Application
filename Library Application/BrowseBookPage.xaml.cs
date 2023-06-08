@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 
+
 namespace Library_Application
 {
     /// <summary>
@@ -30,45 +31,16 @@ namespace Library_Application
         {
             InitializeComponent();
 
+            UserName = "Robert";
             this.DataContext = this;
 
             search_text = "empty";
 
             LoadBookListings();
+
         }
 
-
-        public class BookItem
-        {
-
-            public string bookID { get; set; }
-            public string title { get; set; }
-            public string author { get; set; }
-            public string summary { get; set; }
-            public string timeToRead { get; set; }
-            public string rating { get; set; }
-            public string genre { get; set; }
-            public string imgURL { get; set; }
-            public string loanState { get; set; }
-            public string newRelease { get; set; }
-            public string dueDate { get; set; }
-
-            public Brush LoanStatusFill
-            {
-                get
-                {
-                    if (loanState == "On Loan")
-                    {
-                        return new SolidColorBrush(Color.FromRgb(114, 114, 114));
-                    }
-                    else
-                    {
-                        return new SolidColorBrush(Color.FromRgb(58, 177, 155));
-                    }
-                }
-            }
-        }
-
+        public string UserName { get; set; }
         private void LoadBookListings()
         {
             // Read the csv file
@@ -81,12 +53,14 @@ namespace Library_Application
 
             // Combine the parent directory with the relative path to the CSV file
             string filePath = System.IO.Path.Combine(parentDirectory, "BookList.csv");
+            string bookSummaryPath = System.IO.Path.Combine(parentDirectory, "BookSummary.csv");
 
             Console.WriteLine(filePath);
 
             // Read the CSV file
 
             var lines = File.ReadAllLines(filePath);
+            var BookSummaryLines = File.ReadAllLines(bookSummaryPath);
 
             bookItems = new List<BookItem>();
 
@@ -96,7 +70,7 @@ namespace Library_Application
                 //split each line into array of string
                 var line = lines[i].Split(',');
 
-                string loanState = line[8];
+                string loanState = line[7];
 
                 if (loanState == "TRUE")
                 {
@@ -113,21 +87,21 @@ namespace Library_Application
                     bookID = line[0],
                     title = line[1],
                     author = line[2],
-                    summary = line[3],
-                    timeToRead = line[4],
-                    rating = line[5],
-                    genre = line[6],
-                    imgURL = line[7],
+                    summary = BookSummaryLines[i],
+                    timeToRead = line[3],
+                    rating = line[4],
+                    genre = line[5],
+                    imgURL = line[6],
                     loanState = loanState, // Assign the loanstate variable
-                    newRelease = line[9],
-                    dueDate = line[10]
-                }) ; ;
+                    newRelease = line[8],
+                    dueDate = line[9]
+                }); ;
             }
 
             BookListView.ItemsSource = bookItems;
 
         }
-    
+
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
@@ -181,10 +155,10 @@ namespace Library_Application
             if (BookListView.SelectedItem != null)
             {
                 BookItem selectedBook = (BookItem)BookListView.SelectedItem;
-                string bookID = selectedBook.bookID;
 
-                // Redirect to the linked page passing the book ID as a parameter
-                NavigationService?.Navigate(new Uri("/ViewBook.xaml?bookID=" + bookID, UriKind.Relative));
+                MainWindow mainWindow = (MainWindow) App.Current.MainWindow;
+                mainWindow.MainFrame.Content = new ViewBook(selectedBook);
+
             }
         }
 

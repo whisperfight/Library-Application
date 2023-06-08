@@ -59,6 +59,7 @@ namespace Library_Application
             MainFrame.Content = new BrowseBookPage();
         }
 
+
   
     }
 }
