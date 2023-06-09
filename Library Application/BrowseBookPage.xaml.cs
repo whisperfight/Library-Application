@@ -38,6 +38,9 @@ namespace Library_Application
 
             LoadBookListings();
 
+
+
+
         }
 
         public string UserName { get; set; }
@@ -156,7 +159,7 @@ namespace Library_Application
             {
                 BookItem selectedBook = (BookItem)BookListView.SelectedItem;
 
-                MainWindow mainWindow = (MainWindow) App.Current.MainWindow;
+                MainWindow mainWindow = (MainWindow)App.Current.MainWindow;
                 mainWindow.MainFrame.Content = new ViewBook(selectedBook);
 
             }

@@ -27,10 +27,12 @@ namespace Library_Application
         public string Author { get; set; }
         public string Summary { get; set; }
         public int TimeToRead { get; set; }
-        public int Rating { get; set; }
+        public double Rating { get; set; }
         public bool NewRelease { get; set; }
-        public string Genre { get; set; }
-        public string FileName { get; set; }
+        public string GenreTags { get; set; }
+        public string CoverImageURL { get; set; }
+        public bool AvailableToLoan { get; set; }
+        public string DueDate { get; set; }
     }
 
     public class User
