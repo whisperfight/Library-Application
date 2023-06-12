@@ -72,58 +72,18 @@ namespace Library_Application
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
-            List<BookItem> bookitems = new List<BookItem>();
-
             TextBox textBox = (TextBox)sender;
             search_text = textBox.Text;
 
             if (search_text != "Enter text")
             {
-                using (var db = new DataContext())
-                {
-                    // Get the wishlist books data for the user dashboard.
-                    // three tables involved: 1) Users 2) Wishlist and 3) Books.
-                    var BooksFiltered = (from b in db.Books
-                                         where b.Title.Contains(search_text)
-                                         select
-                                         new
-                                         {
-                                             b.ID,
-                                             b.Title,
-                                             b.CoverImageURL,
-                                             b.Author,
-                                             b.Summary,
-                                             b.TimeToRead,
-                                             b.Rating,
-                                             b.GenreTags,
-                                             b.AvailableToLoan,
-                                             b.NewRelease,
-                                             b.DueDate
 
-                                         }).ToList();
+                var BooksFiltered = (from b in bookItems
+                                     where b.title.ToLower().Contains(search_text.ToLower())
+                                     select b).ToList();
 
+                BookListView.ItemsSource = BooksFiltered;
 
-                    for (int i = 0; i < BooksFiltered.Count(); i++)
-                    {
-                        bookItems.Add(new BookItem
-                        {
-                            bookID = Convert.ToString(BooksFiltered[i].ID),
-                            title = BooksFiltered[i].Title,
-                            author = BooksFiltered[i].Author,
-                            summary = BooksFiltered[i].Summary,
-                            timeToRead = Convert.ToString(BooksFiltered[i].TimeToRead),
-                            rating = Convert.ToString(BooksFiltered[i].Rating),
-                            genre = BooksFiltered[i].GenreTags,
-                            imgURL = BooksFiltered[i].CoverImageURL,
-                            loanState = ConvertLoanState(BooksFiltered[i].AvailableToLoan), // Assign the loanstate variable
-                            newRelease = ConvertNewRelease(BooksFiltered[i].NewRelease),
-                            dueDate = BooksFiltered[i].DueDate
-                        });
-                    }
-
-                    BookListView.ItemsSource = bookItems;
-
-                }
             }
         }
 
