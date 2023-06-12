@@ -22,7 +22,7 @@ namespace Library_Application
     public partial class HomeDash : Page
     {
 
-        List<BookItem> bookItems;
+        //List<BookItem> bookItems;
 
         public HomeDash()
         {
@@ -38,8 +38,6 @@ namespace Library_Application
 
         }
 
-      
-
         public class UserDetails
         {
             public string welcomeMessage { get; set; }
@@ -53,121 +51,80 @@ namespace Library_Application
 
         private void LoadUserLoanList()
         {
-            // Read the csv file
-            // Get the current working directory of the application
-            string currentDirectory = Directory.GetCurrentDirectory();
+            List<LoanItem> loanedbookstoshow = new List<LoanItem>();
 
-            // Remove the last "\bin\Debug" from the current directory path
-            string parentDirectory = Directory.GetParent(currentDirectory).FullName;
-
-
-            // Combine the parent directory with the relative path to the CSV file
-            string filePath = System.IO.Path.Combine(parentDirectory, "BookList.csv");
-            string bookSummaryPath = System.IO.Path.Combine(parentDirectory, "BookSummary.csv");
-
-            Console.WriteLine(filePath);
-
-            // Read the CSV file
-
-            var lines = File.ReadAllLines(filePath);
-            var BookSummaryLines = File.ReadAllLines(bookSummaryPath);
-
-            bookItems = new List<BookItem>();
-
-            //skip the first header line
-            for (var i = 1; i < lines.Length; i++)
+            using (var db = new DataContext())
             {
-                //split each line into array of string
-                var line = lines[i].Split(',');
+                var loanedBooks = (from u in db.Users
+                                   join l in db.Loans
+                                   on u.ID equals l.UserID
+                                   join b in db.Books
+                                   on l.BookID equals b.ID
+                                   where l.UserID == 4
+                                   select new
+                                   {
+                                       u.FirstName,
+                                       l.BookID,
+                                       b.Title,
+                                       b.CoverImageURL,
+                                       b.GenreTags,
+                                       b.AvailableToLoan
+                                   }).ToList();
 
-                string loanState = line[7];
 
-                if (loanState == "TRUE")
+                // It's necessary to create a class for display of the data as some data conversion needs to be done
+                // Also a foreach loop doesn't work with anonymous types (the 'var loanedBooks').
+                for (int i = 0; i < loanedBooks.Count(); i++)
                 {
-                    loanState = "Available";
+                    LoanItem liItem = new LoanItem();
+                    liItem.genre = loanedBooks[i].GenreTags;
+                    liItem.title = loanedBooks[i].Title;
+                    liItem.imgURL = loanedBooks[i].CoverImageURL;
+                    liItem.loanstate = ConvertLoanState(loanedBooks[i].AvailableToLoan);
+
+                    loanedbookstoshow.Add(liItem);
                 }
-                else
-                {
-                    loanState = "On Loan";
-                }
-
-                //create new animal item instance and add it to the animal list
-                bookItems.Add(new BookItem
-                {
-                    bookID = line[0],
-                    title = line[1],
-                    author = line[2],
-                    summary = BookSummaryLines[i],
-                    timeToRead = line[3],
-                    rating = line[4],
-                    genre = line[5],
-                    imgURL = line[6],
-                    loanState = loanState, // Assign the loanstate variable
-                    newRelease = line[8],
-                    dueDate = line[9]
-                }); ;
             }
-            LoanedListView.ItemsSource = bookItems;
+
+            LoanedListView.ItemsSource = loanedbookstoshow;
         }
 
         private void LoadUserWishList()
         {
-            // Read the csv file
-            // Get the current working directory of the application
-            string currentDirectory = Directory.GetCurrentDirectory();
 
-            // Remove the last "\bin\Debug" from the current directory path
-            string parentDirectory = Directory.GetParent(currentDirectory).FullName;
-
-
-            // Combine the parent directory with the relative path to the CSV file
-            string filePath = System.IO.Path.Combine(parentDirectory, "BookList.csv");
-            string bookSummaryPath = System.IO.Path.Combine(parentDirectory, "BookSummary.csv");
-
-            Console.WriteLine(filePath);
-
-            // Read the CSV file
-
-            var lines = File.ReadAllLines(filePath);
-            var BookSummaryLines = File.ReadAllLines(bookSummaryPath);
-
-            bookItems = new List<BookItem>();
-
-            //skip the first header line
-            for (var i = 1; i < lines.Length; i++)
+            List<WishlistItem> wishlistbookstoshow = new List<WishlistItem>();
+            using (var db = new DataContext())
             {
-                //split each line into array of string
-                var line = lines[i].Split(',');
+                // Get the wishlist books data for the user dashboard.
+                // three tables involved: 1) Users 2) Wishlist and 3) Books.
+                var wishlistBooks = (from u in db.Users
+                                     join l in db.Wishlist
+                                     on u.ID equals l.UserID
+                                     join b in db.Books
+                                     on l.BookID equals b.ID
+                                     where l.UserID == 4
+                                     select new
+                                     {
+                                         u.FirstName,
+                                         b.Title,
+                                         b.CoverImageURL,
+                                         b.GenreTags,
+                                         b.AvailableToLoan
+                                     }).ToList();
 
-                string loanState = line[7];
-
-                if (loanState == "TRUE")
+                for (int i = 0; i < wishlistBooks.Count(); i++)
                 {
-                    loanState = "Available";
+                    WishlistItem wishItem = new WishlistItem();
+                    wishItem.genre = wishlistBooks[i].GenreTags;
+                    wishItem.imgURL = wishlistBooks[i].CoverImageURL;
+                    wishItem.title = wishlistBooks[i].Title;
+                    wishItem.loanstate = ConvertLoanState(wishlistBooks[i].AvailableToLoan);
+
+                    wishlistbookstoshow.Add(wishItem);
                 }
-                else
-                {
-                    loanState = "On Loan";
-                }
-
-                //create new animal item instance and add it to the animal list
-                bookItems.Add(new BookItem
-                {
-                    bookID = line[0],
-                    title = line[1],
-                    author = line[2],
-                    summary = BookSummaryLines[i],
-                    timeToRead = line[3],
-                    rating = line[4],
-                    genre = line[5],
-                    imgURL = line[6],
-                    loanState = loanState, // Assign the loanstate variable
-                    newRelease = line[8],
-                    dueDate = line[9]
-                }); ;
             }
 
-            WishListView.ItemsSource = bookItems;
+            WishListView.ItemsSource = wishlistbookstoshow;
         }
 
         // Mouse over event - Show Hover Information
@@ -197,6 +154,20 @@ namespace Library_Application
             WrapPanel hideinfo = (WrapPanel)wrapPanel.FindName("HiddenBookInfo");
             hideinfo.Visibility = Visibility.Collapsed;
 
+        }
+
+        // Utility method to address the conversion of a bool data type to a string.
+        // This is for the AvailableToLoan property.
+        private string ConvertLoanState(bool loanStateInput)
+        {
+            if (loanStateInput == true)
+            {
+                return "Available";
+            }
+            else
+            {
+                return "On Loan";
+            }
         }
     }
 }

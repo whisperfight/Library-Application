@@ -13,8 +13,8 @@ namespace Library_Application
         public DbSet<Book> Books { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Loan> Loans { get; set; }
-        public DbSet<Wishlist> Wishlists { get; set; }
-        public DbSet<BookReview> BookReviews { get; set; }
+        public DbSet<Wishlist> Wishlist { get; set; }
+        public DbSet<BookReview> BookReview { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder.UseNpgsql("Host=library.ctovtf8jnr2m.ap-southeast-2.rds.amazonaws.com;Port=5432;Username=postgres;Password=2021Shades!;Database=Library");
