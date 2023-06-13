@@ -176,36 +176,37 @@
                 <TextBlock Text="Member Rating" Style="{StaticResource H2}"></TextBlock>
 
                 <WrapPanel Orientation="Horizontal">
-                    <TextBlock Text="test"></TextBlock>
+                    <TextBlock Name="txtRating" Text="test"></TextBlock>
 
-                    <ComboBox>
-                        <ComboBoxItem></ComboBoxItem>
-                        <ComboBoxItem></ComboBoxItem>
-                        <ComboBoxItem></ComboBoxItem>
-                        <ComboBoxItem></ComboBoxItem>
-                        <ComboBoxItem></ComboBoxItem>
+                    <ComboBox Name="cmbRating" SelectionChanged="cmbRating_SelectionChanged">
+                        <ComboBoxItem Selector.IsSelected="True">Add rating:</ComboBoxItem>
+                        <ComboBoxItem>1</ComboBoxItem>
+                        <ComboBoxItem>2</ComboBoxItem>
+                        <ComboBoxItem>3</ComboBoxItem>
+                        <ComboBoxItem>4</ComboBoxItem>
+                        <ComboBoxItem>5</ComboBoxItem>
                     </ComboBox>
 
                 </WrapPanel>
 
-                    
+
                 <WrapPanel Orientation="Horizontal" Margin="0,10,0,0">
-                    <Button Content="Loan this book" Width="150" Height="30" Style="{StaticResource LoanButton}">
+                    <Button Name="btnLoanBook" Content="Loan this book" Width="150" Height="30" Style="{StaticResource LoanButton}" Click="btnLoanBook_Click">
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="15"/>
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button Content="Add to my wishlist" Margin="20,0,0,0" Width="150" Height="30" Style="{StaticResource AddWishlistButton}">
+                    <Button Name="btnAddToWishList" Content="Add to my wishlist" Margin="20,0,0,0" Width="150" Height="30" Style="{StaticResource AddWishlistButton}" Click="btnAddToWishList_Click">
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="15"/>
                             </Style>
                         </Button.Resources>
                     </Button>
-                    
-                    
+
+
                 </WrapPanel>
 
             </WrapPanel>
