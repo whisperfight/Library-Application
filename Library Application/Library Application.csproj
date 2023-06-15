@@ -156,6 +156,12 @@
     <Compile Include="BookItem.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="LoanItem.cs" />
+    <Compile Include="AdminMainWindow.xaml.cs">
+      <DependentUpon>AdminMainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OverdueBooks.xaml.cs">
+      <DependentUpon>OverdueBooks.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewBook.xaml.cs">
       <DependentUpon>ViewBook.xaml</DependentUpon>
     </Compile>
@@ -167,6 +173,10 @@
     <Page Include="HomeDash.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdminMainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -187,6 +197,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="OverdueBooks.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ViewBook.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
