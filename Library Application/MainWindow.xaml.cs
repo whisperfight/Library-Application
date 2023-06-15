@@ -40,9 +40,15 @@ namespace Library_Application
             public string userFullName { get; set; }
             public UserDetails()
             {
-                // Set the URL for the image source
-                imageSourceUrl = "https://via.placeholder.com/150x150";
 
+                using (var db = new DataContext())
+                {
+
+                    // need to get the UserID from the Global Variable.
+                    // This has yet to implemented.
+                    List<User> userItem = db.Users.Where(x => x.ID == 4).ToList();
+                    imageSourceUrl = userItem[0].ImageURL;
+                }
                 string userFirstName = "Ben";
                 string userLastName = "Tutheridge";
                 userFullName = userFirstName + " " + userLastName;
@@ -60,6 +66,6 @@ namespace Library_Application
         }
 
 
-  
+
     }
 }
