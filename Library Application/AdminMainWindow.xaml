@@ -120,7 +120,7 @@
         <!--Side panel buttons--> 
         <WrapPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center">
 
-            <Button x:Name="OverdueBooks" Content="Overdue Books" Click="OverdueBooks_Click" Margin="0,0,0,20" Width="200" Height="40" Style="{StaticResource SideMenuButton}">
+            <Button x:Name="OverdueBooks" Content="Overdue Books" Click="OverdueBooks_click" Margin="0,0,0,20" Width="200" Height="40" Style="{StaticResource SideMenuButton}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="20"></Setter>
@@ -136,7 +136,7 @@
                 </Button.Resources>
             </Button>
 
-            <Button x:Name="Wishlist" Content="My Wishlist" Margin="0,0,0,20" Width="200" Height="40" Style="{StaticResource SideMenuButton}">
+            <Button x:Name="EditUsers" Content="Edit Users" Click="EditUsers_Click" Margin="0,0,0,20" Width="200" Height="40" Style="{StaticResource SideMenuButton}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="20"></Setter>

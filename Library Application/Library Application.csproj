@@ -155,6 +155,9 @@
     </ApplicationDefinition>
     <Compile Include="BookItem.cs" />
     <Compile Include="DataContext.cs" />
+    <Compile Include="EditLibraryUsers.xaml.cs">
+      <DependentUpon>EditLibraryUsers.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LoanItem.cs" />
     <Compile Include="AdminMainWindow.xaml.cs">
       <DependentUpon>AdminMainWindow.xaml</DependentUpon>
@@ -162,11 +165,18 @@
     <Compile Include="OverdueBooks.xaml.cs">
       <DependentUpon>OverdueBooks.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EditLibraryContent.xaml.cs">
+      <DependentUpon>EditLibraryContent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewBook.xaml.cs">
       <DependentUpon>ViewBook.xaml</DependentUpon>
     </Compile>
     <Compile Include="WishlistItem.cs" />
     <Page Include="BrowseBookPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditLibraryUsers.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -198,6 +208,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="OverdueBooks.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditLibraryContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -49,7 +49,7 @@ namespace Library_Application
             }
         }
 
-        private void Overdue_click(object sender, RoutedEventArgs e)
+        private void OverdueBooks_click(object sender, RoutedEventArgs e)
         {
             AdminMainFrame.Content = new OverdueBooks();
         }
@@ -57,6 +57,11 @@ namespace Library_Application
         private void EditContent_Click(object sender, RoutedEventArgs e)
         {
             AdminMainFrame.Content = new EditLibraryContent();
+        }
+
+        private void EditUsers_Click(object sender, RoutedEventArgs e)
+        {
+            AdminMainFrame.Content = new EditLibraryUsers();
         }
     }
 }
