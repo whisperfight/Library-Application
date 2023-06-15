@@ -116,7 +116,7 @@
                          TextChanged="SearchTextBox_TextChanged"
                          GotFocus="SearchTextBox_GotFocus"
                          Text="Enter text"
-                         Width ="800" Height="40"
+                         Width="1300" Height="40"
                          Style="{StaticResource SearchField}">
 
                     <TextBox.Resources>
@@ -126,22 +126,6 @@
                     </TextBox.Resources>
 
                 </TextBox>
-
-                <!--Search button-->
-                <Button x:Name="SearchButton"
-                        Content="Search"
-                        Click="SearchButton_Click"             
-                        Width="160" Height="40"
-                        Margin="20,0,0,0"
-                        Style="{StaticResource SearchButton}">
-
-                    <Button.Resources>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="20"/>
-                        </Style>
-                    </Button.Resources>
-
-                </Button>
 
             </WrapPanel>
 
