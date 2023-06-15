@@ -20,9 +20,84 @@ namespace Library_Application
     /// </summary>
     public partial class OverdueBooks : Page
     {
+
+        List<Loan> loanedItems;
+
         public OverdueBooks()
         {
             InitializeComponent();
+
+            LoadLoanListings();
+
+
         }
+
+        public void LoadLoanListings()
+        {
+            ListView loanList = this.loanList;
+
+            loanedItems = new List<Loan>();
+
+            using (var db = new DataContext())
+            {
+                var BooksOverdue = (from b in db.Books
+                                    join l in db.Loans on b.ID equals l.BookID
+                                    join u in db.Users on l.UserID equals u.ID
+                                    where DateTime.Now.AddDays(15) > l.DueDate
+                                    //where DateTime.Now > l.DueDate
+                                    select
+                                    new DummyClass
+                                    {
+                                        ID = b.ID,
+                                        FirstName = u.FirstName,
+                                        LastName = u.LastName,
+                                        Title = b.Title,
+                                        IssueDate = l.IssueDate,
+                                        IssuePeriod = "30 Days",
+                                        OverdueBy = "101 Days"
+                                    }).ToList();
+
+        
+                loanList.ItemsSource = BooksOverdue;
+            }
+
+        }
+
+
+        private void RemoveEntry_Click(object sender, RoutedEventArgs e)
+        {
+            DummyClass selectedItem = (DummyClass)loanList.SelectedItem;
+
+            // Check if an item is selected
+            if (selectedItem != null)
+            {
+
+                using (var db = new DataContext())
+                {
+                    Loan deleteLoanBook = new Loan();
+
+                    deleteLoanBook.ID = selectedItem.ID;
+                    db.Remove(deleteLoanBook);
+                    db.SaveChanges();
+
+                }
+
+                LoadLoanListings();
+
+            }
+        }
+
     }
+
+}
+
+public class DummyClass
+{
+    public int ID { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public string Title { get; set; }
+    public DateTime IssueDate { get; set; }
+    public string IssuePeriod { get; set; }
+    public string OverdueBy { get; set; }
 }

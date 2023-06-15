@@ -164,7 +164,7 @@
         <WrapPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="50,0,0,0">
 
             <!--Filter section text label-->
-            <TextBlock Text="Actions" Margin="0,10,0,5" Style="{StaticResource H3}" />
+            <TextBlock Text="Actions" Margin="0,1,0,5" Style="{StaticResource H3}" />
 
             <WrapPanel Orientation="Horizontal" >
                 
@@ -174,7 +174,7 @@
                     
                 </Button>
 
-                <Button x:Name="RemoveEntry" Content="Remove Selected" Width="200" Height="40" Margin="20,0,0,0" Style="{StaticResource ActionButtons}">
+                <Button x:Name="RemoveEntry" Content="Remove Selected" Width="200" Height="40" Margin="20,0,0,0" Style="{StaticResource ActionButtons}" Click="RemoveEntry_Click">
 
                 </Button>
 
@@ -203,11 +203,28 @@
 
         <!--List view content-->
         <!--=====================================================================-->
+        
+        <ListView x:Name="loanList" Grid.Row="1" Margin="0,0,0,0" Width="1300">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Book ID Number" Width="auto"
+                                    DisplayMemberBinding="{Binding ID}"/>
+                    <GridViewColumn Header="User ID Number" Width="auto"
+                                    DisplayMemberBinding="{Binding FirstName}"/>
+                    <GridViewColumn Header="Issue Date" Width="auto"
+                                    DisplayMemberBinding="{Binding LastName}"/>
+                    <GridViewColumn Header="Due Date" Width="auto"
+                                    DisplayMemberBinding="{Binding Title}"/>
+                    <GridViewColumn Header="Fine Due" Width="auto"
+                                    DisplayMemberBinding="{Binding IssueDate}"/>
+                    <GridViewColumn Header="Fine Amount" Width="auto"
+                                    DisplayMemberBinding="{Binding IssuePeriod}"/>
+                    <GridViewColumn Header="Fine Amount" Width="auto"
+                                    DisplayMemberBinding="{Binding OverdueBy}"/>
+                </GridView>
+            </ListView.View>
 
-        <!--Listview Template for displaying all the catalog entries withing the library's database--><!--
-        <ListView>
-
-        </ListView>-->
+        </ListView>
 
     </Grid>
 </Page>
