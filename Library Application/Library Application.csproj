@@ -155,9 +155,11 @@
     </ApplicationDefinition>
     <Compile Include="BookItem.cs" />
     <Compile Include="DataContext.cs" />
+    <Compile Include="LoanItem.cs" />
     <Compile Include="ViewBook.xaml.cs">
       <DependentUpon>ViewBook.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WishlistItem.cs" />
     <Page Include="BrowseBookPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

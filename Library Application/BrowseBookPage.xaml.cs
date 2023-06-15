@@ -37,85 +37,109 @@ namespace Library_Application
             search_text = "empty";
 
             LoadBookListings();
-
-
-
-
         }
 
         public string UserName { get; set; }
         private void LoadBookListings()
         {
-            // Read the csv file
-            // Get the current working directory of the application
-            string currentDirectory = Directory.GetCurrentDirectory();
-
-            // Remove the last "\bin\Debug" from the current directory path
-            string parentDirectory = Directory.GetParent(currentDirectory).FullName;
-
-
-            // Combine the parent directory with the relative path to the CSV file
-            string filePath = System.IO.Path.Combine(parentDirectory, "BookList.csv");
-            string bookSummaryPath = System.IO.Path.Combine(parentDirectory, "BookSummary.csv");
-
-            Console.WriteLine(filePath);
-
-            // Read the CSV file
-
-            var lines = File.ReadAllLines(filePath);
-            var BookSummaryLines = File.ReadAllLines(bookSummaryPath);
-
             bookItems = new List<BookItem>();
 
-            //skip the first header line
-            for (var i = 1; i < lines.Length; i++)
+            using (var db = new DataContext())
             {
-                //split each line into array of string
-                var line = lines[i].Split(',');
+                var bookslist = db.Books.ToList();
 
-                string loanState = line[7];
-
-                if (loanState == "TRUE")
+                for (int i = 0; i < bookslist.Count(); i++)
                 {
-                    loanState = "Available";
+                    bookItems.Add(new BookItem
+                    {
+                        bookID = Convert.ToString(bookslist[i].ID),
+                        title = bookslist[i].Title,
+                        author = bookslist[i].Author,
+                        summary = bookslist[i].Summary,
+                        timeToRead = Convert.ToString(bookslist[i].TimeToRead),
+                        rating = Convert.ToString(bookslist[i].Rating),
+                        genre = bookslist[i].GenreTags,
+                        imgURL = bookslist[i].CoverImageURL,
+                        loanState = ConvertLoanState(bookslist[i].AvailableToLoan), // Assign the loanstate variable
+                        newRelease = ConvertNewRelease(bookslist[i].NewRelease),
+                        dueDate = bookslist[i].DueDate
+                    });
                 }
-                else
-                {
-                    loanState = "On Loan";
-                }
-
-                //create new animal item instance and add it to the animal list
-                bookItems.Add(new BookItem
-                {
-                    bookID = line[0],
-                    title = line[1],
-                    author = line[2],
-                    summary = BookSummaryLines[i],
-                    timeToRead = line[3],
-                    rating = line[4],
-                    genre = line[5],
-                    imgURL = line[6],
-                    loanState = loanState, // Assign the loanstate variable
-                    newRelease = line[8],
-                    dueDate = line[9]
-                }); ;
             }
-
             BookListView.ItemsSource = bookItems;
-
         }
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+
             TextBox textBox = (TextBox)sender;
             search_text = textBox.Text;
+
+            if (search_text != "Enter text")
+            {
+
+                var BooksFiltered = (from b in bookItems
+                                     where b.title.ToLower().Contains(search_text.ToLower())
+                                     select b).ToList();
+
+                BookListView.ItemsSource = BooksFiltered;
+
+            }
         }
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine(search_text);
-            ResultsCounter.Text = search_text;
-            SearchTextBox.Text = "Enter Text";
+
+            BookListView.ItemsSource = null;
+
+            bookItems.Clear();
+
+            // Dom's note: for some reason the result is not being reflected in the ListView control.
+
+            using (var db = new DataContext())
+            {
+                // gets books by filter on the Title column - works ok.
+                var BooksFiltered = (from b in db.Books
+                                     where b.Title.Contains(SearchTextBox.Text)
+                                     select
+                                     new
+                                     {
+                                         b.ID,
+                                         b.Title,
+                                         b.CoverImageURL,
+                                         b.Author,
+                                         b.Summary,
+                                         b.TimeToRead,
+                                         b.Rating,
+                                         b.GenreTags,
+                                         b.AvailableToLoan,
+                                         b.NewRelease,
+                                         b.DueDate
+
+                                     }).ToList();
+
+
+                for (int i = 0; i < BooksFiltered.Count(); i++)
+                {
+                    bookItems.Add(new BookItem
+                    {
+                        bookID = Convert.ToString(BooksFiltered[i].ID),
+                        title = BooksFiltered[i].Title,
+                        author = BooksFiltered[i].Author,
+                        summary = BooksFiltered[i].Summary,
+                        timeToRead = Convert.ToString(BooksFiltered[i].TimeToRead),
+                        rating = Convert.ToString(BooksFiltered[i].Rating),
+                        genre = BooksFiltered[i].GenreTags,
+                        imgURL = BooksFiltered[i].CoverImageURL,
+                        loanState = ConvertLoanState(BooksFiltered[i].AvailableToLoan), // Assign the loanstate variable
+                        newRelease = ConvertNewRelease(BooksFiltered[i].NewRelease),
+                        dueDate = BooksFiltered[i].DueDate
+                    });
+                }
+
+
+                BookListView.ItemsSource = bookItems;
+            }
 
         }
 
@@ -165,6 +189,29 @@ namespace Library_Application
             }
         }
 
+        private string ConvertLoanState(bool loanStateInput)
+        {
+            if (loanStateInput == true)
+            {
+                return "Available";
+            }
+            else
+            {
+                return "On Loan";
+            }
+        }
+
+        private string ConvertNewRelease(bool newreleaseStateInput)
+        {
+            if (newreleaseStateInput == true)
+            {
+                return "true";
+            }
+            else
+            {
+                return "false";
+            }
+        }
 
     }
 }
