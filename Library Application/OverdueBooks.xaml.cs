@@ -21,52 +21,62 @@ namespace Library_Application
     public partial class OverdueBooks : Page
     {
 
-        List<Loan> loanedItems;
+        int bookLoanPeriod = 30;
+        public List<OverdueLoans> listData = new List<OverdueLoans>();
 
         public OverdueBooks()
         {
             InitializeComponent();
+            LoadDatabase();
+            DisplayListData(listData);
+        }
 
-            LoadLoanListings();
+        public void DisplayListData(List<OverdueLoans> data)
+        {
 
+            //Display number of listing/sort results
+            int resultsCount = listData.Count();
+            ResultsCounter.Text = "Showing " + resultsCount.ToString() + " results";
+
+            ListView LoanListControl = this.LoanListControl;
+            LoanListControl.ItemsSource = data; // Set the ItemsSource of the ListView to the loanList
+        }
+
+        public void SortByOverdueMax()
+        {
 
         }
 
-        public void LoadLoanListings()
+        public void LoadDatabase()
         {
-            ListView loanList = this.loanList;
-
-            loanedItems = new List<Loan>();
-
             using (var db = new DataContext())
             {
-                var BooksOverdue = (from b in db.Books
-                                    join l in db.Loans on b.ID equals l.BookID
-                                    join u in db.Users on l.UserID equals u.ID
-                                    where DateTime.Now.AddDays(15) > l.DueDate
-                                    //where DateTime.Now > l.DueDate
-                                    select
-                                    new DummyClass
-                                    {
-                                        ID = b.ID,
-                                        FirstName = u.FirstName,
-                                        LastName = u.LastName,
-                                        Title = b.Title,
-                                        IssueDate = l.IssueDate,
-                                        IssuePeriod = "30 Days",
-                                        OverdueBy = "101 Days"
-                                    }).ToList();
+                var books = (from b in db.Books
+                            join l in db.Loans on b.ID equals l.BookID
+                            join u in db.Users on l.UserID equals u.ID
+                            where l.OverdueBy != 0
+                            where DateTime.Now.AddDays(bookLoanPeriod) > l.DueDate
+                            select
 
-        
-                loanList.ItemsSource = BooksOverdue;
+                            // Use new class to store formatted data
+                            new OverdueLoans
+                            {
+                                ID = b.ID,
+                                FirstName = u.FirstName,
+                                LastName = u.LastName,
+                                Title = b.Title,
+                                IssueDate = l.IssueDate,
+                                IssuePeriod = bookLoanPeriod.ToString(),
+                                OverdueBy = l.OverdueBy.ToString()
+                            }).ToList();
+
+                listData = books;
             }
-
         }
-
 
         private void RemoveEntry_Click(object sender, RoutedEventArgs e)
         {
-            DummyClass selectedItem = (DummyClass)loanList.SelectedItem;
+            OverdueLoans selectedItem = (OverdueLoans)LoanListControl.SelectedItem;
 
             // Check if an item is selected
             if (selectedItem != null)
@@ -81,17 +91,42 @@ namespace Library_Application
                     db.SaveChanges();
 
                 }
-
-                LoadLoanListings();
-
+                // Refresh list control
+                LoadDatabase();
+                DisplayListData(listData);
             }
         }
 
-    }
+        private void SortByDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var comboBox = (ComboBox)sender;
+            var selectedItem = (ComboBoxItem)comboBox.SelectedValue;
 
+            // Get the content of the selected item
+            var selectedContent = selectedItem.Content;
+
+            // Perform actions based on the selected item
+            switch (selectedContent)
+            {
+                case "Most overdue":
+                    // Sort from max to min
+                    listData = listData.OrderByDescending(item => item.OverdueBy).ToList();
+                    DisplayListData(listData);
+                    break;
+                case "Least overdue":
+                    listData = listData.OrderBy(item => item.OverdueBy).ToList();
+                    DisplayListData(listData);
+                    break;
+                default:
+                    // Handle other selections or the default case
+                    break;
+            }
+
+        }
+    }
 }
 
-public class DummyClass
+public class OverdueLoans
 {
     public int ID { get; set; }
     public string FirstName { get; set; }

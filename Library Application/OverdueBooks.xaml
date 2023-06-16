@@ -185,12 +185,12 @@
                           VerticalContentAlignment="Center"
                           HorizontalContentAlignment="Center"
                           Margin="20,0,0,0"
-                          Style="{StaticResource FilterComboBoxes}">
+                          Style="{StaticResource FilterComboBoxes}"
+                          SelectionChanged="SortByDropdown_SelectionChanged">
 
                     <ComboBoxItem IsSelected="True">Sort by</ComboBoxItem>
-                    <ComboBoxItem Content="Newest"/>
-                    <ComboBoxItem Content="Oldest"/>
-                    <ComboBoxItem/>
+                    <ComboBoxItem Content="Most overdue" />
+                    <ComboBoxItem Content="Least overdue"/>
 
                 </ComboBox>
 
@@ -204,26 +204,37 @@
         <!--List view content-->
         <!--=====================================================================-->
         
-        <ListView x:Name="loanList" Grid.Row="1" Margin="0,0,0,0" Width="1300">
+        <ListView x:Name="LoanListControl" Grid.Row="1" Margin="0,0,0,0" Width="1300">
+            <ListView.Resources>
+                <Style TargetType="GridViewColumnHeader">
+                    <Setter Property="FontFamily" Value="Inter"/>
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="FontWeight" Value="SemiBold"/>
+                </Style>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="FontFamily" Value="Inter"/>
+                    <Setter Property="FontSize" Value="14"/>
+                </Style>
+            </ListView.Resources>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Book ID Number" Width="auto"
+                    <GridViewColumn Header="Book ID" Width="100" 
                                     DisplayMemberBinding="{Binding ID}"/>
-                    <GridViewColumn Header="User ID Number" Width="auto"
+                    <GridViewColumn Header="User Firstname" Width="150"
                                     DisplayMemberBinding="{Binding FirstName}"/>
-                    <GridViewColumn Header="Issue Date" Width="auto"
+                    <GridViewColumn Header="User Lastname" Width="150"
                                     DisplayMemberBinding="{Binding LastName}"/>
-                    <GridViewColumn Header="Due Date" Width="auto"
+                    <GridViewColumn Header="Book Title" Width="400
+                                    "
                                     DisplayMemberBinding="{Binding Title}"/>
-                    <GridViewColumn Header="Fine Due" Width="auto"
+                    <GridViewColumn Header="Date Issued" Width="auto"
                                     DisplayMemberBinding="{Binding IssueDate}"/>
-                    <GridViewColumn Header="Fine Amount" Width="auto"
+                    <GridViewColumn Header="Issue Period" Width="auto"
                                     DisplayMemberBinding="{Binding IssuePeriod}"/>
-                    <GridViewColumn Header="Fine Amount" Width="auto"
+                    <GridViewColumn Header="Overdue by (days)" Width="150"
                                     DisplayMemberBinding="{Binding OverdueBy}"/>
                 </GridView>
             </ListView.View>
-
         </ListView>
 
     </Grid>

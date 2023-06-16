@@ -56,6 +56,7 @@ namespace Library_Application
         public DateTime DueDate { get; set; }
         public bool FineDue { get; set; }
         public double FineAmount { get; set; }
+        public int OverdueBy { get; set; }
 
     }
 
