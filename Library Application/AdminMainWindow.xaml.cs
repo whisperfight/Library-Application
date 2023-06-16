@@ -26,18 +26,14 @@ namespace Library_Application
 
         public AdminMainWindow()
         {
-            InitializeComponent();
-
-            AdminMainFrame.Content = new OverdueBooks();
-
+            // Place class in main window context
+            this.DataContext = this;
 
             LoadUserDetails();
 
-            DisplayCurrentUserDetails();
+            InitializeComponent();
 
-            //// Place class in main window context
-            //this.DataContext = new UserDetails();
-
+            AdminMainFrame.Content = new OverdueBooks();
         }
 
 
@@ -45,7 +41,7 @@ namespace Library_Application
         {
             using (var db = new DataContext())
             {
-                var userDetails = (from u in db.Users
+                userDetails = (from u in db.Users
                                    where u.ID == currentActiveUserID // Only retrieve the details of the active user
                                    select
 
@@ -56,32 +52,18 @@ namespace Library_Application
                                        LastName = u.LastName,
                                        IsAdmin = u.IsAdmin,
                                        ImageURL = u.ImageURL
-                                   });
-
+                                   }).FirstOrDefault();
             }
                             
         }
 
-        public void DisplayCurrentUserDetails()
+        //The statement public UserDetails userDetails { get; set; } is a property declaration in the AdminMainWindow class.
+        //Properties provide a way to encapsulate data and define access to that data through getter and setter methods.
+        //By using this property, other parts of the code can access and modify the UserDetails object associated with the AdminMainWindow instance. 
+
+        public UserDetails userDetails
         {
-
-            UserDetails currentUser = new UserDetails();
-
-            // Set the URL for the image source
-            var imageSourceUrl = currentUser.ImageURL;
-
-        }
-
-
-
-        public class UserDetails
-        {
-            public string Username { get; set; }
-            public string FirstName { get; set; }
-            public string LastName { get; set; }
-            public bool IsAdmin { get; set; }
-            public string ImageURL { get; set; }
-
+            get;set;
         }
 
         private void OverdueBooks_click(object sender, RoutedEventArgs e)
@@ -99,4 +81,35 @@ namespace Library_Application
             AdminMainFrame.Content = new EditLibraryUsers();
         }
     }
+}
+
+
+public class UserDetails
+{
+    public string Username { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+
+    public string FullName
+    {
+        get { return FirstName + " " + LastName; }
+    }
+
+    public string UserType
+    {
+        get
+        {
+            if (IsAdmin == true)
+            {
+                return "Administrator";
+            }
+            else
+            {
+                return "Library member";
+            }
+        }
+    }
+
+    public bool IsAdmin { get; set; }
+    public string ImageURL { get; set; }
 }

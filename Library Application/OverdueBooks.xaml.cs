@@ -42,11 +42,6 @@ namespace Library_Application
             LoanListControl.ItemsSource = data; // Set the ItemsSource of the ListView to the loanList
         }
 
-        public void SortByOverdueMax()
-        {
-
-        }
-
         public void LoadDatabase()
         {
             using (var db = new DataContext())

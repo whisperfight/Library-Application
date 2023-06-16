@@ -27,9 +27,16 @@
         </Style>
 
 
-        <Style x:Key="UsersName" TargetType="TextBlock">
+        <Style x:Key="Name" TargetType="TextBlock">
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontFamily" Value="Inter" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+
+        <Style x:Key="UserType" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontFamily" Value="Inter" />
             <Setter Property="FontWeight" Value="SemiBold" />
         </Style>
@@ -106,13 +113,20 @@
         <!--User profile and name-->
         <WrapPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center">
 
-            <Image Source="{Binding imageSourceUrl}" Width="150" Height="150" Margin="0,50,0,10">
+            <Image Source="{Binding userDetails.ImageURL}" Width="150" Height="150" Margin="0,50,0,10">
                 <Image.Clip>
                     <EllipseGeometry RadiusX="75" RadiusY="75" Center="75,75"/>
                 </Image.Clip>
             </Image>
 
-            <TextBlock Text="{Binding userFullName}" Style="{StaticResource UsersName}" TextAlignment="Center"/>
+            <TextBlock Text="{Binding userDetails.FullName}" 
+                       Style="{StaticResource Name}"
+                       TextAlignment="Center"/>
+
+            <TextBlock Text="{Binding userDetails.UserType}" 
+                       Style="{StaticResource UserType}"
+                       TextAlignment="Center"
+                       Margin="0,5,0,0"/>
 
         </WrapPanel>
         
