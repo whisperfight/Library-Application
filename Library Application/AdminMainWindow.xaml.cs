@@ -22,31 +22,66 @@ namespace Library_Application
     public partial class AdminMainWindow : Window
     {
 
+        int currentActiveUserID = 3;
+
         public AdminMainWindow()
         {
-
             InitializeComponent();
 
             AdminMainFrame.Content = new OverdueBooks();
 
-            // Place class in main window context
-            this.DataContext = new UserDetails();
+
+            LoadUserDetails();
+
+            DisplayCurrentUserDetails();
+
+            //// Place class in main window context
+            //this.DataContext = new UserDetails();
 
         }
 
+
+        public void LoadUserDetails()
+        {
+            using (var db = new DataContext())
+            {
+                var userDetails = (from u in db.Users
+                                   where u.ID == currentActiveUserID // Only retrieve the details of the active user
+                                   select
+
+                                   new UserDetails
+                                   {
+                                       Username = u.Username,
+                                       FirstName = u.FirstName,
+                                       LastName = u.LastName,
+                                       IsAdmin = u.IsAdmin,
+                                       ImageURL = u.ImageURL
+                                   });
+
+            }
+                            
+        }
+
+        public void DisplayCurrentUserDetails()
+        {
+
+            UserDetails currentUser = new UserDetails();
+
+            // Set the URL for the image source
+            var imageSourceUrl = currentUser.ImageURL;
+
+        }
+
+
+
         public class UserDetails
         {
-            public string imageSourceUrl { get; set; }
-            public string userFullName { get; set; }
-            public UserDetails()
-            {
-                // Set the URL for the image source
-                imageSourceUrl = "https://via.placeholder.com/150x150";
+            public string Username { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+            public bool IsAdmin { get; set; }
+            public string ImageURL { get; set; }
 
-                string userFirstName = "Ben";
-                string userLastName = "Tutheridge";
-                userFullName = userFirstName + " " + userLastName;
-            }
         }
 
         private void OverdueBooks_click(object sender, RoutedEventArgs e)

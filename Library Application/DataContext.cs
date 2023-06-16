@@ -45,6 +45,7 @@ namespace Library_Application
         public DateTime LastLoginDate { get; set; }
         public bool IsEnabled { get; set; }
         public string Password { get; set; }
+        public string ImageURL { get; set; }
     }
 
     public class Loan
