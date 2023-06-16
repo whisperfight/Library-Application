@@ -5,10 +5,239 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Library_Application"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="1000" d:DesignWidth="1700"
       Title="EditLibraryContent">
 
+
+    <Page.Resources>
+        <Style x:Key="H1" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Inter"/>
+            <Setter Property="FontSize" Value="40"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+        </Style>
+
+        <Style x:Key="H2" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Inter"/>
+            <Setter Property="FontSize" Value="22" />
+        </Style>
+
+        <Style x:Key="H3" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Inter"/>
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+
+
+        <Style x:Key="UsersName" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontFamily" Value="Inter" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+
+        <Style x:Key="SearchField" TargetType="TextBox">
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="#727272"/>
+            <Setter Property="FontSize" Value="22" />
+            <Setter Property="FontFamily" Value="Inter" />
+            <Setter Property="BorderBrush" Value="#E35E6A"/>
+            <Setter Property="BorderThickness" Value="3"/>
+        </Style>
+
+        <Style x:Key="SearchButton" TargetType="Button">
+            <Setter Property="Background" Value="#E35E6A"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontFamily" Value="Inter" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+
+        <Style x:Key="ActionButtons" TargetType="Button">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Inter" />
+        </Style>
+
+        <Style x:Key="FilterComboBoxes" TargetType="ComboBox">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Inter"/>
+            <Setter Property="Template">
+
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+
+                        <Grid>
+                            <ToggleButton x:Name="ToggleButton"
+                        
+                                      Grid.Column="2"
+                                      Focusable="false"
+                                      IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                      ClickMode="Press"/>
+                            <ContentPresenter x:Name="ContentSite"
+                                          IsHitTestVisible="False"
+                                          Content="{TemplateBinding SelectionBoxItem}"
+                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                          ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                          Margin="3,0,23,0"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"/>
+                            <Popup x:Name="Popup"
+                               Placement="Bottom"
+                               IsOpen="{TemplateBinding IsDropDownOpen}"
+                               AllowsTransparency="True"
+                               Focusable="False"
+                               PopupAnimation="Slide">
+                                <Grid x:Name="DropDown"
+                                  SnapsToDevicePixels="True"
+                                  MinWidth="{TemplateBinding ActualWidth}"
+                                  MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border x:Name="DropDownBorder"
+                                        Background="White"
+                                        BorderBrush="Gray"
+                                        BorderThickness="1"/>
+                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <!-- Triggers can be added here if needed -->
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+
+        <Style x:Key="SideMenuButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontFamily" Value="Inter" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="BorderBrush" Value="White" />
+            <Setter Property="BorderThickness" Value="2" />
+        </Style>
+
+        <Style x:Key="LoanStatus" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontFamily" Value="Inter" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+
+        <Style x:Key="BookListingTitle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Inter"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+
+        <Style x:Key="BookListingTitleHover" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Inter"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <Style x:Key="BookListingGenre" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Inter"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+        </Style>
+    </Page.Resources>
+
     <Grid>
-        
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="300"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--Main panel content-->
+        <!--=====================================================================-->
+
+        <!--Page title-->
+        <TextBlock Text="Edit Library Catalog" Margin="50,50,0,0" Style="{StaticResource H1}"/>
+
+        <WrapPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="50,0,0,0">
+
+            <!--Filter section text label-->
+            <TextBlock Text="Actions" Margin="0,1,0,5" Style="{StaticResource H3}" />
+
+            <WrapPanel Orientation="Horizontal" >
+
+                <!--Send warning email button-->
+
+                <Button x:Name="AddNewBook" Content="Add new book" Width="200" Height="40" Style="{StaticResource ActionButtons}">
+
+                </Button>
+
+                <Button x:Name="RemoveEntry" Content="Remove selected" Width="200" Height="40" Margin="20,0,0,0" Style="{StaticResource ActionButtons}">
+
+                </Button>
+
+                <Button x:Name="EditSelected" Content="Edit selected" Width="200" Height="40" Margin="20,0,0,0" Style="{StaticResource ActionButtons}">
+
+                </Button>
+
+                <ComboBox x:Name="SortByDropdown"
+                          Width="200" Height="40"
+                          VerticalContentAlignment="Center"
+                          HorizontalContentAlignment="Center"
+                          Margin="20,0,0,0"
+                          Style="{StaticResource FilterComboBoxes}">
+
+                    <ComboBoxItem IsSelected="True">Sort by...</ComboBoxItem>
+                    <ComboBoxItem Content="Most overdue" />
+                    <ComboBoxItem Content="Least overdue"/>
+
+                </ComboBox>
+
+            </WrapPanel>
+
+            <TextBlock x:Name="ResultsCounter" Text="Showing 0 Results" Margin="0,10,0,10" Style="{StaticResource H3}"/>
+
+        </WrapPanel>
+
+
+        <!--List view content-->
+        <!--=====================================================================-->
+
+        <ListView x:Name="LoanListControl" Grid.Row="1" Margin="0,0,0,0" Width="1300">
+            <ListView.Resources>
+                <Style TargetType="GridViewColumnHeader">
+                    <Setter Property="FontFamily" Value="Inter"/>
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="FontWeight" Value="SemiBold"/>
+                </Style>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="FontFamily" Value="Inter"/>
+                    <Setter Property="FontSize" Value="14"/>
+                </Style>
+            </ListView.Resources>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Book ID" Width="100" 
+                                    DisplayMemberBinding="{Binding ID}"/>
+                    <GridViewColumn Header="User Firstname" Width="150"
+                                    DisplayMemberBinding="{Binding FirstName}"/>
+                    <GridViewColumn Header="User Lastname" Width="150"
+                                    DisplayMemberBinding="{Binding LastName}"/>
+                    <GridViewColumn Header="Book Title" Width="400
+                                    "
+                                    DisplayMemberBinding="{Binding Title}"/>
+                    <GridViewColumn Header="Date Issued" Width="auto"
+                                    DisplayMemberBinding="{Binding IssueDate}"/>
+                    <GridViewColumn Header="Issue Period" Width="auto"
+                                    DisplayMemberBinding="{Binding IssuePeriod}"/>
+                    <GridViewColumn Header="Overdue by (days)" Width="150"
+                                    DisplayMemberBinding="{Binding OverdueBy}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
     </Grid>
 </Page>
