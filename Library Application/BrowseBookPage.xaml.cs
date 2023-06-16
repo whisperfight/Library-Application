@@ -213,5 +213,53 @@ namespace Library_Application
             }
         }
 
+        private void GenreDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string selectedGenre = "";
+            string selectedAvailability = "";
+            string selectedSortBy = "";
+
+            if (GenreDropdown != null && GenreDropdown.SelectedIndex > 0)
+            {
+                selectedGenre = ((ComboBoxItem)GenreDropdown.SelectedItem).Content.ToString();
+            }
+
+            if (AvailabilityDropdown != null && AvailabilityDropdown.SelectedIndex > 0)
+            {
+                selectedAvailability = ((ComboBoxItem)AvailabilityDropdown.SelectedItem).Content.ToString();
+            }
+
+            if (SortByDropdown != null && SortByDropdown.SelectedIndex > 0)
+            {
+                selectedSortBy = ((ComboBoxItem)SortByDropdown.SelectedItem).Content.ToString();
+            }
+
+            // TO DO: Cater for Ordering, ASC / DESC
+
+            if (bookItems != null)
+            {
+                var BooksFiltered = (from b in bookItems
+                                     where b.genre.Contains(selectedGenre) &&
+                                     b.loanState.Contains(selectedAvailability)
+                                     select
+                                     new
+                                     {
+                                         b.bookID,
+                                         b.title,
+                                         b.imgURL,
+                                         b.author,
+                                         b.summary,
+                                         b.timeToRead,
+                                         b.rating,
+                                         b.genre,
+                                         b.loanState,
+                                         b.newRelease,
+                                         b.dueDate
+
+                                     }).ToList();
+                BookListView.ItemsSource = BooksFiltered;
+            }
+
+        }
     }
 }
