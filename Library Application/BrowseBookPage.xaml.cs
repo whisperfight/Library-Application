@@ -235,31 +235,88 @@ namespace Library_Application
             }
 
             // TO DO: Cater for Ordering, ASC / DESC
-
-            if (bookItems != null)
+            if (selectedSortBy == "A to Z")
             {
-                var BooksFiltered = (from b in bookItems
-                                     where b.genre.Contains(selectedGenre) &&
-                                     b.loanState.Contains(selectedAvailability)
-                                     select
-                                     new
-                                     {
-                                         b.bookID,
-                                         b.title,
-                                         b.imgURL,
-                                         b.author,
-                                         b.summary,
-                                         b.timeToRead,
-                                         b.rating,
-                                         b.genre,
-                                         b.loanState,
-                                         b.newRelease,
-                                         b.dueDate
+                if (bookItems != null)
+                {
+                    var BooksFiltered = (from b in bookItems
+                                         orderby b.title ascending
+                                         where b.genre.Contains(selectedGenre) &&
+                                         b.loanState.Contains(selectedAvailability)
+                                         select
+                                         new
+                                         {
+                                             b.bookID,
+                                             b.title,
+                                             b.imgURL,
+                                             b.author,
+                                             b.summary,
+                                             b.timeToRead,
+                                             b.rating,
+                                             b.genre,
+                                             b.loanState,
+                                             b.newRelease,
+                                             b.dueDate
 
-                                     }).ToList();
-                BookListView.ItemsSource = BooksFiltered;
+                                         }).ToList();
+                    BookListView.ItemsSource = BooksFiltered;
+                }
             }
+            else if (selectedSortBy == "Z to A")
+            {
+                if (bookItems != null)
+                {
+                    var BooksFiltered = (from b in bookItems
+                                         orderby b.title descending
+                                         where b.genre.Contains(selectedGenre) &&
+                                         b.loanState.Contains(selectedAvailability)
+                                         select
+                                         new
+                                         {
+                                             b.bookID,
+                                             b.title,
+                                             b.imgURL,
+                                             b.author,
+                                             b.summary,
+                                             b.timeToRead,
+                                             b.rating,
+                                             b.genre,
+                                             b.loanState,
+                                             b.newRelease,
+                                             b.dueDate
 
+                                         }).ToList();
+                    BookListView.ItemsSource = BooksFiltered;
+                }
+            }
+            else
+            {
+                // no ordering of results.
+
+                if (bookItems != null)
+                {
+                    var BooksFiltered = (from b in bookItems
+                                         where b.genre.Contains(selectedGenre) &&
+                                         b.loanState.Contains(selectedAvailability)
+                                         select
+                                         new
+                                         {
+                                             b.bookID,
+                                             b.title,
+                                             b.imgURL,
+                                             b.author,
+                                             b.summary,
+                                             b.timeToRead,
+                                             b.rating,
+                                             b.genre,
+                                             b.loanState,
+                                             b.newRelease,
+                                             b.dueDate
+
+                                         }).ToList();
+                    BookListView.ItemsSource = BooksFiltered;
+                }
+            }
         }
     }
 }

@@ -209,8 +209,6 @@
                     <ComboBoxItem IsSelected="True">Sort by</ComboBoxItem>
                     <ComboBoxItem Content="A to Z"/>
                     <ComboBoxItem Content="Z to A"/>
-                    <ComboBoxItem Content="Highest rating"/>
-                    <ComboBoxItem Content="Lowest rating"/>
                     <ComboBoxItem/>
 
                 </ComboBox>
