@@ -17,11 +17,21 @@ namespace Library_Application
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class AddContentWindow : Window
     {
-        public Window1()
+        public AddContentWindow()
         {
             InitializeComponent();
+        }
+
+        private void btnTestImageLink_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAddNewContent_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
