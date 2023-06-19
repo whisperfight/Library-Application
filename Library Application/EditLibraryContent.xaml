@@ -179,7 +179,7 @@
 
                 </Button>
 
-                <Button x:Name="EditSelected" Content="Edit selected" Width="200" Height="40" Margin="20,0,0,0" Style="{StaticResource ActionButtons}">
+                <Button x:Name="EditSelected" Content="Edit selected" Width="200" Height="40" Margin="20,0,0,0" Style="{StaticResource ActionButtons}" Click="EditSelected_Click">
 
                 </Button>
 

@@ -239,7 +239,11 @@
 
                     <TextBlock Name="txtRating" Text="0.0 out of 5.0" Margin="10,0,20,0"  Style="{StaticResource RatingText}"></TextBlock>
 
-                    <ComboBox Name="cmbRating" SelectionChanged="cmbRating_SelectionChanged" Width="130" Style="{StaticResource RatingComboBoxes}">
+                    <ComboBox Name="cmbRating" 
+                              SelectionChanged="cmbRating_SelectionChanged" 
+                              HorizontalContentAlignment="Center" Width="130" 
+                              Style="{StaticResource RatingComboBoxes}">
+                        
                         <ComboBoxItem Selector.IsSelected="True">Rate this book...</ComboBoxItem>
                         <ComboBoxItem>1</ComboBoxItem>
                         <ComboBoxItem>2</ComboBoxItem>
