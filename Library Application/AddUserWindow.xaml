@@ -135,9 +135,9 @@
                           Style="{StaticResource AdminComboBoxes}"
                           SelectionChanged="UserPrivilegesCombobox_SelectionChanged">
 
-                        <ComboBoxItem IsSelected="True">Select privileges...</ComboBoxItem>
-                        <ComboBoxItem Content="Admin privileges" />
-                        <ComboBoxItem Content="Standard privileges"/>
+                        <ComboBoxItem x:Name="SelectPriv" IsSelected="True">Select privileges...</ComboBoxItem>
+                        <ComboBoxItem x:Name="AdminTrue" Content="Admin privileges" />
+                        <ComboBoxItem x:Name="AdminFalse" Content="Standard privileges"/>
 
                     </ComboBox>
 
@@ -148,9 +148,9 @@
                           Style="{StaticResource AdminComboBoxes}"
                           SelectionChanged="UserEnabledCombobox_SelectionChanged">
 
-                        <ComboBoxItem IsSelected="True">Account status...</ComboBoxItem>
-                        <ComboBoxItem IsSelected="False" Content="Account enabled"/>
-                        <ComboBoxItem IsSelected="False" Content="Account disabled"/>
+                        <ComboBoxItem x:Name="SelectStatus" IsSelected="True">Account status...</ComboBoxItem>
+                        <ComboBoxItem x:Name="AccountEnabled" IsSelected="False" Content="Account enabled"/>
+                        <ComboBoxItem x:Name="AccountDisabled" IsSelected="False" Content="Account disabled"/>
 
                     </ComboBox>
 

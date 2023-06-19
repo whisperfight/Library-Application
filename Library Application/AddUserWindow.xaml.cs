@@ -77,27 +77,20 @@ namespace Library_Application
             // Check if an item is selected
             if (comboBox.SelectedItem != null)
             {
-
                 ComboBoxItem selectedItem = (ComboBoxItem)comboBox.SelectedItem;
-                string selectedContent = selectedItem.Content.ToString();
+                string selectedContent = selectedItem.Name.ToString();
 
                 // Perform actions based on the selected item
                 switch (selectedContent)
                 {
-                    case "Admin privileges":
+                    case "AdminTrue":
                         // Handle admin privileges selection
                         isAdmin = true;
 
-                        //foreach (ComboBoxItem item in comboBox.Items)
-                        //{
-                        //    item.IsSelected = false;
-                        //}
-
                         // Set current item as selected
-                        selectedItem.IsSelected = true; 
-                        
+                        selectedItem.IsSelected = true;
                         break;
-                    case "Standard privileges":
+                    case "AdminFalse":
                         // Handle standard privileges selection
                         isAdmin = false;
 
@@ -109,39 +102,41 @@ namespace Library_Application
                         break;
                 }
             }
-
-
         }
+
 
         private void UserEnabledCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox comboBox = (ComboBox)sender;
 
-            ComboBoxItem selectedItem = (ComboBoxItem)comboBox.SelectedItem;
-            string selectedContent = selectedItem.Content.ToString();
-
-            // Perform actions based on the selected item
-            switch (selectedContent)
+            // Check if an item is selected
+            if (comboBox.SelectedItem != null)
             {
-                case "Account enabled":
-                    // Handle admin privileges selection
-                    isEnabled = true;
-                    // Set current item as selected
-                    selectedItem.IsSelected = true;
-                    break;
+                ComboBoxItem selectedItem = (ComboBoxItem)comboBox.SelectedItem;
+                string selectedContent = selectedItem.Name.ToString();
 
-                case "Account disabled":
-                    // Handle standard privileges selection
-                    isEnabled = false;
-                    // Set current item as selected
-                    selectedItem.IsSelected = true;
-                    break;
-                default:
-                    // Handle other selections or the default case
-                    break;
+                // Perform actions based on the selected item
+                switch (selectedContent)
+                {
+                    case "AccountEnabled":
+                        // Handle admin privileges selection
+                        isEnabled = true;
+                        // Set current item as selected
+                        selectedItem.IsSelected = true;
+                        break;
+
+                    case "AccountDisabled":
+                        // Handle standard privileges selection
+                        isEnabled = false;
+                        // Set current item as selected
+                        selectedItem.IsSelected = true;
+                        break;
+                    default:
+                        // Handle other selections or the default case
+                        break;
+                }
             }
         }
-
     }
 
 }

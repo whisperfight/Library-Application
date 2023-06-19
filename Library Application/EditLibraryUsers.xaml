@@ -170,7 +170,7 @@
 
                 <!--Send warning email button-->
 
-                <Button x:Name="AddNewMember" Content="Add new member" Width="200" Height="40" Style="{StaticResource ActionButtons}">
+                <Button x:Name="AddNewMember" Content="Add new member" Width="200" Height="40" Style="{StaticResource ActionButtons}" Click="AddNewMember_Click">
 
                 </Button>
 

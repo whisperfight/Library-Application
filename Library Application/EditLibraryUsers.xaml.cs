@@ -24,5 +24,11 @@ namespace Library_Application
         {
             InitializeComponent();
         }
+
+        private void AddNewMember_Click(object sender, RoutedEventArgs e)
+        {
+            AddUserWindow addUserWindow = new AddUserWindow();
+            addUserWindow.ShowDialog(); // Show the new window as a modal dialog
+        }
     }
 }
