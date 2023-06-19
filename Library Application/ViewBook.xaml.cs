@@ -164,10 +164,12 @@ namespace Library_Application
             {
                 using (var db = new DataContext())
                 {
+                    string selection = ((ComboBoxItem)cmbRating.SelectedItem).Content.ToString();
+
                     BookReview bkRv = new BookReview();
                     bkRv.ID = GetNewPKFromBookReviewTable();
                     bkRv.BookID = Convert.ToInt32(BookItem.bookID);
-                    bkRv.Rating = Convert.ToInt32(cmbRating.SelectedItem);
+                    bkRv.Rating = Convert.ToInt32(selection);
 
                     db.Add(bkRv);
                     db.SaveChanges();
