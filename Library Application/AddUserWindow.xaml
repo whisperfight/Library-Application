@@ -106,7 +106,7 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0">
-            <Image Source="{Binding imageSourceUrl}" Width="200" Height="200" Margin="0,70,0,10" VerticalAlignment="Top"></Image>
+            <Image Source="{Binding ImageURL, UpdateSourceTrigger=PropertyChanged}" Width="200" Height="200" Margin="0,70,0,10" VerticalAlignment="Top"></Image>
         </Grid>
 
         <Grid Grid.Column="1">

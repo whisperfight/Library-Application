@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,14 +19,14 @@ namespace Library_Application
     /// <summary>
     /// Interaction logic for AddMemberWindow.xaml
     /// </summary>
-    public partial class AddUserWindow : Window
+    public partial class AddUserWindow : Window, INotifyPropertyChanged
     {
-
-        bool isAdmin = false;
-        bool isEnabled = true;
 
         public AddUserWindow()
         {
+            // Place class in main window context
+            this.DataContext = this;
+
             InitializeComponent();
         }
 
@@ -35,20 +37,32 @@ namespace Library_Application
             using (var db = new DataContext())
             {
                 var userTable = db.Users.ToList();
-                for (int i = 0; i < userTable.Count(); i++)
-                {
-                    newpkID = userTable[i].ID;
-                }
+                newpkID = userTable.Count() + 1;
             }
-            newpkID = newpkID + 1;
+ 
             return newpkID;
         }
 
         private void btnTestImageLink_Click(object sender, RoutedEventArgs e)
         {
+            // Create new object to bind URL field to image source
+            //TestImageURL testURL = new TestImageURL();
+
+            ImageURL = ImageURLField.Text;
 
         }
 
+        private string imageURL;
+        public string ImageURL
+        {
+            get { return imageURL; }
+            set
+            {
+                imageURL = value;
+                // Call OnPropertyChanged whenever the property is updated
+                OnPropertyChanged();
+            }
+        }
         private void btnAddNewMember_Click(object sender, RoutedEventArgs e)
         {
             using (var db = new DataContext())
@@ -57,18 +71,21 @@ namespace Library_Application
 
                 // Call getPKF method to get new ID
                 newUser.ID = GetNewPKFAddNewMember();
-                newUser.FirstName = FirstNameField.ToString();
-                newUser.LastName = LastNameField.ToString();
-                newUser.Username = UserNameField.ToString();
+                newUser.FirstName = FirstNameField.Text;
+                newUser.LastName = LastNameField.Text;
+                newUser.Username = UserNameField.Text;
                 newUser.IsAdmin = isAdmin;
                 newUser.IsEnabled = isEnabled;
-                newUser.ImageURL = ImageURLField.ToString();
+                newUser.ImageURL = ImageURLField.Text;
 
                 db.Add(newUser);
                 db.SaveChanges();
             }
 
         }
+
+        bool isAdmin = false;
+        bool isEnabled = true;
 
         private void UserPrivilegesCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -137,9 +154,15 @@ namespace Library_Application
                 }
             }
         }
-    }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+    }
 }
+
 public class User
 {
     public int ID { get; set; }
@@ -153,7 +176,10 @@ public class User
     public string ImageURL { get; set; }
 }
 
-
+public class TestImageURL
+{
+    public string ImageURL { get; set; }
+}
 
 
 
