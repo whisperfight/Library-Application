@@ -20,9 +20,39 @@ namespace Library_Application
     /// </summary>
     public partial class EditLibraryContent : Page
     {
+
+        public List<Book> listData = new List<Book>();
+
         public EditLibraryContent()
         {
             InitializeComponent();
+
+            LoadDatabase();
+            //DisplayListData(listData);
+
         }
+
+        public void DisplayListData(List<OverdueLoans> data)
+        {
+
+            //Display number of listing/sort results
+            int resultsCount = listData.Count();
+            ResultsCounter.Text = "Showing " + resultsCount.ToString() + " results";
+
+            ListView LoanListControl = this.LoanListControl;
+            LoanListControl.ItemsSource = data; // Set the ItemsSource of the ListView to the loanList
+        }
+
+
+        public void LoadDatabase()
+        {
+            using (var db = new DataContext())
+            {
+
+            }
+        }
+
+
     }
+
 }

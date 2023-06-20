@@ -153,8 +153,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AddUserWindow.xaml.cs">
-      <DependentUpon>AddUserWindow.xaml</DependentUpon>
+    <Compile Include="UserWindow.xaml.cs">
+      <DependentUpon>UserWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="BookItem.cs" />
     <Compile Include="DataContext.cs" />
@@ -178,7 +178,7 @@
       <DependentUpon>AddContentWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="WishlistItem.cs" />
-    <Page Include="AddUserWindow.xaml">
+    <Page Include="UserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

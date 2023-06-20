@@ -174,13 +174,15 @@
 
                 </Button>
 
+                <Button x:Name="EditSelected" Content="Edit selected" Width="200" Height="40" Margin="20,0,0,0" Style="{StaticResource ActionButtons}" Click="EditSelected_Click">
+
+                </Button>
+
                 <Button x:Name="RemoveEntry" Content="Remove selected" Width="200" Height="40" Margin="20,0,0,0" Style="{StaticResource ActionButtons}">
 
                 </Button>
 
-                <Button x:Name="EditSelected" Content="Edit selected" Width="200" Height="40" Margin="20,0,0,0" Style="{StaticResource ActionButtons}">
 
-                </Button>
 
                 <ComboBox x:Name="SortByDropdown"
                           Width="200" Height="40"
@@ -205,7 +207,7 @@
         <!--List view content-->
         <!--=====================================================================-->
 
-        <ListView x:Name="LoanListControl" Grid.Row="1" Margin="0,0,0,0" Width="1300">
+        <ListView x:Name="UserListControl" Grid.Row="1" Margin="0,0,0,0" Width="1300">
             <ListView.Resources>
                 <Style TargetType="GridViewColumnHeader">
                     <Setter Property="FontFamily" Value="Inter"/>
@@ -219,21 +221,22 @@
             </ListView.Resources>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Book ID" Width="100" 
+                    <GridViewColumn Header="ID" Width="50" 
                                     DisplayMemberBinding="{Binding ID}"/>
-                    <GridViewColumn Header="User Firstname" Width="150"
+                    <GridViewColumn Header="User Name" Width="200"
+                                    DisplayMemberBinding="{Binding UserName}"/>
+                    <GridViewColumn Header="User Firstname" Width="200"
                                     DisplayMemberBinding="{Binding FirstName}"/>
-                    <GridViewColumn Header="User Lastname" Width="150"
+                    <GridViewColumn Header="User Lastname" Width="200"
                                     DisplayMemberBinding="{Binding LastName}"/>
-                    <GridViewColumn Header="Book Title" Width="400
-                                    "
-                                    DisplayMemberBinding="{Binding Title}"/>
-                    <GridViewColumn Header="Date Issued" Width="auto"
-                                    DisplayMemberBinding="{Binding IssueDate}"/>
-                    <GridViewColumn Header="Issue Period" Width="auto"
-                                    DisplayMemberBinding="{Binding IssuePeriod}"/>
-                    <GridViewColumn Header="Overdue by (days)" Width="150"
-                                    DisplayMemberBinding="{Binding OverdueBy}"/>
+                    <GridViewColumn Header="Admin" Width="200"
+                                    DisplayMemberBinding="{Binding IsAdmin}"/>
+                    <GridViewColumn Header="Account Status" Width="150"
+                                    DisplayMemberBinding="{Binding IsEnabled}"/>
+                    <GridViewColumn Header="Books Issued" Width="150"
+                                    DisplayMemberBinding="{Binding IssuedCount}"/>
+                    <GridViewColumn Header="Overdue Books" Width="150"
+                                    DisplayMemberBinding="{Binding OverdueBookCount}"/>
                 </GridView>
             </ListView.View>
         </ListView>

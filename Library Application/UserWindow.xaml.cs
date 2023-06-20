@@ -19,15 +19,65 @@ namespace Library_Application
     /// <summary>
     /// Interaction logic for AddMemberWindow.xaml
     /// </summary>
-    public partial class AddUserWindow : Window, INotifyPropertyChanged
+    public partial class UserWindow : Window, INotifyPropertyChanged
     {
 
-        public AddUserWindow()
+        int editMode = 1; // 1 = add new member 2 = edit selected member
+        int selectedID;
+
+        public UserWindow(int mode, int ID)
         {
+            editMode = mode;
+            selectedID = ID;
+
             // Place class in main window context
             this.DataContext = this;
 
             InitializeComponent();
+
+            if (editMode == 2)
+            {
+                //Load selected user content
+                LoadSelectedUserData(selectedID);
+            }
+
+        }
+
+        private void LoadSelectedUserData(int userID)
+        {
+            using (var db = new DataContext())
+            {
+
+                List<User> selUser = db.Users.Where(x => x.ID == userID).ToList();
+
+
+                // Update text fields to selected member
+                FirstNameField.Text = selUser[0].FirstName;
+                LastNameField.Text = selUser[0].LastName;
+                UserNameField.Text = selUser[0].Username;
+                UserPasswordField.Text = selUser[0].Password;
+                ImageURLField.Text = selUser[0].ImageURL;
+
+                // Update selected combobox states
+                if (selUser[0].IsAdmin == true)
+                {
+                    AdminTrue.IsSelected = true;
+
+                }
+                else
+                {
+                    AdminFalse.IsSelected = true;
+                }
+               
+
+                //// Update selected combobox states
+                //if (selUser.IsEnabled == true)
+                //{
+                //    AccountEnabled.IsSelected = true;
+                //    SelectPriv.IsSelected = false;
+                //}
+
+            }
         }
 
         private int GetNewPKFAddNewMember()
@@ -45,12 +95,9 @@ namespace Library_Application
 
         private void btnTestImageLink_Click(object sender, RoutedEventArgs e)
         {
-            // Create new object to bind URL field to image source
-            //TestImageURL testURL = new TestImageURL();
-
             ImageURL = ImageURLField.Text;
-
         }
+
 
         private string imageURL;
         public string ImageURL
@@ -63,29 +110,56 @@ namespace Library_Application
                 OnPropertyChanged();
             }
         }
+
+
         private void btnAddNewMember_Click(object sender, RoutedEventArgs e)
         {
-            using (var db = new DataContext())
+
+            //Change logic based on content mode
+            if (editMode == 1)
             {
-                User newUser = new User();
+                // Add new member mode
+            }
+            else
+            {
+                // Edit selected member mode
+            }
 
-                // Call getPKF method to get new ID
-                newUser.ID = GetNewPKFAddNewMember();
-                newUser.FirstName = FirstNameField.Text;
-                newUser.LastName = LastNameField.Text;
-                newUser.Username = UserNameField.Text;
-                newUser.IsAdmin = isAdmin;
-                newUser.IsEnabled = isEnabled;
-                newUser.ImageURL = ImageURLField.Text;
+            //Basic data validation to prevent empty user entries
+            if (FirstNameField.Text != "" ||
+                LastNameField.Text != "" ||
+                UserNameField.Text != "" ||
+                ImageURLField.Text != "")
+            {
+                using (var db = new DataContext())
+                {
+                    User newUser = new User();
 
-                db.Add(newUser);
-                db.SaveChanges();
+                    // Call getPKF method to get new ID
+                    newUser.ID = GetNewPKFAddNewMember();
+                    newUser.FirstName = FirstNameField.Text;
+                    newUser.LastName = LastNameField.Text;
+                    newUser.Username = UserNameField.Text;
+                    newUser.Password = UserPasswordField.Text;
+                    newUser.IsAdmin = isAdmin;
+                    newUser.IsEnabled = isEnabled;
+                    newUser.ImageURL = ImageURLField.Text;
+
+                    db.Add(newUser);
+                    db.SaveChanges();
+
+                    ConfirmMessage.Text = "Changes saved!";
+                }
+            }
+            else
+            {
+                ConfirmMessage.Text = "Missing data, Please fill out all entry fields!";
             }
 
         }
 
         bool isAdmin = false;
-        bool isEnabled = true;
+        bool isEnabled = false;
 
         private void UserPrivilegesCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -106,6 +180,7 @@ namespace Library_Application
 
                         // Set current item as selected
                         selectedItem.IsSelected = true;
+                        SelectPriv.IsSelected = false;
                         break;
                     case "AdminFalse":
                         // Handle standard privileges selection
@@ -113,9 +188,11 @@ namespace Library_Application
 
                         // Set current item as selected
                         selectedItem.IsSelected = true;
+                        SelectPriv.IsSelected = false;
                         break;
                     default:
                         // Handle other selections or the default case
+                        SelectPriv.IsSelected = true;
                         break;
                 }
             }
@@ -176,10 +253,6 @@ public class User
     public string ImageURL { get; set; }
 }
 
-public class TestImageURL
-{
-    public string ImageURL { get; set; }
-}
 
 
 

@@ -29,8 +29,6 @@ namespace Library_Application
 
         private static List<BookItem> bookItems;
 
-        //string bookID;
-
         public ViewBook(BookItem selectedBook)
         {
             InitializeComponent();
