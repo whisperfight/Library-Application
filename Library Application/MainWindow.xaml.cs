@@ -54,11 +54,13 @@ namespace Library_Application
 
         private void Home_Click(object sender, RoutedEventArgs e)  // Handles the click event for the Home button
         {
+            // Display the Home page
             MainFrame.Content = new HomeDash();
         }
 
         private void Browsebooks_Click(object sender, RoutedEventArgs e)  // Handles the click event for the Browse Books button
         {
+            // Display the Browse book page
             MainFrame.Content = new BrowseBookPage();
         }
     }
