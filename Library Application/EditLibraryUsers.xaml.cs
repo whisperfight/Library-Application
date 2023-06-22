@@ -94,6 +94,7 @@ namespace Library_Application
 
         private void AddNewMember_Click(object sender, RoutedEventArgs e)
         {
+
             int editMode = 1; // Sets window to add new member edit mode
 
             UserWindow userWindow = new UserWindow(editMode, 0);
@@ -107,17 +108,22 @@ namespace Library_Application
 
         private void EditSelected_Click(object sender, RoutedEventArgs e)
         {
-            User selectedUser = (User)UserListControl.SelectedItem;
 
-            int editMode = 2; // Sets window to add edit selected member mode
-            int selUserID = selectedUser.ID;
+            UserList selectedUser = (UserList)UserListControl.SelectedItem;
 
-            UserWindow userWindow = new UserWindow(editMode, selUserID);
+            if (selectedUser != null)
+            {
+                int editMode = 2; // Sets window to add edit selected member mode
+                int selUserID = selectedUser.ID;
 
-            // Handle the Closing event
-            userWindow.Closing += AddUserWindowClosing;
+                UserWindow userWindow = new UserWindow(editMode, selUserID);
 
-            userWindow.ShowDialog(); // Show the new window as a modal dialog
+                // Handle the Closing event
+                userWindow.Closing += AddUserWindowClosing;
+
+                userWindow.ShowDialog(); // Show the new window as a modal dialog
+            }
+
         }
 
         private void AddUserWindowClosing(object sender, System.ComponentModel.CancelEventArgs e)

@@ -67,6 +67,8 @@ namespace Library_Application
                 ImageURLField.Text = selUser[0].ImageURL;
 
                 // Update selected combobox states
+
+                // Admin privs
                 if (selUser[0].IsAdmin == true)
                 {
                     AdminTrue.IsSelected = true;
@@ -76,14 +78,15 @@ namespace Library_Application
                 {
                     AdminFalse.IsSelected = true;
                 }
-               
 
-                //// Update selected combobox states
-                //if (selUser.IsEnabled == true)
-                //{
-                //    AccountEnabled.IsSelected = true;
-                //    SelectPriv.IsSelected = false;
-                //}
+                if (selUser[0].IsEnabled == true)
+                {
+                    AccountEnabled.IsSelected = true;
+                }
+                else
+                {
+                    AccountDisabled.IsSelected = true;
+                }
 
             }
         }
