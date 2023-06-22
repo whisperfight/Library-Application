@@ -189,13 +189,16 @@
                           VerticalContentAlignment="Center"
                           HorizontalContentAlignment="Center"
                           Margin="20,0,0,0"
-                          Style="{StaticResource FilterComboBoxes}">
+                          Style="{StaticResource FilterComboBoxes}"
+                          SelectionChanged="SortByDropdown_SelectionChanged">
 
-                    <ComboBoxItem IsSelected="True">Sort by...</ComboBoxItem>
-                    <ComboBoxItem Content="Name A to Z" />
-                    <ComboBoxItem Content="Name Z to A"/>
-
+                <ComboBoxItem IsSelected="True">Sort by...</ComboBoxItem>
+                <ComboBoxItem Content="ID number"/>
+                <ComboBoxItem Content="First name A to Z" />
+                <ComboBoxItem Content="First name Z to A"/>
                 </ComboBox>
+
+
 
             </WrapPanel>
 

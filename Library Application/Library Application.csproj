@@ -175,8 +175,8 @@
     <Compile Include="ViewBook.xaml.cs">
       <DependentUpon>ViewBook.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AddContentWindow.xaml.cs">
-      <DependentUpon>AddContentWindow.xaml</DependentUpon>
+    <Compile Include="ContentWindow.xaml.cs">
+      <DependentUpon>ContentWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="WishlistItem.cs" />
     <Page Include="UserWindow.xaml">
@@ -230,7 +230,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AddContentWindow.xaml">
+    <Page Include="ContentWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

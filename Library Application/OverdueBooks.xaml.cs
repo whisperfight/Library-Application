@@ -42,6 +42,18 @@ namespace Library_Application
             LoanListControl.ItemsSource = data; // Set the ItemsSource of the ListView to the loanList
         }
 
+        public void SortByMostOverdue(List<OverdueLoans> input)
+        {
+            listData = input.OrderByDescending(item => item.OverdueBy).ToList();
+            DisplayListData(listData);
+        }
+        public void SortByLeastOverdue(List<OverdueLoans> input)
+        {
+            listData = input.OrderBy(item => item.OverdueBy).ToList();
+            DisplayListData(listData);
+        }
+
+
         public void LoadDatabase()
         {
             using (var db = new DataContext())
@@ -95,27 +107,29 @@ namespace Library_Application
         private void SortByDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var comboBox = (ComboBox)sender;
-            var selectedItem = (ComboBoxItem)comboBox.SelectedValue;
 
-            // Get the content of the selected item
-            var selectedContent = selectedItem.Content;
-
-            // Perform actions based on the selected item
-            switch (selectedContent)
+            if (comboBox.SelectedItem != null)
             {
-                case "Most overdue":
-                    // Sort from max to min
-                    listData = listData.OrderByDescending(item => item.OverdueBy).ToList();
-                    DisplayListData(listData);
-                    break;
-                case "Least overdue":
-                    listData = listData.OrderBy(item => item.OverdueBy).ToList();
-                    DisplayListData(listData);
-                    break;
-                default:
-                    // Handle other selections or the default case
-                    break;
+                var selectedItem = (ComboBoxItem)comboBox.SelectedValue;
+
+                // Get the content of the selected item
+                var selectedContent = selectedItem.Content;
+
+                // Perform actions based on the selected item
+                switch (selectedContent)
+                {
+                    case "Most overdue":
+                        // Sort from max to min
+                        break;
+                    case "Least overdue":
+
+                        break;
+                    default:
+                        // Handle other selections or the default case
+                        break;
+                }
             }
+
 
         }
     }

@@ -22,7 +22,7 @@ namespace Library_Application
     public partial class UserWindow : Window, INotifyPropertyChanged
     {
 
-        int editMode = 1; // 1 = add new member 2 = edit selected member
+        int editMode = 1; // 1 = add new member 2 = edit selected user
         int selectedID;
 
         public UserWindow(int mode, int ID)
@@ -35,10 +35,18 @@ namespace Library_Application
 
             InitializeComponent();
 
-            if (editMode == 2)
+            switch (editMode)
             {
-                //Load selected user content
-                LoadSelectedUserData(selectedID);
+                case 1: //Add new user
+
+                    break;
+                case 2: //Load and edit existing user
+                    LoadSelectedUserData(selectedID);
+                    break;
+                default:
+                    break;
+
+
             }
 
         }
@@ -168,6 +176,7 @@ namespace Library_Application
             // Check if an item is selected
             if (comboBox.SelectedItem != null)
             {
+
                 ComboBoxItem selectedItem = (ComboBoxItem)comboBox.SelectedItem;
                 string selectedContent = selectedItem.Name.ToString();
 

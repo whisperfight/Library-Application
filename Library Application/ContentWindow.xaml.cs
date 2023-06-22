@@ -19,9 +19,9 @@ namespace Library_Application
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class AddContentWindow : Window, INotifyPropertyChanged
+    public partial class ContentWindow : Window, INotifyPropertyChanged
     {
-        public AddContentWindow()
+        public ContentWindow()
         {
             // Place class in main window context
             this.DataContext = this;

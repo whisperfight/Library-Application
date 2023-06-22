@@ -26,7 +26,8 @@ namespace Library_Application
         {
             InitializeComponent();
             LoadDatabase();
-            DisplayListData(listData);
+            SortByID(listData);
+
         }
 
         public void DisplayListData(List<UserList> data)
@@ -37,6 +38,26 @@ namespace Library_Application
 
             ListView LoanListControl = this.UserListControl;
             LoanListControl.ItemsSource = data; // Set the ItemsSource of the ListView to the loanList
+        }
+
+
+        
+        public void SortByID(List<UserList> input)
+        {
+            listData = input.OrderBy(item => item.ID).ToList();
+            DisplayListData(listData);
+        }
+
+        public void SortByAtoZ(List<UserList> input) // Sort alphabetically A to Z
+        {
+            listData = input.OrderBy(item => item.FirstName).ToList();
+            DisplayListData(listData);
+        }
+
+        public void SortByZtoA(List<UserList> input) // Sort alphabetically A to Z
+        {
+            listData = input.OrderByDescending(item => item.FirstName).ToList();
+            DisplayListData(listData);
         }
 
         public void LoadDatabase()
@@ -50,6 +71,7 @@ namespace Library_Application
                                     select new
                                     {
                                         u.ID,
+                                        u.Username,
                                         u.FirstName,
                                         u.LastName,
                                         DueDate = loan != null ? loan.DueDate : (DateTime?)null // Nullable DateTime - checks if the loan object is not null
@@ -59,6 +81,7 @@ namespace Library_Application
                                         new UserList
                                         {
                                             ID = key,
+                                            UserName = g.First().Username,
                                             FirstName = g.First().FirstName,
                                             LastName = g.First().LastName,
                                             IssuedCount = g.Count(),
@@ -68,8 +91,6 @@ namespace Library_Application
                 listData = libraryUsers;
             }
         }
-
-
 
         private void AddNewMember_Click(object sender, RoutedEventArgs e)
         {
@@ -89,7 +110,6 @@ namespace Library_Application
             User selectedUser = (User)UserListControl.SelectedItem;
 
             int editMode = 2; // Sets window to add edit selected member mode
-
             int selUserID = selectedUser.ID;
 
             UserWindow userWindow = new UserWindow(editMode, selUserID);
@@ -102,8 +122,38 @@ namespace Library_Application
 
         private void AddUserWindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            // Method to execute when the UserWindow is closing
+            // Method to execute when the UserWindow is closing, refresh listview data
             DisplayListData(listData);
+        }
+
+        private void SortByDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
+
+            // Check if an item is selected
+            if (comboBox.SelectedItem != null)
+            {
+                var selectedItem = (ComboBoxItem)comboBox.SelectedValue;
+
+                // Get the content of the selected item
+                var selectedContent = selectedItem.Content;
+
+                // Perform actions based on the selected item
+                switch (selectedContent)
+                {
+                    case "ID number":
+                        SortByID(listData);
+                        break;
+                    case "First name A to Z":
+                        SortByAtoZ(listData);
+                        break;
+                    case "First name Z to A":
+                        SortByZtoA(listData);
+                        break;
+                    default:;
+                        break;
+                }
+            }
         }
     }
 }
