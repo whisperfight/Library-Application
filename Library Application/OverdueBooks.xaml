@@ -204,7 +204,7 @@
         <!--List view content-->
         <!--=====================================================================-->
         
-        <ListView x:Name="LoanListControl" Grid.Row="1" Margin="0,0,0,0" Width="1300">
+        <ListView x:Name="LoanListControl" Grid.Row="1" Margin="50,0,0,0" Width="1300">
             <ListView.Resources>
                 <Style TargetType="GridViewColumnHeader">
                     <Setter Property="FontFamily" Value="Inter"/>

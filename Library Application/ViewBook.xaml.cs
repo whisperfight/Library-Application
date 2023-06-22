@@ -14,10 +14,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
-
-
 using Library_Application;
 using static Library_Application.BrowseBookPage;
+
 
 namespace Library_Application
 {
@@ -38,14 +37,14 @@ namespace Library_Application
 
             BookItem = selectedBook;
 
-            PrefaceContent();
+            SubheadingContent();
 
 
         }
 
         public BookItem BookItem { get; set; }
 
-        private void PrefaceContent()
+        private void SubheadingContent()
         {
             BookItem.author = "Author : " + BookItem.author;
             BookItem.genre = "Genre : " + BookItem.genre;
@@ -57,7 +56,9 @@ namespace Library_Application
 
         private void ReturnPageButton_Click(object sender, RoutedEventArgs e)
         {
-            //MainFrame.Content = new HomeDash();
+            // Retrieves the reference to the main window to access the window frame
+            MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+            mainWindow.MainFrame.Content = new HomeDash();
         }
 
         private void btnLoanBook_Click(object sender, RoutedEventArgs e)

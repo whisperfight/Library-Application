@@ -104,12 +104,11 @@ namespace Library_Application
             return newpkID;
         }
 
+        // Test and update image button / property change event
         private void btnTestImageLink_Click(object sender, RoutedEventArgs e)
         {
             ImageURL = ImageURLField.Text;
         }
-
-
         private string imageURL;
         public string ImageURL
         {
@@ -122,51 +121,93 @@ namespace Library_Application
             }
         }
 
-
         private void btnAddNewMember_Click(object sender, RoutedEventArgs e)
         {
 
             //Change logic based on content mode
-            if (editMode == 1)
+            switch (editMode)
             {
-                // Add new member mode
+                case 1:
+                    // Add new user to database
+                    //Basic data validation to prevent empty user entries
+                    if (FirstNameField.Text != "" ||
+                        LastNameField.Text != "" ||
+                        UserNameField.Text != "" ||
+                        ImageURLField.Text != "")
+                    {
+                        using (var db = new DataContext())
+                        {
+                            User newUser = new User();
+
+                            // Call getPKF method to get new ID
+                            newUser.ID = GetNewPKFAddNewMember();
+                            newUser.FirstName = FirstNameField.Text;
+                            newUser.LastName = LastNameField.Text;
+                            newUser.Username = UserNameField.Text;
+                            newUser.Password = UserPasswordField.Text;
+                            newUser.IsAdmin = isAdmin;
+                            newUser.IsEnabled = isEnabled;
+                            newUser.ImageURL = ImageURLField.Text;
+
+                            db.Add(newUser);
+                            db.SaveChanges();
+
+                            ConfirmMessage.Text = "Changes saved!";
+                        }
+                    }
+                    else
+                    {
+                        ConfirmMessage.Text = "Missing data, Please fill out all entry fields!";
+                    }
+                    break;
+
+                case 2:
+                    // Edit selected user data and update records
+
+                    if (FirstNameField.Text != "" ||
+                       LastNameField.Text != "" ||
+                       UserNameField.Text != "" ||
+                       ImageURLField.Text != "")
+                    {
+                        using (var db = new DataContext())
+                        {
+                            int userId = selectedID; // Assign user ID from selected user
+
+                            // Retrieve the existing user entry from the database
+                            User existingUser = db.Users.FirstOrDefault(u => u.ID == userId);
+
+                            if (existingUser != null)
+                            {
+                                // Modify the properties of the existing user object
+                                existingUser.FirstName = FirstNameField.Text;
+                                existingUser.LastName = LastNameField.Text;
+                                existingUser.Username = UserNameField.Text;
+                                existingUser.Password = UserPasswordField.Text;
+                                existingUser.IsAdmin = isAdmin;
+                                existingUser.IsEnabled = isEnabled;
+                                existingUser.ImageURL = ImageURLField.Text;
+
+                                // Save the changes back to the database
+                                db.SaveChanges();
+
+                                ConfirmMessage.Text = "Changes saved!";
+                            }
+                            else
+                            {
+                                ConfirmMessage.Text = "User not found!";
+                            }
+                        }
+
+                        ConfirmMessage.Text = "Changes saved!";
+                    }
+                    else
+                    {
+                        ConfirmMessage.Text = "Missing data, Please fill out all entry fields!";
+                    }
+                    break;
+                default:
+                    break;
             }
-            else
-            {
-                // Edit selected member mode
-            }
-
-            //Basic data validation to prevent empty user entries
-            if (FirstNameField.Text != "" ||
-                LastNameField.Text != "" ||
-                UserNameField.Text != "" ||
-                ImageURLField.Text != "")
-            {
-                using (var db = new DataContext())
-                {
-                    User newUser = new User();
-
-                    // Call getPKF method to get new ID
-                    newUser.ID = GetNewPKFAddNewMember();
-                    newUser.FirstName = FirstNameField.Text;
-                    newUser.LastName = LastNameField.Text;
-                    newUser.Username = UserNameField.Text;
-                    newUser.Password = UserPasswordField.Text;
-                    newUser.IsAdmin = isAdmin;
-                    newUser.IsEnabled = isEnabled;
-                    newUser.ImageURL = ImageURLField.Text;
-
-                    db.Add(newUser);
-                    db.SaveChanges();
-
-                    ConfirmMessage.Text = "Changes saved!";
-                }
-            }
-            else
-            {
-                ConfirmMessage.Text = "Missing data, Please fill out all entry fields!";
-            }
-
         }
 
         bool isAdmin = false;

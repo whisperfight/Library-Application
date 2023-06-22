@@ -74,6 +74,8 @@ namespace Library_Application
                                         u.Username,
                                         u.FirstName,
                                         u.LastName,
+                                        u.IsAdmin,
+                                        u.IsEnabled,
                                         DueDate = loan != null ? loan.DueDate : (DateTime?)null // Nullable DateTime - checks if the loan object is not null
                                     }).ToList().GroupBy(
                                         x => x.ID,
@@ -84,11 +86,37 @@ namespace Library_Application
                                             UserName = g.First().Username,
                                             FirstName = g.First().FirstName,
                                             LastName = g.First().LastName,
+                                            IsAdmin = g.First().IsAdmin,
+                                            IsEnabled = g.First().IsEnabled,
                                             IssuedCount = g.Count(),
                                             OverdueBookCount = g.Count(s => s.DueDate.HasValue && DateTime.Compare(s.DueDate.Value, DateTime.Now) <= 0)
                                         }).ToList();
 
                 listData = libraryUsers;
+            }
+        }
+
+
+        private void RemoveEntry_Click(object sender, RoutedEventArgs e)
+        {
+            UserList selectedItem = (UserList)UserListControl.SelectedItem;
+
+            // Check if an item is selected
+            if (selectedItem != null)
+            {
+
+                using (var db = new DataContext())
+                {
+                    User deleteUser = new User();
+
+                    deleteUser.ID = selectedItem.ID;
+                    db.Remove(deleteUser);
+                    db.SaveChanges();
+
+                }
+                // Refresh list control
+                LoadDatabase();
+                DisplayListData(listData);
             }
         }
 
@@ -101,8 +129,8 @@ namespace Library_Application
 
             // Handle the Closing event
             userWindow.Closing += AddUserWindowClosing;
-
             userWindow.ShowDialog(); // Show the new window as a modal dialog
+
         }
 
 
@@ -120,7 +148,6 @@ namespace Library_Application
 
                 // Handle the Closing event
                 userWindow.Closing += AddUserWindowClosing;
-
                 userWindow.ShowDialog(); // Show the new window as a modal dialog
             }
 
@@ -129,6 +156,7 @@ namespace Library_Application
         private void AddUserWindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             // Method to execute when the UserWindow is closing, refresh listview data
+            LoadDatabase();
             DisplayListData(listData);
         }
 
