@@ -188,11 +188,14 @@
                           VerticalContentAlignment="Center"
                           HorizontalContentAlignment="Center"
                           Margin="20,0,0,0"
-                          Style="{StaticResource FilterComboBoxes}">
+                          Style="{StaticResource FilterComboBoxes}"
+                          SelectionChanged="SortByDropdown_SelectionChanged">
 
                     <ComboBoxItem IsSelected="True">Sort by...</ComboBoxItem>
-                    <ComboBoxItem Content="Most overdue" />
-                    <ComboBoxItem Content="Least overdue"/>
+                    <ComboBoxItem Content="Book ID number"/>
+                    <ComboBoxItem Content="Title A to Z" />
+                    <ComboBoxItem Content="Title Z to A"/>
+                    <ComboBoxItem Content="Rating"/>
 
                 </ComboBox>
 
@@ -220,21 +223,20 @@
             </ListView.Resources>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Book ID" Width="100" 
+                    <GridViewColumn Header="ID" Width="50" 
                                     DisplayMemberBinding="{Binding ID}"/>
-                    <GridViewColumn Header="User Firstname" Width="150"
-                                    DisplayMemberBinding="{Binding FirstName}"/>
-                    <GridViewColumn Header="User Lastname" Width="150"
-                                    DisplayMemberBinding="{Binding LastName}"/>
-                    <GridViewColumn Header="Book Title" Width="400
-                                    "
+                    <GridViewColumn Header="Title" Width="300"
                                     DisplayMemberBinding="{Binding Title}"/>
-                    <GridViewColumn Header="Date Issued" Width="auto"
-                                    DisplayMemberBinding="{Binding IssueDate}"/>
-                    <GridViewColumn Header="Issue Period" Width="auto"
-                                    DisplayMemberBinding="{Binding IssuePeriod}"/>
-                    <GridViewColumn Header="Overdue by (days)" Width="150"
-                                    DisplayMemberBinding="{Binding OverdueBy}"/>
+                    <GridViewColumn Header="Author" Width="250"
+                                    DisplayMemberBinding="{Binding Author}"/>
+                    <GridViewColumn Header="Genre/s" Width="250"
+                                    DisplayMemberBinding="{Binding GenreTags}"/>
+                    <GridViewColumn Header="Read time (mins)" Width="200"
+                                    DisplayMemberBinding="{Binding TimeToRead}"/>
+                    <GridViewColumn Header="Rating 0-5" Width="100"
+                                    DisplayMemberBinding="{Binding Rating}"/>
+                    <GridViewColumn Header="Availability" Width="100"
+                                    DisplayMemberBinding="{Binding AvailableToLoan}"/>
                 </GridView>
             </ListView.View>
         </ListView>

@@ -28,11 +28,12 @@ namespace Library_Application
             InitializeComponent();
 
             LoadDatabase();
-            //DisplayListData(listData);
+            SortByID(listData); 
+            DisplayListData(listData);
 
         }
 
-        public void DisplayListData(List<OverdueLoans> data)
+        public void DisplayListData(List<Book> data)
         {
 
             //Display number of listing/sort results
@@ -43,16 +44,102 @@ namespace Library_Application
             LoanListControl.ItemsSource = data; // Set the ItemsSource of the ListView to the loanList
         }
 
+        public void SortByID(List<Book> input)
+        {
+            listData = input.OrderBy(item => item.ID).ToList();
+            DisplayListData(listData);
+        }
+
+        public void SortTitleByAtoZ(List<Book> input)
+        {
+            listData = input.OrderBy(item => item.Title).ToList();
+            DisplayListData(listData);
+        }
+
+        public void SortTitleByZtoA(List<Book> input) 
+        {
+            listData = input.OrderByDescending(item => item.Title).ToList();
+            DisplayListData(listData);
+        }
+
+        public void SortByRating(List<Book> input)
+        {
+            listData = input.OrderBy(item => item.Rating).ToList();
+            DisplayListData(listData);
+        }
 
         public void LoadDatabase()
         {
             using (var db = new DataContext())
             {
+                var catalog = (from b in db.Books
+                               select new Book
+                               {
+                                   ID = b.ID,
+                                   Title = b.Title,
+                                   Author = b.Author,
+                                   Summary = b.Summary,
+                                   TimeToRead = b.TimeToRead,
+                                   Rating = b.Rating,
+                                   NewRelease = b.NewRelease,
+                                   GenreTags = b.GenreTags,
+                                   CoverImageURL = b.CoverImageURL,
+                                   AvailableToLoan = b.AvailableToLoan,
+                                   DueDate = b.DueDate
+                               }).ToList();
 
+                listData = catalog;
             }
         }
 
+        private void SortByDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
 
+            // Check if an item is selected
+            if (comboBox.SelectedItem != null)
+            {
+                var selectedItem = (ComboBoxItem)comboBox.SelectedValue;
+
+                // Get the content of the selected item
+                var selectedContent = selectedItem.Content;
+
+                // Perform actions based on the selected item
+                switch (selectedContent)
+                {
+                    case "Book ID number":
+                        SortByID(listData);
+                        break;
+                    case "Title A to Z":
+                        SortTitleByAtoZ(listData);
+                        break;
+                    case "Title Z to A":
+                        SortTitleByZtoA(listData);
+                        break;
+                    case "Rating":
+                        SortByRating(listData);
+                        break;
+                    default:
+                        ;
+                        break;
+                }
+            }
+        }
     }
 
+}
+
+public class Book
+{
+    public int ID { get; set; }
+    public string Title { get; set; }
+    public string Author { get; set; }
+    public string Summary { get; set; }
+    public int TimeToRead { get; set; }
+    public double Rating { get; set; }
+    public bool NewRelease { get; set; }
+    public string GenreTags { get; set; }
+    public string CoverImageURL { get; set; }
+    public bool AvailableToLoan { get; set; }
+    public string DueDate { get; set; }
 }
