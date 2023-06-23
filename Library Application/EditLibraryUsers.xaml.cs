@@ -36,8 +36,8 @@ namespace Library_Application
             int resultsCount = listData.Count();
             ResultsCounter.Text = "Showing " + resultsCount.ToString() + " results";
 
-            ListView LoanListControl = this.UserListControl;
-            LoanListControl.ItemsSource = data; // Set the ItemsSource of the ListView to the loanList
+            ListView UserListControl = this.UserListControl;
+            UserListControl.ItemsSource = data; // Set the ItemsSource of the ListView to the userlist
         }
 
 
@@ -95,7 +95,6 @@ namespace Library_Application
                 listData = libraryUsers;
             }
         }
-
 
         private void RemoveEntry_Click(object sender, RoutedEventArgs e)
         {

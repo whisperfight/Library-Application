@@ -40,8 +40,8 @@ namespace Library_Application
             int resultsCount = listData.Count();
             ResultsCounter.Text = "Showing " + resultsCount.ToString() + " results";
 
-            ListView LoanListControl = this.LoanListControl;
-            LoanListControl.ItemsSource = data; // Set the ItemsSource of the ListView to the loanList
+            ListView ContentListControl = this.ContentListControl;
+            ContentListControl.ItemsSource = data; // Set the ItemsSource of the ListView to the loanList
         }
 
         public void SortByID(List<Book> input)
@@ -123,6 +123,68 @@ namespace Library_Application
                         ;
                         break;
                 }
+            }
+        }
+
+        private void AddNewBook_Click(object sender, RoutedEventArgs e)
+        {
+            int editMode = 1; // Sets window to add new book edit mode
+
+            ContentWindow contentWindow = new ContentWindow(editMode, 0);
+
+            // Handle the Closing event
+            contentWindow.Closing += ContentWindow_Closing; ;
+            contentWindow.ShowDialog(); // Show the new window as a modal dialog
+        }
+
+
+
+        private void EditSelected_Click(object sender, RoutedEventArgs e)
+        {
+            Book selectedBook = (Book)ContentListControl.SelectedItem;
+
+            if (selectedBook != null)
+            {
+                int editMode = 2; // Sets window to add edit selected book mode
+                int selUserID = selectedBook.ID;
+
+                ContentWindow contentWindow = new ContentWindow(editMode, selUserID);
+
+                // Handle the Closing event
+                contentWindow.Closing += ContentWindow_Closing;
+                contentWindow.ShowDialog(); // Show the new window as a modal dialog
+            }
+        }
+
+
+
+        private void ContentWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            // Method to execute when the content window is closing, refresh listview data
+            LoadDatabase();
+            DisplayListData(listData);
+        }
+
+        private void RemoveEntry_Click(object sender, RoutedEventArgs e)
+        {
+            Book selectedItem = (Book)ContentListControl.SelectedItem;
+
+            // Check if an item is selected
+            if (selectedItem != null)
+            {
+
+                using (var db = new DataContext())
+                {
+                    Book deleteBook = new Book();
+
+                    deleteBook.ID = selectedItem.ID;
+                    db.Remove(deleteBook);
+                    db.SaveChanges();
+
+                }
+                // Refresh list control
+                LoadDatabase();
+                DisplayListData(listData);
             }
         }
     }

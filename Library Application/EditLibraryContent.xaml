@@ -171,13 +171,13 @@
 
                 <!--Send warning email button-->
 
-                <Button x:Name="AddNewBook" Content="Add new book" Width="200" Height="40" Style="{StaticResource ActionButtons}">
+                <Button x:Name="AddNewBook" Content="Add new book" Width="200" Height="40" Style="{StaticResource ActionButtons}" Click="AddNewBook_Click">
                 </Button>
 
-                <Button x:Name="EditSelected" Content="Edit selected" Width="200" Height="40" Margin="20,0,0,0" Style="{StaticResource ActionButtons}">
+                <Button x:Name="EditSelected" Content="Edit selected" Width="200" Height="40" Margin="20,0,0,0" Style="{StaticResource ActionButtons}" Click="EditSelected_Click">
                 </Button>
 
-                <Button x:Name="RemoveEntry" Content="Remove selected" Width="200" Height="40" Margin="20,0,0,0" Style="{StaticResource ActionButtons}">
+                <Button x:Name="RemoveEntry" Content="Remove selected" Width="200" Height="40" Margin="20,0,0,0" Style="{StaticResource ActionButtons}" Click="RemoveEntry_Click">
                 </Button>
 
 
@@ -208,7 +208,7 @@
         <!--List view content-->
         <!--=====================================================================-->
 
-        <ListView x:Name="LoanListControl" Grid.Row="1" Margin="50,0,0,0" Width="1300">
+        <ListView x:Name="ContentListControl" Grid.Row="1" Margin="50,0,0,0" Width="1300">
             <ListView.Resources>
                 <Style TargetType="GridViewColumnHeader">
                     <Setter Property="FontFamily" Value="Inter"/>
