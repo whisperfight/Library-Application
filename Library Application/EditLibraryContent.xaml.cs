@@ -41,7 +41,7 @@ namespace Library_Application
             ResultsCounter.Text = "Showing " + resultsCount.ToString() + " results";
 
             ListView ContentListControl = this.ContentListControl;
-            ContentListControl.ItemsSource = data; // Set the ItemsSource of the ListView to the loanList
+            ContentListControl.ItemsSource = data;
         }
 
         public void SortByID(List<Book> input)

@@ -99,7 +99,7 @@
 
     </Window.Resources>
 
-    <Grid Background="Beige">
+    <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
