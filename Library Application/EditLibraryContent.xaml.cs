@@ -64,7 +64,7 @@ namespace Library_Application
 
         public void SortByRating(List<Book> input)
         {
-            listData = input.OrderBy(item => item.Rating).ToList();
+            listData = input.OrderByDescending(item => item.Rating).ToList();
             DisplayListData(listData);
         }
 
