@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
+
 using Library_Application;
 using static Library_Application.BrowseBookPage;
 
@@ -25,34 +26,31 @@ namespace Library_Application
     /// </summary>
     public partial class ViewBook : Page
     {
-
-        private static List<BookItem> bookItems;
+        private static List<BookItem> bookItems;  // Stores a list of book items
 
         public ViewBook(BookItem selectedBook)
         {
             InitializeComponent();
 
             // Adding data contexts to loaded page
-            this.DataContext = this;
+            this.DataContext = this;  // Set the data context of the loaded page to itself
 
             BookItem = selectedBook;
 
             SubheadingContent();
 
-
         }
 
-        public BookItem BookItem { get; set; }
+        public BookItem BookItem { get; set; }  // Represents the selected book item
 
         private void SubheadingContent()
+
         {
             BookItem.author = "Author : " + BookItem.author;
             BookItem.genre = "Genre : " + BookItem.genre;
 
             txtRating.Text = BookItem.rating;
         }
-
-
 
         private void ReturnPageButton_Click(object sender, RoutedEventArgs e)
         {
@@ -69,8 +67,7 @@ namespace Library_Application
                 Loan liItem = new Loan();
                 liItem.BookID = Convert.ToInt32(BookItem.bookID);
 
-                // temporarily hard coded. It will be necessary to access the global variable that will be added 
-                // later.
+                // temporarily hard coded. It will be necessary to access the global variable that will be added later.
                 liItem.UserID = 4;
                 liItem.DueDate = DateTime.Now.AddDays(30);
                 liItem.FineDue = false;
@@ -92,8 +89,7 @@ namespace Library_Application
                 wlItem.BookID = Convert.ToInt32(BookItem.bookID);
                 wlItem.ID = GetNewPKFromWishlistTable(); // need to get the latest PK ID.
 
-                // temporarily hard coded. It will be necessary to access the global variable that will be added 
-                // later.
+                // temporarily hard coded. It will be necessary to access the global variable that will be added later.
                 wlItem.UserID = 4;
 
                 db.Add(wlItem);
@@ -163,10 +159,12 @@ namespace Library_Application
             {
                 using (var db = new DataContext())
                 {
+                    string selection = ((ComboBoxItem)cmbRating.SelectedItem).Content.ToString();
+
                     BookReview bkRv = new BookReview();
                     bkRv.ID = GetNewPKFromBookReviewTable();
                     bkRv.BookID = Convert.ToInt32(BookItem.bookID);
-                    bkRv.Rating = Convert.ToInt32(cmbRating.SelectedItem);
+                    bkRv.Rating = Convert.ToInt32(selection);
 
                     db.Add(bkRv);
                     db.SaveChanges();
