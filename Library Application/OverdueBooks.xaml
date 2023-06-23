@@ -168,12 +168,6 @@
 
             <WrapPanel Orientation="Horizontal" >
                 
-                <!--Send warning email button-->
-
-                <Button x:Name="SendWarningButton" Content="Send warning" Width="200" Height="40" Style="{StaticResource ActionButtons}" >
-                    
-                </Button>
-
                 <Button x:Name="RemoveEntry" Content="Remove selected" Width="200" Height="40" Margin="20,0,0,0" Style="{StaticResource ActionButtons}" Click="RemoveEntry_Click">
 
                 </Button>
@@ -189,6 +183,7 @@
                           SelectionChanged="SortByDropdown_SelectionChanged">
 
                     <ComboBoxItem IsSelected="True">Sort by...</ComboBoxItem>
+                    <ComboBoxItem Content="Book ID" />
                     <ComboBoxItem Content="Most overdue" />
                     <ComboBoxItem Content="Least overdue"/>
 

@@ -28,7 +28,7 @@ namespace Library_Application
         {
             InitializeComponent();
             LoadDatabase();
-            DisplayListData(listData);
+            SortByID(listData);
         }
 
         public void DisplayListData(List<OverdueLoans> data)
@@ -40,6 +40,12 @@ namespace Library_Application
 
             ListView LoanListControl = this.LoanListControl;
             LoanListControl.ItemsSource = data; // Set the ItemsSource of the ListView to the loanList
+        }
+
+        public void SortByID(List<OverdueLoans> input)
+        {
+            listData = input.OrderByDescending(item => item.ID).ToList();
+            DisplayListData(listData);
         }
 
         public void SortByMostOverdue(List<OverdueLoans> input)
@@ -119,10 +125,13 @@ namespace Library_Application
                 switch (selectedContent)
                 {
                     case "Most overdue":
-                        // Sort from max to min
+                        SortByMostOverdue(listData);
                         break;
                     case "Least overdue":
-
+                        SortByLeastOverdue(listData);
+                        break;
+                    case "Book ID":
+                        SortByID(listData);
                         break;
                     default:
                         // Handle other selections or the default case
