@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Library_Application"
         mc:Ignorable="d"
-        Title="Add / Edit User" Height="500" Width="800">
+        Title="Add / Edit User" Height="600" Width="800">
 
     <Window.Resources>
 

@@ -172,16 +172,15 @@
                 <!--Send warning email button-->
 
                 <Button x:Name="AddNewBook" Content="Add new book" Width="200" Height="40" Style="{StaticResource ActionButtons}">
-
-                </Button>
-
-                <Button x:Name="RemoveEntry" Content="Remove selected" Width="200" Height="40" Margin="20,0,0,0" Style="{StaticResource ActionButtons}">
-
                 </Button>
 
                 <Button x:Name="EditSelected" Content="Edit selected" Width="200" Height="40" Margin="20,0,0,0" Style="{StaticResource ActionButtons}">
-
                 </Button>
+
+                <Button x:Name="RemoveEntry" Content="Remove selected" Width="200" Height="40" Margin="20,0,0,0" Style="{StaticResource ActionButtons}">
+                </Button>
+
+
 
                 <ComboBox x:Name="SortByDropdown"
                           Width="200" Height="40"

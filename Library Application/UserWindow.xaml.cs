@@ -35,18 +35,10 @@ namespace Library_Application
 
             InitializeComponent();
 
-            switch (editMode)
+            if (editMode == 2)
             {
-                case 1: //Add new user
-
-                    break;
-                case 2: //Load and edit existing user
-                    LoadSelectedUserData(selectedID);
-                    break;
-                default:
-                    break;
-
-
+                //Load and edit existing user
+                LoadSelectedUserData(selectedID);
             }
 
         }
@@ -293,18 +285,7 @@ namespace Library_Application
     }
 }
 
-public class User
-{
-    public int ID { get; set; }
-    public string Username { get; set; }
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-    public bool IsAdmin { get; set; }
-    public DateTime LastLoginDate { get; set; }
-    public bool IsEnabled { get; set; }
-    public string Password { get; set; }
-    public string ImageURL { get; set; }
-}
+
 
 
 
