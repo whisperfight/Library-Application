@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="1000" d:DesignWidth="1700"
       Title="BrowseBookPage">
-    
+
 
     <Page.Resources>
         <Style x:Key="H1" TargetType="TextBlock">
@@ -144,7 +144,7 @@
             <Setter Property="FontWeight" Value="Regular"/>
         </Style>
     </Page.Resources>
-    
+
     <Grid>
 
         <Grid.RowDefinitions>
@@ -193,12 +193,14 @@
 
                 <!--Genre dropdown-->
                 <ComboBox x:Name="GenreDropdown" 
-                       Width="200" Height="40" 
-                       ScrollViewer.VerticalScrollBarVisibility="Visible"
-                       VerticalContentAlignment="Center"
-                       HorizontalContentAlignment="Center"
-                       Margin="0,0,0,0"
-                       Style="{StaticResource FilterComboBoxes}">
+
+                     Width="200" Height="40" 
+                     ScrollViewer.VerticalScrollBarVisibility="Visible"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center"
+                     Margin="0,0,0,0"
+                     Style="{StaticResource FilterComboBoxes}">
+
 
 
                     <ComboBoxItem IsSelected="True" Content="Filter genre"/>
@@ -229,6 +231,7 @@
                           Width="200" Height="40"
                           VerticalContentAlignment="Center"
                           HorizontalContentAlignment="Center"
+
                           Margin="20,0,0,0"
                           Style="{StaticResource FilterComboBoxes}">
 
@@ -244,14 +247,14 @@
                           Width="200" Height="40"
                           VerticalContentAlignment="Center"
                           HorizontalContentAlignment="Center"
+
                           Margin="20,0,0,0"
                           Style="{StaticResource FilterComboBoxes}">
+
 
                     <ComboBoxItem IsSelected="True">Sort by</ComboBoxItem>
                     <ComboBoxItem Content="A to Z"/>
                     <ComboBoxItem Content="Z to A"/>
-                    <ComboBoxItem Content="Highest rating"/>
-                    <ComboBoxItem Content="Lowest rating"/>
                     <ComboBoxItem/>
 
                 </ComboBox>
@@ -324,7 +327,7 @@
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Center">
                                 </TextBlock>
-                                
+
                             </Grid>
 
                         </WrapPanel>
