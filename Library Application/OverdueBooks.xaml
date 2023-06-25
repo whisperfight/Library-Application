@@ -168,7 +168,7 @@
 
             <WrapPanel Orientation="Horizontal" >
                 
-                <Button x:Name="RemoveEntry" Content="Remove selected" Width="200" Height="40" Margin="20,0,0,0" Style="{StaticResource ActionButtons}" Click="RemoveEntry_Click">
+                <Button x:Name="RemoveEntry" Content="Remove selected" Width="200" Height="40" Margin="0,0,0,0" Style="{StaticResource ActionButtons}" Click="RemoveEntry_Click">
 
                 </Button>
 
@@ -199,7 +199,7 @@
         <!--List view content-->
         <!--=====================================================================-->
         
-        <ListView x:Name="LoanListControl" Grid.Row="1" Margin="50,0,0,0" Width="1300">
+        <ListView x:Name="LoanListControl" Grid.Row="1" Margin="50,0,0,0" Width="1300" HorizontalAlignment="Left">
             <ListView.Resources>
                 <Style TargetType="GridViewColumnHeader">
                     <Setter Property="FontFamily" Value="Inter"/>

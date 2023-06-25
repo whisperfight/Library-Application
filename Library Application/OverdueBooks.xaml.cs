@@ -44,7 +44,7 @@ namespace Library_Application
 
         public void SortByID(List<OverdueLoans> input)
         {
-            listData = input.OrderByDescending(item => item.ID).ToList();
+            listData = input.OrderBy(item => item.ID).ToList();
             DisplayListData(listData);
         }
 
