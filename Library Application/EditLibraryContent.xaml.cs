@@ -203,8 +203,8 @@ namespace Library_Application
                 DisplayListData(listData);
             }
         }
-
     }
+}
 
     // BookListing class with changes to accept boolean availbility as string
     public class BookListing

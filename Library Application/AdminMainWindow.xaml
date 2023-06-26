@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Library_Application"
         mc:Ignorable="d"
-        Title="AdminMainWindow" Height="1000" Width="1700">
+        Title="My Library - Admin Tools" Height="1000" Width="1700">
 
 
     <!--Window styles-->
@@ -131,7 +131,7 @@
         </WrapPanel>
         
         
-        <!--Side panel buttons--> 
+        <!--Side panel buttons-->
         <WrapPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center">
 
             <Button x:Name="OverdueBooks" Content="Overdue Books" Click="OverdueBooks_click" Margin="0,0,0,20" Width="200" Height="40" Style="{StaticResource SideMenuButton}">
@@ -151,18 +151,6 @@
             </Button>
 
             <Button x:Name="EditUsers" Content="Edit Users" Click="EditUsers_Click" Margin="0,0,0,20" Width="200" Height="40" Style="{StaticResource SideMenuButton}">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="20"></Setter>
-                    </Style>
-                </Button.Resources>
-            </Button>
-
-        </WrapPanel>
-
-        <WrapPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-
-            <Button x:Name="UserSettings" Content="User Settings" Margin="0,0,0,40" Width="200" Height="40" Style="{StaticResource SideMenuButton}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="20"></Setter>
