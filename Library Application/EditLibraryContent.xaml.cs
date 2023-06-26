@@ -1,68 +1,71 @@
-﻿using System;
-using System.Collections.Generic;
+
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Library_Application
 {
     /// <summary>
-    /// Interaction logic for Page2.xaml
+    //The EditLibraryContent class is a WPF page for managing library content.
+    //It displays a list of books, allows sorting by different criteria,
+    //and supports adding, editing, and removing books.
+
     /// </summary>
     public partial class EditLibraryContent : Page
     {
 
-        public List<Book> listData = new List<Book>();
+        public List<BookListing> listData = new List<BookListing>();
+
 
         public EditLibraryContent()
         {
             InitializeComponent();
 
             LoadDatabase();
-            SortByID(listData); 
+            SortByID(listData);
+
             DisplayListData(listData);
 
         }
 
-        public void DisplayListData(List<Book> data)
+        public void DisplayListData(List<BookListing> data)
         {
-
-            //Display number of listing/sort results
+            // Display the number of listings/sort results
             int resultsCount = listData.Count();
             ResultsCounter.Text = "Showing " + resultsCount.ToString() + " results";
 
+            // Get a reference to the ContentListControl ListView
             ListView ContentListControl = this.ContentListControl;
+
+            // Set the ItemsSource of the ListView to the provided data
             ContentListControl.ItemsSource = data;
         }
 
-        public void SortByID(List<Book> input)
+        // Sorting methods
+        public void SortByID(List<BookListing> input)
+
         {
             listData = input.OrderBy(item => item.ID).ToList();
             DisplayListData(listData);
         }
 
-        public void SortTitleByAtoZ(List<Book> input)
+        public void SortTitleByAtoZ(List<BookListing> input)
+
         {
             listData = input.OrderBy(item => item.Title).ToList();
             DisplayListData(listData);
         }
 
-        public void SortTitleByZtoA(List<Book> input) 
+        public void SortTitleByZtoA(List<BookListing> input)
+
         {
             listData = input.OrderByDescending(item => item.Title).ToList();
             DisplayListData(listData);
         }
 
-        public void SortByRating(List<Book> input)
+        public void SortByRating(List<BookListing> input)
+
         {
             listData = input.OrderByDescending(item => item.Rating).ToList();
             DisplayListData(listData);
@@ -70,10 +73,13 @@ namespace Library_Application
 
         public void LoadDatabase()
         {
+
+            // Create a new DataContext using a using statement
             using (var db = new DataContext())
             {
+                // Query the Books table in the database and select the desired fields to create a catalog of BookListing objects
                 var catalog = (from b in db.Books
-                               select new Book
+                               select new BookListing
                                {
                                    ID = b.ID,
                                    Title = b.Title,
@@ -84,9 +90,27 @@ namespace Library_Application
                                    NewRelease = b.NewRelease,
                                    GenreTags = b.GenreTags,
                                    CoverImageURL = b.CoverImageURL,
-                                   AvailableToLoan = b.AvailableToLoan,
+
+                                   AvailableToLoan = b.AvailableToLoan.ToString(), // Convert to string value,
                                    DueDate = b.DueDate
                                }).ToList();
+
+                // Iterate over each BookListing in the catalog
+                foreach (BookListing listing in catalog)
+                {
+                    // Check if AvailableToLoan is equal to the string "true"
+                    if (listing.AvailableToLoan == "true")
+                    {
+                        // If true, set AvailableToLoan to "Yes"
+                        listing.AvailableToLoan = "Yes";
+                    }
+                    else
+                    {
+                        // If false, set AvailableToLoan to "No"
+                        listing.AvailableToLoan = "No";
+                    }
+                }
+                // Assign the catalog to the listData variable
 
                 listData = catalog;
             }
@@ -156,8 +180,6 @@ namespace Library_Application
             }
         }
 
-
-
         private void ContentWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             // Method to execute when the content window is closing, refresh listview data
@@ -172,17 +194,23 @@ namespace Library_Application
             // Check if an item is selected
             if (selectedItem != null)
             {
-
+                // Create a new DataContext using a using statement
                 using (var db = new DataContext())
                 {
+                    // Create a new instance of the Book class to represent the book to be deleted
                     Book deleteBook = new Book();
 
+                    // Set the ID of the deleteBook object to the ID of the selected item
                     deleteBook.ID = selectedItem.ID;
-                    db.Remove(deleteBook);
-                    db.SaveChanges();
 
+                    // Remove the deleteBook object from the database
+                    db.Remove(deleteBook);
+
+                    // Save the changes made to the database
+                    db.SaveChanges();
                 }
-                // Refresh list control
+                // Refresh the list control by reloading the database and displaying the updated data
+
                 LoadDatabase();
                 DisplayListData(listData);
             }
@@ -191,4 +219,19 @@ namespace Library_Application
 
 }
 
+    // BookListing class with changes to accept boolean availbility as string
+    public class BookListing
+{
+    public int ID { get; set; }
+    public string Title { get; set; }
+    public string Author { get; set; }
+    public string Summary { get; set; }
+    public int TimeToRead { get; set; }
+    public double Rating { get; set; }
+    public bool NewRelease { get; set; }
+    public string GenreTags { get; set; }
+    public string CoverImageURL { get; set; }
+    public string AvailableToLoan { get; set; }
+    public string DueDate { get; set; }
+}
 
