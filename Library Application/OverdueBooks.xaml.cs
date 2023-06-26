@@ -29,6 +29,7 @@ namespace Library_Application
         public void DisplayListData(List<OverdueLoans> data)
         {
 
+
             // Display number of listing/sort results
 
             int resultsCount = listData.Count();

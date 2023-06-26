@@ -181,6 +181,7 @@
                           SelectionChanged="SortByDropdown_SelectionChanged">
 
                     <ComboBoxItem IsSelected="True">Sort by...</ComboBoxItem>
+                    <ComboBoxItem Content="Book ID" />
                     <ComboBoxItem Content="Most overdue" />
                     <ComboBoxItem Content="Least overdue"/>
 

@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using System.Windows;
 using System.Windows.Controls;
-
 
 namespace Library_Application
 {
@@ -30,9 +28,11 @@ namespace Library_Application
         {
 
 
+
             // Display number of listing/sort results
             int resultsCount = listData.Count();  // Get the count of user data
             ResultsCounter.Text = "Showing " + resultsCount.ToString() + " results";  // Update the ResultsCounter Text property
+
 
             ListView UserListControl = this.UserListControl;  // Get the reference to the ListView control
             UserListControl.ItemsSource = data;  // Set the ItemsSource of the ListView to the userlist
@@ -46,7 +46,6 @@ namespace Library_Application
         }
 
         public void SortByAtoZ(List<UserList> input)  // Sort alphabetically A to Z
-
 
         {
             listData = input.OrderBy(item => item.FirstName).ToList();
@@ -64,13 +63,13 @@ namespace Library_Application
         public void LoadDatabase()
         {
 
-
             using (var db = new DataContext())  // Create a new instance of the DataContext
             {
                 var libraryUsers = (from u in db.Users  // Query the Users table
                                     join l in db.Loans on u.ID equals l.UserID into loans  // Perform a left join with the Loans table
                                     from loan in loans.DefaultIfEmpty()  // Perform a left join by using DefaultIfEmpty() method
                                     select new  // Create an anonymous type with selected properties
+
 
                                     {
                                         u.ID,

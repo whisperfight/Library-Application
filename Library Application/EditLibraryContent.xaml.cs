@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 
 
+
 namespace Library_Application
 {
     /// <summary>
@@ -28,6 +29,7 @@ namespace Library_Application
             LoadDatabase();
 
             SortByID(listData);
+
 
 
             DisplayListData(listData);
@@ -83,7 +85,6 @@ namespace Library_Application
 
         public void LoadDatabase()
         {
-
 
             // Create a new DataContext using a using statement
             using (var db = new DataContext())
@@ -226,6 +227,7 @@ namespace Library_Application
                 // Refresh the list control by reloading the database and displaying the updated data
 
 
+
                 LoadDatabase();
                 DisplayListData(listData);
             }
@@ -234,6 +236,21 @@ namespace Library_Application
 
 }
 
+    // BookListing class with changes to accept boolean availbility as string
+    public class BookListing
+{
+    public int ID { get; set; }
+    public string Title { get; set; }
+    public string Author { get; set; }
+    public string Summary { get; set; }
+    public int TimeToRead { get; set; }
+    public double Rating { get; set; }
+    public bool NewRelease { get; set; }
+    public string GenreTags { get; set; }
+    public string CoverImageURL { get; set; }
+    public string AvailableToLoan { get; set; }
+    public string DueDate { get; set; }
+}
 
     // BookListing class with changes to accept boolean availbility as string
     public class BookListing
