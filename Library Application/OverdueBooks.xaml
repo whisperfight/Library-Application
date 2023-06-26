@@ -168,17 +168,8 @@
 
             <WrapPanel Orientation="Horizontal" >
                 
-                <!--Send warning email button-->
-
-                <Button x:Name="SendWarningButton" Content="Send warning" Width="200" Height="40" Style="{StaticResource ActionButtons}" >
-                    
+                <Button x:Name="RemoveEntry" Content="Remove selected" Width="200" Height="40" Margin="0,0,0,0" Style="{StaticResource ActionButtons}" Click="RemoveEntry_Click">
                 </Button>
-
-                <Button x:Name="RemoveEntry" Content="Remove selected" Width="200" Height="40" Margin="20,0,0,0" Style="{StaticResource ActionButtons}" Click="RemoveEntry_Click">
-
-                </Button>
-
-
 
                 <ComboBox x:Name="SortByDropdown"
                           Width="200" Height="40"
@@ -189,6 +180,7 @@
                           SelectionChanged="SortByDropdown_SelectionChanged">
 
                     <ComboBoxItem IsSelected="True">Sort by...</ComboBoxItem>
+                    <ComboBoxItem Content="Book ID" />
                     <ComboBoxItem Content="Most overdue" />
                     <ComboBoxItem Content="Least overdue"/>
 
@@ -204,7 +196,8 @@
         <!--List view content-->
         <!--=====================================================================-->
         
-        <ListView x:Name="LoanListControl" Grid.Row="1" Margin="50,0,0,0" Width="1300">
+        <ListView x:Name="LoanListControl" Grid.Row="1" Margin="50,0,0,0" Width="1300" HorizontalAlignment="Left">
+
             <ListView.Resources>
                 <Style TargetType="GridViewColumnHeader">
                     <Setter Property="FontFamily" Value="Inter"/>
