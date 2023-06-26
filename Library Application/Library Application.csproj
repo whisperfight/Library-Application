@@ -165,9 +165,6 @@
     <Compile Include="LoanItem.cs" />
 
 
-    <Compile Include="LoginPage.xaml.cs">
-      <DependentUpon>LoginPage.xaml</DependentUpon>
-
     <Compile Include="AdminMainWindow.xaml.cs">
       <DependentUpon>AdminMainWindow.xaml</DependentUpon>
     </Compile>
@@ -202,8 +199,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
 
-
-    <Page Include="LoginPage.xaml">
 
     <Page Include="AdminMainWindow.xaml">
 
