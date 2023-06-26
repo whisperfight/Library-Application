@@ -1,19 +1,23 @@
-
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
+
+
 namespace Library_Application
 {
     /// <summary>
+
     //The EditLibraryContent class is a WPF page for managing library content.
     //It displays a list of books, allows sorting by different criteria,
     //and supports adding, editing, and removing books.
 
+
     /// </summary>
     public partial class EditLibraryContent : Page
     {
+
 
         public List<BookListing> listData = new List<BookListing>();
 
@@ -23,11 +27,15 @@ namespace Library_Application
             InitializeComponent();
 
             LoadDatabase();
+
             SortByID(listData);
+
+
 
             DisplayListData(listData);
 
         }
+
 
         public void DisplayListData(List<BookListing> data)
         {
@@ -45,10 +53,12 @@ namespace Library_Application
         // Sorting methods
         public void SortByID(List<BookListing> input)
 
+
         {
             listData = input.OrderBy(item => item.ID).ToList();
             DisplayListData(listData);
         }
+
 
         public void SortTitleByAtoZ(List<BookListing> input)
 
@@ -57,12 +67,14 @@ namespace Library_Application
             DisplayListData(listData);
         }
 
+
         public void SortTitleByZtoA(List<BookListing> input)
 
         {
             listData = input.OrderByDescending(item => item.Title).ToList();
             DisplayListData(listData);
         }
+
 
         public void SortByRating(List<BookListing> input)
 
@@ -80,6 +92,7 @@ namespace Library_Application
                 // Query the Books table in the database and select the desired fields to create a catalog of BookListing objects
                 var catalog = (from b in db.Books
                                select new BookListing
+
                                {
                                    ID = b.ID,
                                    Title = b.Title,
@@ -111,6 +124,7 @@ namespace Library_Application
                     }
                 }
                 // Assign the catalog to the listData variable
+
 
                 listData = catalog;
             }
@@ -180,6 +194,7 @@ namespace Library_Application
             }
         }
 
+
         private void ContentWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             // Method to execute when the content window is closing, refresh listview data
@@ -211,6 +226,8 @@ namespace Library_Application
                 }
                 // Refresh the list control by reloading the database and displaying the updated data
 
+
+
                 LoadDatabase();
                 DisplayListData(listData);
             }
@@ -234,4 +251,21 @@ namespace Library_Application
     public string AvailableToLoan { get; set; }
     public string DueDate { get; set; }
 }
+
+    // BookListing class with changes to accept boolean availbility as string
+    public class BookListing
+{
+    public int ID { get; set; }
+    public string Title { get; set; }
+    public string Author { get; set; }
+    public string Summary { get; set; }
+    public int TimeToRead { get; set; }
+    public double Rating { get; set; }
+    public bool NewRelease { get; set; }
+    public string GenreTags { get; set; }
+    public string CoverImageURL { get; set; }
+    public string AvailableToLoan { get; set; }
+    public string DueDate { get; set; }
+}
+
 
