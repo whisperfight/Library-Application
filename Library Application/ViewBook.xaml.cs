@@ -26,7 +26,7 @@ namespace Library_Application
     /// </summary>
     public partial class ViewBook : Page
     {
-        private static List<BookItem> bookItems;  // Stores a list of book items
+        private static List<BookItem> bookItem;  // Stores a list of book items
 
         public ViewBook(BookItem selectedBook)
         {
