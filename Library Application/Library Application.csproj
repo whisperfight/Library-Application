@@ -163,6 +163,7 @@
       <DependentUpon>EditLibraryUsers.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoanItem.cs" />
+
     <Compile Include="AdminMainWindow.xaml.cs">
       <DependentUpon>AdminMainWindow.xaml</DependentUpon>
     </Compile>
@@ -171,6 +172,7 @@
     </Compile>
     <Compile Include="EditLibraryContent.xaml.cs">
       <DependentUpon>EditLibraryContent.xaml</DependentUpon>
+
     </Compile>
     <Compile Include="ViewBook.xaml.cs">
       <DependentUpon>ViewBook.xaml</DependentUpon>
@@ -195,7 +197,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+
     <Page Include="AdminMainWindow.xaml">
+
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -261,6 +265,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Ellipse 1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

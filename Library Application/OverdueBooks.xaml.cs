@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
+
 namespace Library_Application
 {
     /// <summary>
@@ -26,13 +27,16 @@ namespace Library_Application
         public void DisplayListData(List<OverdueLoans> data)
         {
 
+
             // Display number of listing/sort results
+
             int resultsCount = listData.Count();
             ResultsCounter.Text = "Showing " + resultsCount.ToString() + " results";
 
             ListView LoanListControl = this.LoanListControl;
             LoanListControl.ItemsSource = data; // Set the ItemsSource of the ListView to the loanList
         }
+
 
         // List sorting methods
         public void SortByID(List<OverdueLoans> input)
@@ -75,7 +79,6 @@ namespace Library_Application
                 listData = books; // Update the listData with the retrieved books
             }
         }
-
 
         private void RemoveEntry_Click(object sender, RoutedEventArgs e)
         {
@@ -122,6 +125,7 @@ namespace Library_Application
                         break;
                     case "Book ID":
                         SortByID(listData);
+
                         break;
                     default:
                         // Handle other selections or the default case

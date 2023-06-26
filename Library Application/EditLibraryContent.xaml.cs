@@ -1,3 +1,4 @@
+
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -9,17 +10,21 @@ namespace Library_Application
     //The EditLibraryContent class is a WPF page for managing library content.
     //It displays a list of books, allows sorting by different criteria,
     //and supports adding, editing, and removing books.
+
     /// </summary>
     public partial class EditLibraryContent : Page
     {
 
         public List<BookListing> listData = new List<BookListing>();
 
+
         public EditLibraryContent()
         {
             InitializeComponent();
+
             LoadDatabase();
             SortByID(listData);
+
             DisplayListData(listData);
 
         }
@@ -39,24 +44,28 @@ namespace Library_Application
 
         // Sorting methods
         public void SortByID(List<BookListing> input)
+
         {
             listData = input.OrderBy(item => item.ID).ToList();
             DisplayListData(listData);
         }
 
         public void SortTitleByAtoZ(List<BookListing> input)
+
         {
             listData = input.OrderBy(item => item.Title).ToList();
             DisplayListData(listData);
         }
 
         public void SortTitleByZtoA(List<BookListing> input)
+
         {
             listData = input.OrderByDescending(item => item.Title).ToList();
             DisplayListData(listData);
         }
 
         public void SortByRating(List<BookListing> input)
+
         {
             listData = input.OrderByDescending(item => item.Rating).ToList();
             DisplayListData(listData);
@@ -64,6 +73,7 @@ namespace Library_Application
 
         public void LoadDatabase()
         {
+
             // Create a new DataContext using a using statement
             using (var db = new DataContext())
             {
@@ -80,6 +90,7 @@ namespace Library_Application
                                    NewRelease = b.NewRelease,
                                    GenreTags = b.GenreTags,
                                    CoverImageURL = b.CoverImageURL,
+
                                    AvailableToLoan = b.AvailableToLoan.ToString(), // Convert to string value,
                                    DueDate = b.DueDate
                                }).ToList();
@@ -100,10 +111,10 @@ namespace Library_Application
                     }
                 }
                 // Assign the catalog to the listData variable
+
                 listData = catalog;
             }
         }
-
 
         private void SortByDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -199,11 +210,13 @@ namespace Library_Application
                     db.SaveChanges();
                 }
                 // Refresh the list control by reloading the database and displaying the updated data
+
                 LoadDatabase();
                 DisplayListData(listData);
             }
         }
     }
+
 }
 
     // BookListing class with changes to accept boolean availbility as string

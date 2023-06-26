@@ -4,7 +4,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-
 namespace Library_Application
 {
     /// <summary>
@@ -25,6 +24,7 @@ namespace Library_Application
 
         public void DisplayListData(List<UserList> data)
         {
+
             // Display number of listing/sort results
             int resultsCount = listData.Count();  // Get the count of user data
             ResultsCounter.Text = "Showing " + resultsCount.ToString() + " results";  // Update the ResultsCounter Text property
@@ -41,12 +41,14 @@ namespace Library_Application
         }
 
         public void SortByAtoZ(List<UserList> input)  // Sort alphabetically A to Z
+
         {
             listData = input.OrderBy(item => item.FirstName).ToList();
             DisplayListData(listData);
         }
 
         public void SortByZtoA(List<UserList> input)  // Sort alphabetically Z to A
+
         {
             listData = input.OrderByDescending(item => item.FirstName).ToList();
             DisplayListData(listData);
@@ -54,6 +56,7 @@ namespace Library_Application
 
         public void LoadDatabase()
         {
+
             using (var db = new DataContext())  // Create a new instance of the DataContext
             {
                 var libraryUsers = (from u in db.Users  // Query the Users table
@@ -67,12 +70,14 @@ namespace Library_Application
                                         u.LastName,
                                         u.IsAdmin,
                                         u.IsEnabled,
+
                                         DueDate = loan != null ? loan.DueDate : (DateTime?)null  // Nullable DateTime - checks if the loan object is not null
                                     }).ToList().GroupBy(
                                         x => x.ID,  // Group the data by user ID
                                         (key, g) =>
                                         new UserList  // Create a new UserList object for each group
                                 {
+
                                             ID = key,
                                             UserName = g.First().Username,
                                             FirstName = g.First().FirstName,
@@ -81,6 +86,7 @@ namespace Library_Application
                                             IsEnabled = g.First().IsEnabled,
                                             IssuedCount = g.Count(),
                                             OverdueBookCount = g.Count(s => s.DueDate.HasValue && DateTime.Compare(s.DueDate.Value, DateTime.Now) <= 0)
+
                                         }).ToList();  // Convert the grouped data to a list of UserList objects
 
                 listData = libraryUsers;  // Assign the fetched user data to the listData variable
@@ -92,9 +98,11 @@ namespace Library_Application
         {
             UserList selectedItem = (UserList)UserListControl.SelectedItem;  // Get the selected item from the UserListControl
 
+
             // Check if an item is selected
             if (selectedItem != null)
             {
+
                 using (var db = new DataContext())  // Create a new instance of the DataContext
                 {
                     User deleteUser = new User();  // Create a new User object
@@ -109,7 +117,6 @@ namespace Library_Application
                 DisplayListData(listData);  // Display the updated list of users in the UserListControl
             }
         }
-
 
         private void AddNewMember_Click(object sender, RoutedEventArgs e)
         {
@@ -182,7 +189,6 @@ namespace Library_Application
         }
     }
 }
-
 
 public class UserList
 {

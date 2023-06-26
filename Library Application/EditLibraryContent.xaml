@@ -209,6 +209,7 @@
         <!--=====================================================================-->
 
         <ListView x:Name="ContentListControl" Grid.Row="1" Margin="50,0,0,0" Width="1300" HorizontalAlignment="Left">
+
             <ListView.Resources>
                 <Style TargetType="GridViewColumnHeader">
                     <Setter Property="FontFamily" Value="Inter"/>
