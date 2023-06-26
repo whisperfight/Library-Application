@@ -154,9 +154,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CodeSnippets.cs" />
+
     <Compile Include="LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
+
     <Compile Include="UserWindow.xaml.cs">
       <DependentUpon>UserWindow.xaml</DependentUpon>
     </Compile>
@@ -183,10 +185,12 @@
       <DependentUpon>ContentWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="WishlistItem.cs" />
+
     <Page Include="LoginPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+
     <Page Include="UserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

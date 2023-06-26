@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -10,6 +10,7 @@ namespace Library_Application
     /// <summary>
     //The code represents a partial class named OverdueBooks, which is a WPF page in a library application.
     //It contains various methods and event handlers related to displaying and manipulating overdue books.
+
     /// </summary>
     public partial class OverdueBooks : Page
     {
@@ -22,11 +23,11 @@ namespace Library_Application
             InitializeComponent();
             LoadDatabase();
             SortByID(listData);
+
         }
 
         public void DisplayListData(List<OverdueLoans> data)
         {
-
 
             // Display number of listing/sort results
 
@@ -36,7 +37,6 @@ namespace Library_Application
             ListView LoanListControl = this.LoanListControl;
             LoanListControl.ItemsSource = data; // Set the ItemsSource of the ListView to the loanList
         }
-
 
         // List sorting methods
         public void SortByID(List<OverdueLoans> input)
@@ -118,6 +118,7 @@ namespace Library_Application
                 switch (selectedContent)
                 {
                     case "Most overdue":
+
                         SortByMostOverdue(listData);
                         break;
                     case "Least overdue":
@@ -125,6 +126,7 @@ namespace Library_Application
                         break;
                     case "Book ID":
                         SortByID(listData);
+
 
                         break;
                     default:

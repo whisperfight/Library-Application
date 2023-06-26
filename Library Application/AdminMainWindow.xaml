@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:Library_Application"
         mc:Ignorable="d"
 
+
         Title="My Library - Admin Tools" Height="1000" Width="1700">
+
 
     <!--Window styles-->
     <!--=====================================================================-->
@@ -159,7 +161,9 @@
                 </Button.Resources>
             </Button>
 
+
         </WrapPanel> 
+
 
         <Frame x:Name="AdminMainFrame" NavigationUIVisibility="Hidden"   Grid.Column="1" Grid.Row="0" Grid.RowSpan="2"  />
 

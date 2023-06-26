@@ -171,6 +171,7 @@
                 <Button x:Name="RemoveEntry" Content="Remove selected" Width="200" Height="40" Margin="0,0,0,0" Style="{StaticResource ActionButtons}" Click="RemoveEntry_Click">
                 </Button>
 
+
                 <ComboBox x:Name="SortByDropdown"
                           Width="200" Height="40"
                           VerticalContentAlignment="Center"
@@ -180,7 +181,6 @@
                           SelectionChanged="SortByDropdown_SelectionChanged">
 
                     <ComboBoxItem IsSelected="True">Sort by...</ComboBoxItem>
-                    <ComboBoxItem Content="Book ID" />
                     <ComboBoxItem Content="Most overdue" />
                     <ComboBoxItem Content="Least overdue"/>
 

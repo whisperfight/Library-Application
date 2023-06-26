@@ -1,12 +1,15 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using System.Windows;
 using System.Windows.Controls;
+
 
 namespace Library_Application
 {
     /// <summary>
+
     //The EditLibraryUsers class is a WPF page for managing library users.
     //It displays a list of users, allows sorting by different criteria, and supports adding, editing, and removing users.
     //The user data is retrieved from a database using LINQ queries.The class also defines a nested class UserList to represent the user data.
@@ -20,10 +23,12 @@ namespace Library_Application
             InitializeComponent();  // Initialize the component
             LoadDatabase();  // Load user data from the database
             SortByID(listData);  // Sort the data by ID
+
         }
 
         public void DisplayListData(List<UserList> data)
         {
+
 
             // Display number of listing/sort results
             int resultsCount = listData.Count();  // Get the count of user data
@@ -42,10 +47,12 @@ namespace Library_Application
 
         public void SortByAtoZ(List<UserList> input)  // Sort alphabetically A to Z
 
+
         {
             listData = input.OrderBy(item => item.FirstName).ToList();
             DisplayListData(listData);
         }
+
 
         public void SortByZtoA(List<UserList> input)  // Sort alphabetically Z to A
 
@@ -57,12 +64,14 @@ namespace Library_Application
         public void LoadDatabase()
         {
 
+
             using (var db = new DataContext())  // Create a new instance of the DataContext
             {
                 var libraryUsers = (from u in db.Users  // Query the Users table
                                     join l in db.Loans on u.ID equals l.UserID into loans  // Perform a left join with the Loans table
                                     from loan in loans.DefaultIfEmpty()  // Perform a left join by using DefaultIfEmpty() method
                                     select new  // Create an anonymous type with selected properties
+
                                     {
                                         u.ID,
                                         u.Username,
@@ -71,12 +80,14 @@ namespace Library_Application
                                         u.IsAdmin,
                                         u.IsEnabled,
 
+
                                         DueDate = loan != null ? loan.DueDate : (DateTime?)null  // Nullable DateTime - checks if the loan object is not null
                                     }).ToList().GroupBy(
                                         x => x.ID,  // Group the data by user ID
                                         (key, g) =>
                                         new UserList  // Create a new UserList object for each group
                                 {
+
 
                                             ID = key,
                                             UserName = g.First().Username,
@@ -86,6 +97,7 @@ namespace Library_Application
                                             IsEnabled = g.First().IsEnabled,
                                             IssuedCount = g.Count(),
                                             OverdueBookCount = g.Count(s => s.DueDate.HasValue && DateTime.Compare(s.DueDate.Value, DateTime.Now) <= 0)
+
 
                                         }).ToList();  // Convert the grouped data to a list of UserList objects
 
@@ -103,6 +115,7 @@ namespace Library_Application
             if (selectedItem != null)
             {
 
+
                 using (var db = new DataContext())  // Create a new instance of the DataContext
                 {
                     User deleteUser = new User();  // Create a new User object
@@ -115,6 +128,7 @@ namespace Library_Application
                 // Refresh list control
                 LoadDatabase();  // Reload the user data from the database
                 DisplayListData(listData);  // Display the updated list of users in the UserListControl
+
             }
         }
 
@@ -189,6 +203,7 @@ namespace Library_Application
         }
     }
 }
+
 
 public class UserList
 {
