@@ -46,27 +46,32 @@ namespace Library_Application
     // Represents a user in the library
     public class User
     {
-        public int ID { get; set; }  // The unique identifier of the user
-        public string Username { get; set; }  // The username of the user
-        public string FirstName { get; set; }  // The first name of the user
-        public string LastName { get; set; }  // The last name of the user
-        public bool IsAdmin { get; set; }  // Indicates if the user is an admin
-        public DateTime LastLoginDate { get; set; }  // The date and time of login
-        public bool IsEnabled { get; set; }  // Indicates if the user account is enabled
-        public string Password { get; set; }  // The password of the user
-        public string ImageURL { get; set; }  // The URL of user's profile
+
+        public int ID { get; set; }
+        public string Username { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public bool IsAdmin { get; set; }
+        public DateTime LastLoginDate { get; set; }
+        public bool IsEnabled { get; set; }
+        public string Password { get; set; }
+        public string ImageURL { get; set; }
+
     }
 
     // Represents a loan of a book in the library
     public class Loan
     {
-        public int ID { get; set; }  // The unique identifier of the loan
-        public int BookID { get; set; } // The ID of the book being loaned 
-        public int UserID { get; set; }  // The ID of the user borrowing the book
-        public DateTime IssueDate { get; set; }  // The date and time when the book was issued
-        public DateTime DueDate { get; set; }  // The due date for returning the book
-        public bool FineDue { get; set; }  // Indicates if a fine is due for the loan
-        public double FineAmount { get; set; }  // The amount of fine due for the loan
+
+        public int ID { get; set; }
+        public int BookID { get; set; }
+        public int UserID { get; set; }
+        public DateTime IssueDate { get; set; }
+        public DateTime DueDate { get; set; }
+        public bool FineDue { get; set; }
+        public double FineAmount { get; set; }
+        public int OverdueBy { get; set; }
+
 
     }
 

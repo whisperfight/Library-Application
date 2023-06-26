@@ -17,10 +17,12 @@
         </Style>
 
         <Style x:Key="H2" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Inter"/>
             <Setter Property="FontSize" Value="22" />
         </Style>
 
         <Style x:Key="H3" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Inter"/>
             <Setter Property="FontSize" Value="16" />
         </Style>
 
@@ -49,6 +51,60 @@
             <Setter Property="FontSize" Value="22"/>
             <Setter Property="FontFamily" Value="Inter" />
             <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+
+        <Style x:Key="FilterComboBoxes" TargetType="ComboBox">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Inter"/>
+            <Setter Property="Template">
+
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+
+                        <Grid>
+                            <ToggleButton x:Name="ToggleButton"
+                        
+                                      Grid.Column="2"
+                                      Focusable="false"
+                                      IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                      ClickMode="Press"/>
+                            <ContentPresenter x:Name="ContentSite"
+                                          IsHitTestVisible="False"
+                                          Content="{TemplateBinding SelectionBoxItem}"
+                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                          ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                          Margin="3,0,23,0"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"/>
+                            <Popup x:Name="Popup"
+                               Placement="Bottom"
+                               IsOpen="{TemplateBinding IsDropDownOpen}"
+                               AllowsTransparency="True"
+                               Focusable="False"
+                               PopupAnimation="Slide">
+                                <Grid x:Name="DropDown"
+                                  SnapsToDevicePixels="True"
+                                  MinWidth="{TemplateBinding ActualWidth}"
+                                  MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border x:Name="DropDownBorder"
+                                        Background="White"
+                                        BorderBrush="Gray"
+                                        BorderThickness="1"/>
+                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <!-- Triggers can be added here if needed -->
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+
+                </Setter.Value>
+            </Setter>
+
         </Style>
 
         <Style x:Key="SideMenuButton" TargetType="Button">
@@ -116,7 +172,7 @@
                          TextChanged="SearchTextBox_TextChanged"
                          GotFocus="SearchTextBox_GotFocus"
                          Text="Enter text"
-                         Width ="800" Height="40"
+                         Width="1300" Height="40"
                          Style="{StaticResource SearchField}">
 
                     <TextBox.Resources>
@@ -126,22 +182,6 @@
                     </TextBox.Resources>
 
                 </TextBox>
-
-                <!--Search button-->
-                <Button x:Name="SearchButton"
-                        Content="Search"
-                        Click="SearchButton_Click"             
-                        Width="160" Height="40"
-                        Margin="20,0,0,0"
-                        Style="{StaticResource SearchButton}">
-
-                    <Button.Resources>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="20"/>
-                        </Style>
-                    </Button.Resources>
-
-                </Button>
 
             </WrapPanel>
 
@@ -153,11 +193,14 @@
 
                 <!--Genre dropdown-->
                 <ComboBox x:Name="GenreDropdown" 
-                          Width="200" Height="40" 
-                          ScrollViewer.VerticalScrollBarVisibility="Visible"
-                          VerticalContentAlignment="Center"
-                          HorizontalContentAlignment="Center"
-                          Margin="0,0,0,0" SelectionChanged="GenreDropdown_SelectionChanged">
+
+                     Width="200" Height="40" 
+                     ScrollViewer.VerticalScrollBarVisibility="Visible"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center"
+                     Margin="0,0,0,0"
+                     Style="{StaticResource FilterComboBoxes}">
+
 
 
                     <ComboBoxItem IsSelected="True" Content="Filter genre"/>
@@ -188,8 +231,9 @@
                           Width="200" Height="40"
                           VerticalContentAlignment="Center"
                           HorizontalContentAlignment="Center"
-                          SelectionChanged="GenreDropdown_SelectionChanged"
-                          Margin="20,0,0,0">
+
+                          Margin="20,0,0,0"
+                          Style="{StaticResource FilterComboBoxes}">
 
                     <ComboBoxItem IsSelected="True">Filter availability</ComboBoxItem>
                     <ComboBoxItem Content="Available"/>
@@ -203,8 +247,10 @@
                           Width="200" Height="40"
                           VerticalContentAlignment="Center"
                           HorizontalContentAlignment="Center"
-                          SelectionChanged="GenreDropdown_SelectionChanged"
-                          Margin="20,0,0,0">
+
+                          Margin="20,0,0,0"
+                          Style="{StaticResource FilterComboBoxes}">
+
 
                     <ComboBoxItem IsSelected="True">Sort by</ComboBoxItem>
                     <ComboBoxItem Content="A to Z"/>
@@ -216,7 +262,7 @@
             </WrapPanel>
 
             <!--Display number of results in search - default to full library catalog-->
-            <TextBlock x:Name="ResultsCounter" Text="Showing 0 Results" Margin="0,10,0,10"/>
+            <TextBlock x:Name="ResultsCounter" Text="Showing 0 Results" Margin="0,10,0,10" Style="{StaticResource H3}"/>
 
         </WrapPanel>
 

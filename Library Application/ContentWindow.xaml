@@ -1,0 +1,197 @@
+﻿<Window x:Class="Library_Application.ContentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Library_Application"
+        mc:Ignorable="d"
+        Title="Add / Edit Content" Height="600" Width="800">
+
+    <Window.Resources>
+        <Style x:Key="H1" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Inter"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+        </Style>
+
+        <Style x:Key="H2" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Inter"/>
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+
+        <Style x:Key="H3" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Inter"/>
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+
+        <Style x:Key="AdminComboBoxes" TargetType="ComboBox">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Inter"/>
+            <Setter Property="Template">
+
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+
+                        <Grid>
+                            <ToggleButton x:Name="ToggleButton"
+                        
+                                      Grid.Column="2"
+                                      Focusable="false"
+                                      IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                      ClickMode="Press"/>
+                            <ContentPresenter x:Name="ContentSite"
+                                          IsHitTestVisible="False"
+                                          Content="{TemplateBinding SelectionBoxItem}"
+                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                          ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                          Margin="3,0,23,0"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"/>
+                            <Popup x:Name="Popup"
+                               Placement="Bottom"
+                               IsOpen="{TemplateBinding IsDropDownOpen}"
+                               AllowsTransparency="True"
+                               Focusable="False"
+                               PopupAnimation="Slide">
+                                <Grid x:Name="DropDown"
+                                  SnapsToDevicePixels="True"
+                                  MinWidth="{TemplateBinding ActualWidth}"
+                                  MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border x:Name="DropDownBorder"
+                                        Background="White"
+                                        BorderBrush="Gray"
+                                        BorderThickness="1"/>
+                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <!-- Triggers can be added here if needed -->
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+
+
+        <Style x:Key="AddNewButton" TargetType="Button">
+            <Setter Property="Background" Value="#E35E6A"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Inter" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+
+        <Style x:Key="TestImageURLButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#4375D8"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Inter" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="BorderBrush" Value="#4375D8" />
+            <Setter Property="BorderThickness" Value="2" />
+        </Style>
+
+    </Window.Resources>
+
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Image Source="{Binding ImageURL}" Width="200" Height="315" Margin="0,50,0,10"></Image>
+        </Grid>
+
+        <Grid Grid.Column="1">
+
+            <WrapPanel Orientation="Vertical" Width="auto">
+
+                <TextBlock Text="Add / Edit content" Margin="0,20,0,0" Style="{StaticResource H1}"/>
+
+                <WrapPanel Orientation="Horizontal">
+
+                    <WrapPanel Orientation="Vertical">
+                        <TextBlock Text="Book title" Margin="0,10,0,0" Style="{StaticResource H2}"></TextBlock>
+                        <TextBox x:Name="BookTitleField" Width="190"></TextBox>
+                    </WrapPanel>
+
+                    <WrapPanel Orientation="Vertical" Margin="20,0,0,0">
+                        <TextBlock Text="Book author" Margin="0,10,0,0" Style="{StaticResource H2}"></TextBlock>
+                        <TextBox x:Name="BookAuthorField" Width="190"></TextBox>
+                    </WrapPanel>
+
+                </WrapPanel>
+ 
+                <TextBlock Text="Time to read minutes" Margin="0,10,0,0" Style="{StaticResource H2}"></TextBlock>
+                <TextBox x:Name="GenreField" Width="400"></TextBox>
+
+                <TextBlock Text="Genre/s (separate with slash /)" Margin="0,10,0,0" Style="{StaticResource H2}"></TextBlock>
+                <TextBox x:Name="TimeToRead" Width="400"></TextBox>
+
+                <WrapPanel Orientation="Horizontal" Height="60">
+                    
+                    <ComboBox x:Name="LoanStatusCombobox"
+                            Width="190" Height="30"
+                            HorizontalAlignment="Left"
+                              VerticalAlignment="Bottom"
+                            Margin="0,0,0,0"
+                            Style="{StaticResource AdminComboBoxes}"
+                            SelectionChanged="LoanStatusCombobox_SelectionChanged">
+
+                        <ComboBoxItem x:Name="SelectStatus" IsSelected="True">Set availability...</ComboBoxItem>
+                        <ComboBoxItem x:Name="Available" IsSelected="False" Content="Book available"/>
+                        <ComboBoxItem x:Name="Loaned" IsSelected="False" Content="Book on loan"/>
+
+                    </ComboBox>
+
+                    <WrapPanel Orientation="Vertical" Margin="20,0,0,0">
+                        <TextBlock Text="Rating (Between 0 and 5)" Margin="0,10,0,0" Style="{StaticResource H2}"></TextBlock>
+                        <TextBox x:Name="RatingField" Width="190" Height="30"></TextBox>
+                    </WrapPanel>
+                </WrapPanel>
+                
+
+                <TextBlock Text="Book Description" Margin="0,10,0,0" Style="{StaticResource H2}"></TextBlock>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <TextBox x:Name="BookDescriptionField" Width="400" Height="100" TextWrapping="Wrap" AcceptsReturn="True" />
+                </ScrollViewer>
+
+                <TextBlock Text="Book cover image URL link" Margin="0,10,0,0" Style="{StaticResource H2}"></TextBlock>
+                <TextBox  x:Name="ImageURLField" Width="400"></TextBox>
+
+                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+
+
+                    <Button Name="btnAddNewContent" Content="Add / Edit book" Width="150" Height="30" Margin="0,0,0,0" Style="{StaticResource AddNewButton}" Click="btnAddNewContent_Click">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="15"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+                    <Button Name="btnTestImageLink" Content="Test Image URL" Margin="20,0,0,0" Width="150" Height="30" Style="{StaticResource TestImageURLButton}" Click="btnTestImageLink_Click">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="15"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+                </WrapPanel>
+                
+                
+                <TextBlock x:Name="ConfirmMessage" Text="" TextAlignment="Center" Margin="0,20,0,0" Style="{StaticResource H3}"></TextBlock> 
+                
+            </WrapPanel>
+        </Grid>
+    </Grid>
+
+</Window>

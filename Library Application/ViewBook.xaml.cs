@@ -18,6 +18,7 @@ using System.Diagnostics;
 using Library_Application;
 using static Library_Application.BrowseBookPage;
 
+
 namespace Library_Application
 {
     /// <summary>
@@ -26,8 +27,6 @@ namespace Library_Application
     public partial class ViewBook : Page
     {
         private static List<BookItem> bookItem;  // Stores a list of book items
-
-        //string bookID;
 
         public ViewBook(BookItem selectedBook)
         {
@@ -38,13 +37,14 @@ namespace Library_Application
 
             BookItem = selectedBook;
 
-            PrefaceContent();
+            SubheadingContent();
 
         }
 
         public BookItem BookItem { get; set; }  // Represents the selected book item
 
-        private void PrefaceContent()  // Prepend additional content to the book item
+        private void SubheadingContent()
+
         {
             BookItem.author = "Author : " + BookItem.author;
             BookItem.genre = "Genre : " + BookItem.genre;
@@ -54,7 +54,9 @@ namespace Library_Application
 
         private void ReturnPageButton_Click(object sender, RoutedEventArgs e)
         {
-            //MainFrame.Content = new HomeDash();
+            // Retrieves the reference to the main window to access the window frame
+            MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+            mainWindow.MainFrame.Content = new HomeDash();
         }
 
         private void btnLoanBook_Click(object sender, RoutedEventArgs e)
