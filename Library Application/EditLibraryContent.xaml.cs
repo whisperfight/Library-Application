@@ -252,20 +252,6 @@ namespace Library_Application
     public string DueDate { get; set; }
 }
 
-    // BookListing class with changes to accept boolean availbility as string
-    public class BookListing
-{
-    public int ID { get; set; }
-    public string Title { get; set; }
-    public string Author { get; set; }
-    public string Summary { get; set; }
-    public int TimeToRead { get; set; }
-    public double Rating { get; set; }
-    public bool NewRelease { get; set; }
-    public string GenreTags { get; set; }
-    public string CoverImageURL { get; set; }
-    public string AvailableToLoan { get; set; }
-    public string DueDate { get; set; }
-}
+
 
 

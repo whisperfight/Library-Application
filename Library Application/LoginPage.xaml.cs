@@ -59,7 +59,8 @@ namespace Library_Application
 
         private void Button_Click(object sender, RoutedEventArgs e)  // Handles the click event for the SUBMIT button
         {
-           
+            // Display the main page
+            MainFrame.Content = new MainPage();
             
         }
 

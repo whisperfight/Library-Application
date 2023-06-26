@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,18 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Diagnostics;
-
 
 namespace Library_Application
 {
-
-    public partial class AdminMainWindow : Window
+    /// <summary>
+    /// Interaction logic for AdminMainPage.xaml
+    /// </summary>
+    public partial class AdminMainPage : Page
     {
-
         int currentActiveUserID = 3;
 
-        public AdminMainWindow()
+        public AdminMainPage()
         {
             // Place class in main window context
             this.DataContext = this;
@@ -34,27 +32,27 @@ namespace Library_Application
             InitializeComponent();
 
             AdminMainFrame.Content = new OverdueBooks();
-        }
 
+        }
 
         public void LoadUserDetails()
         {
             using (var db = new DataContext())
             {
                 userDetails = (from u in db.Users
-                                   where u.ID == currentActiveUserID // Only retrieve the details of the active user
-                                   select
+                               where u.ID == currentActiveUserID // Only retrieve the details of the active user
+                               select
 
-                                   new UserDetails
-                                   {
-                                       Username = u.Username,
-                                       FirstName = u.FirstName,
-                                       LastName = u.LastName,
-                                       IsAdmin = u.IsAdmin,
-                                       ImageURL = u.ImageURL
-                                   }).FirstOrDefault();
+                               new UserDetails
+                               {
+                                   Username = u.Username,
+                                   FirstName = u.FirstName,
+                                   LastName = u.LastName,
+                                   IsAdmin = u.IsAdmin,
+                                   ImageURL = u.ImageURL
+                               }).FirstOrDefault();
             }
-                            
+
         }
 
         //The statement public UserDetails userDetails { get; set; } is a property declaration in the AdminMainWindow class.
@@ -63,7 +61,7 @@ namespace Library_Application
 
         public UserDetails userDetails
         {
-            get;set;
+            get; set;
         }
 
         private void OverdueBooks_click(object sender, RoutedEventArgs e)

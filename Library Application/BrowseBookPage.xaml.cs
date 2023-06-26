@@ -210,11 +210,13 @@ namespace Library_Application
             {
                 BookItem selectedBook = (BookItem)BookListView.SelectedItem;
 
-                MainWindow mainWindow = (MainWindow)App.Current.MainWindow;
+                //MainWindow mainWindow = (MainWindow)App.Current.MainWindow;
 
-                // Pass the BookItem object to the new page via the constructor.
-                mainWindow.MainFrame.Content = new ViewBook(selectedBook);
+                //// Pass the BookItem object to the new page via the constructor.
+                //mainWindow.MainFrame.Content = new ViewBook(selectedBook);
 
+                MainPage mainPage = (MainPage)App.Current.MainWindow.Content;
+                mainPage.MainFrame.Content = new ViewBook(selectedBook);
             }
         }
 

@@ -55,8 +55,8 @@ namespace Library_Application
         private void ReturnPageButton_Click(object sender, RoutedEventArgs e)
         {
             // Retrieves the reference to the main window to access the window frame
-            MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
-            mainWindow.MainFrame.Content = new HomeDash();
+            MainPage mainPage = (MainPage)Application.Current.MainWindow.Content;
+            mainPage.MainFrame.Content = new HomeDash();
         }
 
         private void btnLoanBook_Click(object sender, RoutedEventArgs e)
