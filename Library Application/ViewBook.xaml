@@ -198,7 +198,7 @@
 
             </WrapPanel>
 
-            <WrapPanel Orientation="Vertical" Margin="100,0,0,0" Height="630" Background="AntiqueWhite" VerticalAlignment="Top">
+            <WrapPanel Orientation="Vertical" Margin="100,0,0,0" Height="630" Background="White" VerticalAlignment="Top">
 
                 <TextBlock Text="{Binding BookItem.title}" Style="{StaticResource H1}" TextWrapping="Wrap" Width="600" Height="100">
 

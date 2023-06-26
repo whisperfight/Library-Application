@@ -1,22 +1,16 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace Library_Application
 {
     /// <summary>
-    /// Interaction logic for Page1.xaml
+    //The code represents a partial class named OverdueBooks, which is a WPF page in a library application.
+    //It contains various methods and event handlers related to displaying and manipulating overdue books.
+
     /// </summary>
     public partial class OverdueBooks : Page
     {
@@ -28,18 +22,27 @@ namespace Library_Application
         {
             InitializeComponent();
             LoadDatabase();
-            DisplayListData(listData);
+            SortByID(listData);
+
         }
 
         public void DisplayListData(List<OverdueLoans> data)
         {
 
-            //Display number of listing/sort results
+            // Display number of listing/sort results
+
             int resultsCount = listData.Count();
             ResultsCounter.Text = "Showing " + resultsCount.ToString() + " results";
 
             ListView LoanListControl = this.LoanListControl;
             LoanListControl.ItemsSource = data; // Set the ItemsSource of the ListView to the loanList
+        }
+
+        // List sorting methods
+        public void SortByID(List<OverdueLoans> input)
+        {
+            listData = input.OrderBy(item => item.ID).ToList();
+            DisplayListData(listData);
         }
 
         public void SortByMostOverdue(List<OverdueLoans> input)
@@ -53,31 +56,27 @@ namespace Library_Application
             DisplayListData(listData);
         }
 
-
         public void LoadDatabase()
         {
             using (var db = new DataContext())
             {
-                var books = (from b in db.Books
-                            join l in db.Loans on b.ID equals l.BookID
-                            join u in db.Users on l.UserID equals u.ID
-                            where l.OverdueBy != 0
-                            where DateTime.Now.AddDays(bookLoanPeriod) > l.DueDate
-                            select
+                var books = (from b in db.Books // Join the Books table
+                             join l in db.Loans on b.ID equals l.BookID // Join the Loans table based on matching book IDs
+                             join u in db.Users on l.UserID equals u.ID // Join the Users table based on matching user IDs
+                             where l.OverdueBy != 0 // Filter out loans that are not overdue
+                             where DateTime.Now.AddDays(bookLoanPeriod) > l.DueDate // Filter loans based on the due date and loan period
+                             select new OverdueLoans // Use new class to store formatted data
+                             {
+                                 ID = b.ID,
+                                 FirstName = u.FirstName,
+                                 LastName = u.LastName,
+                                 Title = b.Title,
+                                 IssueDate = l.IssueDate,
+                                 IssuePeriod = bookLoanPeriod.ToString(),
+                                 OverdueBy = l.OverdueBy.ToString()
+                             }).ToList(); // Convert the query results to a list
 
-                            // Use new class to store formatted data
-                            new OverdueLoans
-                            {
-                                ID = b.ID,
-                                FirstName = u.FirstName,
-                                LastName = u.LastName,
-                                Title = b.Title,
-                                IssueDate = l.IssueDate,
-                                IssuePeriod = bookLoanPeriod.ToString(),
-                                OverdueBy = l.OverdueBy.ToString()
-                            }).ToList();
-
-                listData = books;
+                listData = books; // Update the listData with the retrieved books
             }
         }
 
@@ -119,9 +118,15 @@ namespace Library_Application
                 switch (selectedContent)
                 {
                     case "Most overdue":
-                        // Sort from max to min
+
+                        SortByMostOverdue(listData);
                         break;
                     case "Least overdue":
+                        SortByLeastOverdue(listData);
+                        break;
+                    case "Book ID":
+                        SortByID(listData);
+
 
                         break;
                     default:
