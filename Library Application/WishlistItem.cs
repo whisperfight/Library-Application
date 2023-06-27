@@ -8,10 +8,17 @@ namespace Library_Application
 {
     public class WishlistItem
     {
+        string _ID = "";
         string _imgurl = "";
         string _title = "";
         string _genre = "";
         string _loanState = "";
+
+        public string ID
+        {
+            get { return _ID; }
+            set { _ID = value; }
+        }
 
         public string imgURL
         {

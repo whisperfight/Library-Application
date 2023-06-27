@@ -77,6 +77,7 @@ namespace Library_Application
                 for (int i = 0; i < loanedBooks.Count(); i++)
                 {
                     LoanItem liItem = new LoanItem();
+                    liItem.ID = loanedBooks[i].BookID.ToString();
                     liItem.genre = loanedBooks[i].GenreTags;
                     liItem.title = loanedBooks[i].Title;
                     liItem.imgURL = loanedBooks[i].CoverImageURL;
@@ -105,6 +106,7 @@ namespace Library_Application
                                      where l.UserID == 4
                                      select new
                                      {
+                                         b.ID,
                                          u.FirstName,
                                          b.Title,
                                          b.CoverImageURL,
@@ -115,6 +117,7 @@ namespace Library_Application
                 for (int i = 0; i < wishlistBooks.Count(); i++)
                 {
                     WishlistItem wishItem = new WishlistItem();
+                    wishItem.ID = wishlistBooks[i].ID.ToString();
                     wishItem.genre = wishlistBooks[i].GenreTags;
                     wishItem.imgURL = wishlistBooks[i].CoverImageURL;
                     wishItem.title = wishlistBooks[i].Title;
@@ -167,6 +170,33 @@ namespace Library_Application
             else
             {
                 return "On Loan";
+            }
+        }
+
+        private void LoanedListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (LoanedListView.SelectedItem != null)
+            {
+                LoanItem selectedBook = (LoanItem)LoanedListView.SelectedItem;
+
+                MainWindow mainWindow = (MainWindow)App.Current.MainWindow;
+
+                // Pass the BookItem object to the new page via the constructor.
+                mainWindow.MainFrame.Content = new ViewBook(null, Convert.ToInt32(selectedBook.ID));
+
+            }
+        }
+
+        private void WishListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (WishListView.SelectedItem != null)
+            {
+                WishlistItem selectedBook = (WishlistItem)WishListView.SelectedItem;
+
+                MainWindow mainWindow = (MainWindow)App.Current.MainWindow;
+
+                // Pass the BookItem object to the new page via the constructor.
+                mainWindow.MainFrame.Content = new ViewBook(null, Convert.ToInt32(selectedBook.ID));
             }
         }
     }

@@ -213,7 +213,11 @@ namespace Library_Application
                 MainWindow mainWindow = (MainWindow)App.Current.MainWindow;
 
                 // Pass the BookItem object to the new page via the constructor.
-                mainWindow.MainFrame.Content = new ViewBook(selectedBook);
+                // This constructor has two parameters: BookItem and an ID.
+                // called from the Home Dash page, an ID is passed in.
+                // called from the Browse Book page, a BookItem object is passed in.
+                // Both scenarios need to be supported.
+                mainWindow.MainFrame.Content = new ViewBook(selectedBook, 0);
 
             }
         }

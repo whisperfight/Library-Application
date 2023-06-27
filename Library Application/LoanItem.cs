@@ -9,10 +9,19 @@ namespace Library_Application
     // Represents a loan item in the library application
     public class LoanItem
     {
+        string _id = "";
         string _imgurl = "";  // The URL of the loan item's image
         string _title = "";  // The title of the loan item
         string _genre = "";  // The genre of the loan item
         string _loanState = "";  // The loan state of the loan item
+
+        // The ID of the book
+        public string ID
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
 
         // The URL of the loan item's image
         public string imgURL
@@ -40,7 +49,7 @@ namespace Library_Application
         {
             get
             {
-                return _loanState ;
+                return _loanState;
             }
             set
             {

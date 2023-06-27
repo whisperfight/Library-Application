@@ -28,14 +28,55 @@ namespace Library_Application
     {
         private static List<BookItem> bookItem;  // Stores a list of book items
 
-        public ViewBook(BookItem selectedBook)
+        // This page is now to be called from three different places: 
+        // Browse books, and Home Dash (loaned books listing and wishlist listing).
+        // Browse books requires the BookItem object, whereas the two places from the
+        // home dash requires the ID (of the book).
+        public ViewBook(BookItem selectedBook, int IDofBook)
         {
             InitializeComponent();
 
+            // Dom's code.
+
+            if (IDofBook > 0)
+            {
+                // Get the book details from the database. Only run if coming from HomeDash.
+                List<Book> bookObj = new List<Book>();
+                BookItem bi = null;
+                using (var db = new DataContext())
+                {
+                    bookObj = db.Books.Where(x => x.ID == IDofBook).ToList();
+                }
+                // convert into a BookItem object
+                if (bookObj != null && bookObj.Count() > 0)
+                {
+                    for (int i = 0; i < bookObj.Count(); i++)
+                    {
+                        bi = new BookItem();
+                        bi.author = bookObj[0].Author;
+                        bi.bookID = bookObj[0].ID.ToString();
+                        bi.dueDate = bookObj[0].DueDate;
+                        bi.genre = bookObj[0].GenreTags;
+                        bi.imgURL = bookObj[0].CoverImageURL;
+                        bi.loanState = ConvertLoanState(bookObj[0].AvailableToLoan);
+                        bi.newRelease = ConvertNewRelease(bookObj[0].NewRelease);
+                        bi.rating = bookObj[0].Rating.ToString();
+                        bi.summary = bookObj[0].Summary;
+                        bi.timeToRead = bookObj[0].TimeToRead.ToString();
+                        bi.title = bookObj[0].Title;
+                    }
+                    // Assign to Ben's BookItem property.
+                    BookItem = bi;
+                }
+            }
+            else
+            {
+                // Coming from the browse books page.
+                BookItem = selectedBook;
+            }
+
             // Adding data contexts to loaded page
             this.DataContext = this;  // Set the data context of the loaded page to itself
-
-            BookItem = selectedBook;
 
             SubheadingContent();
 
@@ -147,6 +188,30 @@ namespace Library_Application
             }
             newpkID = newpkID + 1;
             return newpkID;
+        }
+
+        string ConvertLoanState(bool input)
+        {
+            if (input == true)
+            {
+                return "On Loan";
+            }
+            else
+            {
+                return "Available";
+            }
+        }
+
+        string ConvertNewRelease(bool input)
+        {
+            if (input == true)
+            {
+                return "Yes";
+            }
+            else
+            {
+                return "No";
+            }
         }
 
         private void cmbRating_SelectionChanged(object sender, SelectionChangedEventArgs e)
