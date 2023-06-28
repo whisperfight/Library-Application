@@ -62,7 +62,6 @@ namespace Library_Application
     // Represents a loan of a book in the library
     public class Loan
     {
-
         public int ID { get; set; }
         public int BookID { get; set; }
         public int UserID { get; set; }

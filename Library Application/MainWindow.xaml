@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Library_Application"
         mc:Ignorable="d"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="My Library" Height="1000" Width="1700">
 
 
@@ -26,6 +27,19 @@
             <Setter Property="FontSize" Value="16" />
         </Style>
 
+        <Style x:Key="Name" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontFamily" Value="Inter" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+
+        <Style x:Key="UserType" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Inter" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
 
         <Style x:Key="UsersName" TargetType="TextBlock">
             <Setter Property="Foreground" Value="White"/>
@@ -93,34 +107,92 @@
 
     </Window.Resources>
 
-
-    <!-- Window -->
-    <!--=====================================================================-->
     <Grid>
+        <Frame x:Name="LoginFrame" NavigationUIVisibility="Hidden"/>
 
-        <!--Side Panel content-->
+        <!-- Window -->
         <!--=====================================================================-->
+        <Grid x:Name="AfterLogin" Visibility="Hidden">
 
-        <Rectangle Fill="#3AB19B" Grid.Column="0" Grid.RowSpan="3"/>
+            <!--Side Panel content-->
+            <!--=====================================================================-->
 
-        <!--User profile and name-->
-        <WrapPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center">
+            <Rectangle Fill="#3AB19B" Grid.Column="0" Grid.RowSpan="3"/>
 
-            <Image Source="{Binding imageSourceUrl}" Width="150" Height="150" Margin="0,50,0,10">
-                <Image.Clip>
-                    <EllipseGeometry RadiusX="75" RadiusY="75" Center="75,75"/>
-                </Image.Clip>
-            </Image>
 
-            <TextBlock Text="{Binding userFullName}" Style="{StaticResource UsersName}" TextAlignment="Center"/>
+            <!--User profile and name-->
+            <WrapPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center">
 
-        </WrapPanel>
-        
-        
-        <!--Side panel buttons-->
-        <WrapPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center">
+                <Image Source="{Binding userDetails.ImageURL}" Width="150" Height="150" Margin="0,50,0,10">
+                    <Image.Clip>
+                        <EllipseGeometry RadiusX="75" RadiusY="75" Center="75,75"/>
+                    </Image.Clip>
+                </Image>
 
-            <Button x:Name="Home" Content="Home" Click="Home_Click" Margin="0,0,0,20" Width="200" Height="40" Style="{StaticResource SideMenuButton}">
+                <TextBlock Text="{Binding userDetails.FullName}" 
+                   Style="{StaticResource Name}"
+                   TextAlignment="Center"/>
+
+                <TextBlock Text="{Binding userDetails.UserType}" 
+                       Style="{StaticResource UserType}"
+                       TextAlignment="Center"
+                       Margin="0,5,0,0"/>
+
+            </WrapPanel>
+
+
+            <!--Member panel buttons-->
+            <WrapPanel x:Name="MemberButtons" Visibility="Hidden" Orientation="Vertical" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center">
+
+                <Button x:Name="Home" Content="Home" Click="Home_Click" Margin="0,0,0,20" Width="200" Height="40" Style="{StaticResource SideMenuButton}">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="20"></Setter>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+                <Button x:Name="Browsebooks" Content="Browse Books" Click="Browsebooks_Click" Margin="0,0,0,20" Width="200" Height="40" Style="{StaticResource SideMenuButton}">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="20"></Setter>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+            </WrapPanel>
+
+            <!--Administrator panel buttons-->
+            <WrapPanel x:Name="AdminButtons" Visibility="Hidden" Orientation="Vertical" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center">
+
+                <Button x:Name="OverdueBooks" Content="Overdue Books" Click="OverdueBooks_click" Margin="0,0,0,20" Width="200" Height="40" Style="{StaticResource SideMenuButton}">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="20"></Setter>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+                <Button x:Name="EditContent" Content="Edit Content" Click="EditContent_Click" Margin="0,0,0,20" Width="200" Height="40" Style="{StaticResource SideMenuButton}">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="20"></Setter>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+                <Button x:Name="EditUsers" Content="Edit Users" Click="EditUsers_Click" Margin="0,0,0,20" Width="200" Height="40" Style="{StaticResource SideMenuButton}">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="20"></Setter>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+            </WrapPanel>
+
+            <!--Logout user and return to login page-->
+            <Button x:Name="LogoutUser" Content="Log out" Click="LogoutUser_Click" Margin="0,0,0,40" Width="200" Height="40" Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" Style="{StaticResource SideMenuButton}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="20"></Setter>
@@ -128,50 +200,27 @@
                 </Button.Resources>
             </Button>
 
-            <Button x:Name="Browsebooks" Content="Browse Books" Click="Browsebooks_Click" Margin="0,0,0,20" Width="200" Height="40" Style="{StaticResource SideMenuButton}">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="20"></Setter>
-                    </Style>
-                </Button.Resources>
-            </Button>
 
-            <Button x:Name="Wishlist" Content="My Wishlist" Margin="0,0,0,20" Width="200" Height="40" Style="{StaticResource SideMenuButton}">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="20"></Setter>
-                    </Style>
-                </Button.Resources>
-            </Button>
+            <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" />
 
-            <Button x:Name="Currentloans" Content="Current Loans" Margin="0,0,0,20" Width="200" Height="40" Style="{StaticResource SideMenuButton}">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="20"></Setter>
-                    </Style>
-                </Button.Resources>
-            </Button>
 
-        </WrapPanel>
 
-        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"   Grid.Column="1" Grid.Row="0" Grid.RowSpan="2"  />
+            <!--<Frame x:Name="LoginFrame" NavigationUIVisibility="Hidden" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="3"/>-->
 
-        <!--Main window grid formatting-->
-        <!--=====================================================================-->
-        
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+            <!--Main window grid formatting-->
+            <!--=====================================================================-->
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="300"/>
-            <RowDefinition Height="3*"/>
-        </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="300"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+
+        </Grid>
     </Grid>
-
-
-
-
+    
 </Window>
