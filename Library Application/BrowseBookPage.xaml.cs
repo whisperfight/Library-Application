@@ -209,7 +209,6 @@ namespace Library_Application
 
                 // Pass the BookItem object to the new page via the constructor.
                 mainWindow.MainFrame.Content = new ViewBook(selectedBook);
-
             }
         }
 

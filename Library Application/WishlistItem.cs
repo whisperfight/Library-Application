@@ -9,7 +9,7 @@ namespace Library_Application
 {
     public class WishlistItem
     {
-        public string bookID { get; set; }
+        public int bookID { get; set; }
         public string title { get; set; }
         public string author { get; set; }
         public string summary { get; set; }

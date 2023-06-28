@@ -40,8 +40,6 @@ namespace Library_Application
         {
             List<LoanItem> loanedbookstoshow = new List<LoanItem>();
 
-            
-
             using (var db = new DataContext())
             {
                 var loanedBooks = (from u in db.Users
@@ -55,6 +53,7 @@ namespace Library_Application
                                        u.FirstName,
                                        l.BookID,
                                        b.Title,
+                                       b.ID,
                                        b.CoverImageURL,
                                        b.GenreTags,
                                        b.AvailableToLoan
@@ -68,6 +67,7 @@ namespace Library_Application
                     LoanItem liItem = new LoanItem();
                     liItem.genre = loanedBooks[i].GenreTags;
                     liItem.title = loanedBooks[i].Title;
+                    liItem.bookID = loanedBooks[i].ID;
                     liItem.imgURL = loanedBooks[i].CoverImageURL;
                     liItem.loanState = ConvertLoanState(loanedBooks[i].AvailableToLoan);
 
@@ -96,6 +96,7 @@ namespace Library_Application
                                      {
                                          u.FirstName,
                                          b.Title,
+                                         b.ID,
                                          b.CoverImageURL,
                                          b.GenreTags,
                                          b.AvailableToLoan
@@ -107,6 +108,7 @@ namespace Library_Application
                     wishItem.genre = wishlistBooks[i].GenreTags;
                     wishItem.imgURL = wishlistBooks[i].CoverImageURL;
                     wishItem.title = wishlistBooks[i].Title;
+                    wishItem.bookID = wishlistBooks[i].ID;
                     wishItem.loanState = ConvertLoanState(wishlistBooks[i].AvailableToLoan);
 
                     wishlistbookstoshow.Add(wishItem);
@@ -147,7 +149,7 @@ namespace Library_Application
 
         // Utility method to address the conversion of a bool data type to a string.
         // This is for the AvailableToLoan property.
-        private string ConvertLoanState(bool loanStateInput)
+        private static string ConvertLoanState(bool loanStateInput)
         {
             if (loanStateInput == true)
             {
@@ -156,6 +158,86 @@ namespace Library_Application
             else
             {
                 return "On Loan";
+            }
+        }
+
+        // Event to pass LoanItem details through to the viewbook window - converts from LoanItem to BookItem
+        private void LoanedListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            if (LoanedListView.SelectedItem != null)
+            {
+
+                using (var db = new DataContext())
+                {
+                    // Get the book ID from the selected loan item
+                    LoanItem selectedLoanedBook = (LoanItem)LoanedListView.SelectedItem;
+
+                    // Select and pass book item that matches loanitem ID
+                    var selectedBookItem = (from b in db.Books
+                                            where b.ID == Convert.ToInt32(selectedLoanedBook.bookID)
+                                            select new BookItem
+                                            {
+                                            bookID = b.ID.ToString(),
+                                            title = b.Title,
+                                            author = b.Author,
+                                            summary = b.Summary,
+                                            timeToRead = b.TimeToRead.ToString(),
+                                            rating = b.Rating.ToString(),
+                                            genre = b.GenreTags,
+                                            imgURL = b.CoverImageURL,
+                                            loanState = ConvertLoanState(b.AvailableToLoan),
+                                                
+                                            newRelease = b.NewRelease.ToString(),
+                                            dueDate = b.DueDate
+                                            }).FirstOrDefault();
+
+                    if (selectedBookItem != null)
+                    {
+                        MainWindow mainWindow = (MainWindow)App.Current.MainWindow;
+                        mainWindow.MainFrame.Content = new ViewBook(selectedBookItem);
+                    }
+
+                }
+            }
+        }
+
+        private void WishListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (WishListView.SelectedItem != null)
+            {
+
+                using (var db = new DataContext())
+                {
+                    // Get the book ID from the selected loan item
+                    WishlistItem selectedWishlistBook = (WishlistItem)WishListView.SelectedItem;
+
+
+                    // Select and pass book item that matches loanitem ID
+                    var selectedBookItem = (from b in db.Books
+                                            where b.ID == Convert.ToInt32(selectedWishlistBook.bookID)
+                                            select new BookItem
+                                            {
+                                                bookID = b.ID.ToString(),
+                                                title = b.Title,
+                                                author = b.Author,
+                                                summary = b.Summary,
+                                                timeToRead = b.TimeToRead.ToString(),
+                                                rating = b.Rating.ToString(),
+                                                genre = b.GenreTags,
+                                                imgURL = b.CoverImageURL,
+                                                loanState = ConvertLoanState(b.AvailableToLoan),
+                                                newRelease = b.NewRelease.ToString(),
+                                                dueDate = b.DueDate
+                                            }).FirstOrDefault();
+
+                    if (selectedBookItem != null)
+                    {
+                        MainWindow mainWindow = (MainWindow)App.Current.MainWindow;
+                        mainWindow.MainFrame.Content = new ViewBook(selectedBookItem);
+                    }
+
+                }
             }
         }
     }

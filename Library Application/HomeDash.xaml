@@ -115,15 +115,16 @@
                 <!--=====================================================================-->
 
                 <!--Listview Template for users books on loan -->
-                <ListView x:Name="LoanedListView"          
-                      Height="320"
-                      MinWidth="1000"
-                      Width="auto"
-                      Margin="50,0,0,0"
-                      BorderThickness="0"            
-                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"  HorizontalAlignment="Left" VerticalAlignment="Top" 
-                      ItemsSource="{Binding PlayerList}">
+                <ListView x:Name="LoanedListView"  
+                          SelectionChanged="LoanedListView_SelectionChanged"
+                          Height="320"
+                          MinWidth="1000"
+                          Width="auto"
+                          Margin="50,0,0,0"
+                          BorderThickness="0"            
+                          ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"  HorizontalAlignment="Left" VerticalAlignment="Top" 
+                          ItemsSource="{Binding PlayerList}">
 
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -220,15 +221,15 @@
 
                 <!--Listview Template for users saved book wishlist -->
                 <ListView x:Name="WishListView"
-                 
-                  Height="320"
-                  MinWidth="1000"
-                  Width="auto"
-                  Margin="50,0,0,0"
-                  BorderThickness="0"
-                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"  HorizontalAlignment="Left" VerticalAlignment="Top" 
-                  ItemsSource="{Binding PlayerList}">
+                          SelectionChanged="WishListView_SelectionChanged"        
+                          Height="320"
+                          MinWidth="1000"
+                          Width="auto"
+                          Margin="50,0,0,0"
+                          BorderThickness="0"
+                          ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"  HorizontalAlignment="Left" VerticalAlignment="Top" 
+                          ItemsSource="{Binding PlayerList}">
 
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
