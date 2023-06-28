@@ -33,20 +33,13 @@ namespace Library_Application
             this.DataContext = new UserDetails();
 
             LoadUserLoanList();
-
             LoadUserWishList();
 
         }
 
-        public class UserDetails
+        private void GreetingMessage()
         {
-            public string welcomeMessage { get; set; }
-            public UserDetails()
-            {
-                string userFirstName = "Ben";
-                string userLastName = "Tutheridge";
-                welcomeMessage = "Welcome " + userFirstName + " " + userLastName;
-            }
+            
         }
 
         private void LoadUserLoanList()

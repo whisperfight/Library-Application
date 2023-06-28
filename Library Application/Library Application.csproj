@@ -166,9 +166,6 @@
       <DependentUpon>EditLibraryUsers.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoanItem.cs" />
-    <Compile Include="AdminMainWindow.xaml.cs">
-      <DependentUpon>AdminMainWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="OverdueBooks.xaml.cs">
       <DependentUpon>OverdueBooks.xaml</DependentUpon>
     </Compile>
@@ -201,10 +198,6 @@
     <Page Include="HomeDash.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="AdminMainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

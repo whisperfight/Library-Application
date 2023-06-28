@@ -90,7 +90,7 @@
         </Style>
     </Page.Resources>
 
-    <Grid>
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="150"/>
             <RowDefinition Height="*"/>
@@ -100,210 +100,223 @@
         <!--=====================================================================-->
 
         <!--Page title-->
-        <TextBlock Text="{Binding welcomeMessage}" Margin="50,50,0,0" Style="{StaticResource H1}"/>
+        <TextBlock Text="Welcome to your dashboard" Margin="50,50,0,0" Style="{StaticResource H1}"/>
 
         <!--Search field and button-->
         <TextBlock Text="My loaned books" Margin="50,0,0,10" VerticalAlignment="Bottom" Style="{StaticResource H2}" />
 
-        <WrapPanel Orientation="Vertical" Grid.Row="1">
-            
-            <!--List view content-->
-            <!--=====================================================================-->
 
-            <!--Listview Template for users books on loan -->
-            <ListView x:Name="LoanedListView"
-                      Grid.Row="1"
-                      Height="320"    
+        <WrapPanel Orientation="Vertical" Grid.Row="1">
+
+            <!--Loanlist-->
+            <WrapPanel>
+
+                <!--List view content-->
+                <!--=====================================================================-->
+
+                <!--Listview Template for users books on loan -->
+                <ListView x:Name="LoanedListView"          
+                      Height="320"
+                      MinWidth="1600"
+                      Width="auto"
                       Margin="50,0,0,0"
                       BorderThickness="0"            
                       ScrollViewer.VerticalScrollBarVisibility="Hidden"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"  HorizontalAlignment="Left" VerticalAlignment="Top" 
                       ItemsSource="{Binding PlayerList}">
 
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel/>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
 
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <WrapPanel Orientation="Vertical" VerticalAlignment="Top" Margin="20,0,20,0" Width="140" Height="320" 
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel Orientation="Vertical" VerticalAlignment="Top" Margin="20,0,20,0" Width="140" Height="320" 
                                MouseLeave="WrapPanel_MouseLeave" 
                                MouseEnter="WrapPanel_MouseEnter" 
                                Background="#00000000">
 
-                            <!--Default view of book listings and labels-->
-                            <WrapPanel x:Name="SelectedBook" Orientation="Vertical" VerticalAlignment="Top" Visibility="Visible" >
+                                <!--Default view of book listings and labels-->
+                                <WrapPanel x:Name="SelectedBook" Orientation="Vertical" VerticalAlignment="Top" Visibility="Visible" >
 
-                                <Border BorderBrush="#727272" BorderThickness="1">
-                                    <Rectangle Width="140" Height="220">
-                                        <Rectangle.Fill>
-                                            <ImageBrush ImageSource="{Binding imgURL}" Stretch="UniformToFill"/>
-                                        </Rectangle.Fill>
-                                    </Rectangle>
-                                </Border>
+                                    <Border BorderBrush="#727272" BorderThickness="1">
+                                        <Rectangle Width="140" Height="220">
+                                            <Rectangle.Fill>
+                                                <ImageBrush ImageSource="{Binding imgURL}" Stretch="UniformToFill"/>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                    </Border>
 
-                                <TextBlock Text="{Binding title}" Style="{StaticResource BookListingTitle}"
+                                    <TextBlock Text="{Binding title}" Style="{StaticResource BookListingTitle}"
                                        TextAlignment="Center"
                                        TextWrapping="Wrap"
                                        Height="20"
                                        Margin="0,10,0,0">
-                                </TextBlock>
+                                    </TextBlock>
 
-                                <TextBlock Text="{Binding genre}" Style="{StaticResource BookListingGenre}"
+                                    <TextBlock Text="{Binding genre}" Style="{StaticResource BookListingGenre}"
                                        TextAlignment="Center"
                                        TextWrapping="NoWrap"
                                        Margin="0,5,0,10">
-                                </TextBlock>
-
-                                <Grid>
-
-                                    <Border CornerRadius="10" Background="{Binding LoanStatusFill}" Width="80" Height="20">
-                                        <Rectangle x:Name="LoanStatusRectangle" Fill="Transparent" />
-                                    </Border>
-
-                                    <TextBlock Text="{Binding loanState}" Style="{StaticResource LoanStatus}"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center">
                                     </TextBlock>
 
-                                </Grid>
+                                    <Grid>
 
-                            </WrapPanel>
+                                        <Border CornerRadius="10" Background="{Binding LoanStatusFill}" Width="80" Height="20">
+                                            <Rectangle x:Name="LoanStatusRectangle" Fill="Transparent" />
+                                        </Border>
 
-                            <!--Hidden content to reveal on mouseover-->
-                            <WrapPanel x:Name="HiddenBookInfo" Visibility="Hidden">
-                                <Grid>
+                                        <TextBlock Text="{Binding loanState}" Style="{StaticResource LoanStatus}"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center">
+                                        </TextBlock>
 
-                                    <Rectangle Width="140" Height="220" Fill="#E35E6A"/>
+                                    </Grid>
 
-                                    <TextBlock Text="{Binding title}" Style="{StaticResource BookListingTitleHover}"
+                                </WrapPanel>
+
+                                <!--Hidden content to reveal on mouseover-->
+                                <WrapPanel x:Name="HiddenBookInfo" Visibility="Hidden">
+                                    <Grid>
+
+                                        <Rectangle Width="140" Height="220" Fill="#E35E6A"/>
+
+                                        <TextBlock Text="{Binding title}" Style="{StaticResource BookListingTitleHover}"
                                             Padding="5"
                                             TextAlignment="Center"
                                             TextWrapping="Wrap"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center">
-                                    </TextBlock>
+                                        </TextBlock>
 
-                                </Grid>
+                                    </Grid>
 
-                                <Grid>
-                                    <TextBlock Text="{Binding genre}" Style="{StaticResource BookListingGenre}"
+                                    <Grid>
+                                        <TextBlock Text="{Binding genre}" Style="{StaticResource BookListingGenre}"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             TextWrapping="Wrap"
                                             Margin="0,10,0,0">
-                                    </TextBlock>
-                                </Grid>
+                                        </TextBlock>
+                                    </Grid>
 
+                                </WrapPanel>
                             </WrapPanel>
-                        </WrapPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-                
-                
-                
-                
-            </ListView>
-            
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                </ListView>
+
+            </WrapPanel>
+
             <!--Wishlist heading-->
             <TextBlock Text="My wishlist" Margin="50,10,0,10" Style="{StaticResource H2}" />
-            
-            <!--Listview Template for users saved book wishlist -->
-            <ListView x:Name="WishListView"
-                  Grid.Row="1"
-                  Height="320"    
+
+            <!--Wishlist-->
+            <WrapPanel Orientation="Vertical">
+
+
+                <!--Listview Template for users saved book wishlist -->
+                <ListView x:Name="WishListView"
+                 
+                  Height="320"
+                  MinWidth="1600"
+                  Width="auto"
                   Margin="50,0,0,0"
                   BorderThickness="0"
                   ScrollViewer.VerticalScrollBarVisibility="Hidden"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"  HorizontalAlignment="Left" VerticalAlignment="Top" 
                   ItemsSource="{Binding PlayerList}">
 
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel/>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
 
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <WrapPanel Orientation="Vertical" VerticalAlignment="Top" Margin="20,0,20,0" Width="140" Height="320" 
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel Orientation="Vertical" VerticalAlignment="Top" Margin="20,0,20,0" Width="140" Height="320" 
                                MouseLeave="WrapPanel_MouseLeave" 
                                MouseEnter="WrapPanel_MouseEnter" 
                                Background="#00000000">
 
-                            <!--Default view of book listings and labels-->
-                            <WrapPanel x:Name="SelectedBook" Orientation="Vertical" VerticalAlignment="Top" Visibility="Visible" >
+                                <!--Default view of book listings and labels-->
+                                <WrapPanel x:Name="SelectedBook" Orientation="Vertical" VerticalAlignment="Top" Visibility="Visible" >
 
-                                <Border BorderBrush="#727272" BorderThickness="1">
-                                    <Rectangle Width="140" Height="220">
-                                        <Rectangle.Fill>
-                                            <ImageBrush ImageSource="{Binding imgURL}" Stretch="UniformToFill"/>
-                                        </Rectangle.Fill>
-                                    </Rectangle>
-                                </Border>
+                                    <Border BorderBrush="#727272" BorderThickness="1">
+                                        <Rectangle Width="140" Height="220">
+                                            <Rectangle.Fill>
+                                                <ImageBrush ImageSource="{Binding imgURL}" Stretch="UniformToFill"/>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                    </Border>
 
-                                <TextBlock Text="{Binding title}" Style="{StaticResource BookListingTitle}"
+                                    <TextBlock Text="{Binding title}" Style="{StaticResource BookListingTitle}"
                                        TextAlignment="Center"
                                        TextWrapping="Wrap"
                                        Height="20"
                                        Margin="0,10,0,0">
-                                </TextBlock>
+                                    </TextBlock>
 
-                                <TextBlock Text="{Binding genre}" Style="{StaticResource BookListingGenre}"
+                                    <TextBlock Text="{Binding genre}" Style="{StaticResource BookListingGenre}"
                                        TextAlignment="Center"
                                        TextWrapping="NoWrap"
                                        Margin="0,5,0,10">
-                                </TextBlock>
-
-                                <Grid>
-
-                                    <Border CornerRadius="10" Background="{Binding LoanStatusFill}" Width="80" Height="20">
-                                        <Rectangle x:Name="LoanStatusRectangle" Fill="Transparent" />
-                                    </Border>
-
-                                    <TextBlock Text="{Binding loanState}" Style="{StaticResource LoanStatus}"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center">
                                     </TextBlock>
 
-                                </Grid>
+                                    <Grid>
 
-                            </WrapPanel>
+                                        <Border CornerRadius="10" Background="{Binding LoanStatusFill}" Width="80" Height="20">
+                                            <Rectangle x:Name="LoanStatusRectangle" Fill="Transparent" />
+                                        </Border>
 
-                            <!--Hidden content to reveal on mouseover-->
-                            <WrapPanel x:Name="HiddenBookInfo" Visibility="Hidden">
-                                <Grid>
+                                        <TextBlock Text="{Binding loanState}" Style="{StaticResource LoanStatus}"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center">
+                                        </TextBlock>
 
-                                    <Rectangle Width="140" Height="220" Fill="#E35E6A"/>
+                                    </Grid>
 
-                                    <TextBlock Text="{Binding title}" Style="{StaticResource BookListingTitleHover}"
+                                </WrapPanel>
+
+                                <!--Hidden content to reveal on mouseover-->
+                                <WrapPanel x:Name="HiddenBookInfo" Visibility="Hidden">
+                                    <Grid>
+
+                                        <Rectangle Width="140" Height="220" Fill="#E35E6A"/>
+
+                                        <TextBlock Text="{Binding title}" Style="{StaticResource BookListingTitleHover}"
                                             Padding="5"
                                             TextAlignment="Center"
                                             TextWrapping="Wrap"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center">
-                                    </TextBlock>
+                                        </TextBlock>
 
-                                </Grid>
+                                    </Grid>
 
-                                <Grid>
-                                    <TextBlock Text="{Binding genre}" Style="{StaticResource BookListingGenre}"
+                                    <Grid>
+                                        <TextBlock Text="{Binding genre}" Style="{StaticResource BookListingGenre}"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             TextWrapping="Wrap"
                                             Margin="0,10,0,0">
-                                    </TextBlock>
-                                </Grid>
+                                        </TextBlock>
+                                    </Grid>
 
+                                </WrapPanel>
                             </WrapPanel>
-                        </WrapPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </WrapPanel>
 
         </WrapPanel>
+        
+
 
 
     </Grid>

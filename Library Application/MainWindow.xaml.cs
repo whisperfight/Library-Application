@@ -23,16 +23,9 @@ namespace Library_Application
 
         public MainWindow()  // Initializes the main window
         {
-            // Set global ID variable to 0
-            App.Current.Properties["UserID"] = 0;
-
             DataContext = this;
-            LoadUserDetails(3);
-
             InitializeComponent();
-
             LoginFrame.Content = new LoginPage();
-            MainFrame.Content = new BrowseBookPage();  // sets the initial content of the main frame to the browsebookpage
         }
 
         public void LoadUserDetails(int loggedInUserID)
@@ -54,6 +47,16 @@ namespace Library_Application
 
                 // Raise the event with the loaded user details
                 UserDetailsLoaded?.Invoke(this, new UserDetailsEventArgs(loadedUserDetails));
+            }
+
+            // Load default page content based on user type.
+            if (userDetails.IsAdmin == true)
+            {
+                MainFrame.Content = new OverdueBooks();
+            }
+            else
+            {
+                MainFrame.Content = new HomeDash();
             }
         }
 
