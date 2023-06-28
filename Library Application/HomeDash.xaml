@@ -117,7 +117,7 @@
                 <!--Listview Template for users books on loan -->
                 <ListView x:Name="LoanedListView"          
                       Height="320"
-                      MinWidth="1600"
+                      MinWidth="1000"
                       Width="auto"
                       Margin="50,0,0,0"
                       BorderThickness="0"            
@@ -222,7 +222,7 @@
                 <ListView x:Name="WishListView"
                  
                   Height="320"
-                  MinWidth="1600"
+                  MinWidth="1000"
                   Width="auto"
                   Margin="50,0,0,0"
                   BorderThickness="0"
