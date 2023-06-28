@@ -30,6 +30,7 @@
         <Style x:Key="H4" TargetType="TextBlock">
             <Setter Property="FontSize" Value="19" />
             <Setter Property="FontFamily" Value="Inter"/>
+            <Setter Property="Foreground" Value="White"/>
         </Style>
 
         <Style x:Key="UsersName" TargetType="TextBlock">
@@ -118,7 +119,7 @@
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
 
-                <Image Height="150" Margin="0,20,0,0" Grid.Row="0" Source="Ellipse 1.png"/>
+                <Image Height="150" Margin="0,20,0,0" Grid.Row="0" Source="YoobeeLogo.png"/>
                 <TextBlock Foreground="White"
                            Style="{StaticResource H1}"
                            Margin="30,30,30,20" Text="Yoobee Campus Library" 

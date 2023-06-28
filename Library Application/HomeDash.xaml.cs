@@ -111,7 +111,7 @@ namespace Library_Application
                     wishItem.genre = wishlistBooks[i].GenreTags;
                     wishItem.imgURL = wishlistBooks[i].CoverImageURL;
                     wishItem.title = wishlistBooks[i].Title;
-                    wishItem.loanstate = ConvertLoanState(wishlistBooks[i].AvailableToLoan);
+                    wishItem.loanState = ConvertLoanState(wishlistBooks[i].AvailableToLoan);
 
                     wishlistbookstoshow.Add(wishItem);
                 }
