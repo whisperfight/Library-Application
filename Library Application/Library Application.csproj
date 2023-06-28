@@ -213,7 +213,6 @@
     <Compile Include="HomeDash.xaml.cs">
       <DependentUpon>HomeDash.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LoadBookObjects.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

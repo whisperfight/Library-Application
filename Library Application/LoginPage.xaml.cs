@@ -104,7 +104,7 @@ namespace Library_Application
                 if (mainWindow != null)
                 {
                     mainWindow.UserDetailsLoaded += MainWindow_UserDetailsLoaded;
-                    mainWindow.LoadUserDetails(selectedUser.UserID);
+                    mainWindow.LoadUserDetails(selectedUser.UserID); //Pass logged in userID to loaduser method
                 }
             }
         }

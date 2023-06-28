@@ -22,7 +22,7 @@ namespace Library_Application
     public partial class HomeDash : Page
     {
 
-        //List<BookItem> bookItems;
+        int loggedInUserID = App.LoggedInUserID;
 
         public HomeDash()
         {
@@ -34,17 +34,13 @@ namespace Library_Application
 
             LoadUserLoanList();
             LoadUserWishList();
-
-        }
-
-        private void GreetingMessage()
-        {
-            
         }
 
         private void LoadUserLoanList()
         {
             List<LoanItem> loanedbookstoshow = new List<LoanItem>();
+
+            
 
             using (var db = new DataContext())
             {
@@ -53,7 +49,7 @@ namespace Library_Application
                                    on u.ID equals l.UserID
                                    join b in db.Books
                                    on l.BookID equals b.ID
-                                   where l.UserID == 4
+                                   where l.UserID == loggedInUserID // Select data based on current logged in UserID
                                    select new
                                    {
                                        u.FirstName,
@@ -95,7 +91,7 @@ namespace Library_Application
                                      on u.ID equals l.UserID
                                      join b in db.Books
                                      on l.BookID equals b.ID
-                                     where l.UserID == 4
+                                     where l.UserID == loggedInUserID // Select data based on current logged in UserID
                                      select new
                                      {
                                          u.FirstName,

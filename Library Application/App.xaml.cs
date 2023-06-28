@@ -13,5 +13,6 @@ namespace Library_Application
     /// </summary>
     public partial class App : Application
     {
+        public static int LoggedInUserID { get; set; } // Global var for current user logged in within app
     }
 }

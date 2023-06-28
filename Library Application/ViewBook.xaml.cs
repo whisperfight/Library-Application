@@ -24,9 +24,12 @@ namespace Library_Application
     /// <summary>
     /// Interaction logic for ViewBook.xaml
     /// </summary>
+    /// 
+
     public partial class ViewBook : Page
     {
-        private static List<BookItem> bookItem;  // Stores a list of book items
+
+        int loggedInUserID = App.LoggedInUserID; //Set local var
 
         public ViewBook(BookItem selectedBook)
         {
@@ -34,9 +37,7 @@ namespace Library_Application
 
             // Adding data contexts to loaded page
             this.DataContext = this;  // Set the data context of the loaded page to itself
-
             BookItem = selectedBook;
-
             SubheadingContent();
 
         }
@@ -56,7 +57,7 @@ namespace Library_Application
         {
             // Retrieves the reference to the main window to access the window frame
             MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
-            mainWindow.MainFrame.Content = new HomeDash();
+            mainWindow.MainFrame.Content = new BrowseBookPage();
         }
 
         private void btnLoanBook_Click(object sender, RoutedEventArgs e)
@@ -66,9 +67,7 @@ namespace Library_Application
             {
                 Loan liItem = new Loan();
                 liItem.BookID = Convert.ToInt32(BookItem.bookID);
-
-                // temporarily hard coded. It will be necessary to access the global variable that will be added later.
-                liItem.UserID = 4;
+                liItem.UserID = loggedInUserID; // Use logged in user ID
                 liItem.DueDate = DateTime.Now.AddDays(30);
                 liItem.FineDue = false;
                 liItem.IssueDate = DateTime.Now;
@@ -77,6 +76,29 @@ namespace Library_Application
                 db.Add(liItem);
                 db.SaveChanges();
             }
+
+
+            // Change loaned book loanstate
+            using (var db = new DataContext())
+            {
+                // Retrieve the existing user entry from the database
+                Book loanedBook = db.Books.FirstOrDefault(b => b.ID == Convert.ToInt32(BookItem.bookID));     
+                
+                //Change loan state
+                if (loanedBook.AvailableToLoan == true)
+                {
+                    loanedBook.AvailableToLoan = false; // Change state
+                    ConfirmMessage.Text = "Book loaned!"; // Confirmation message
+                }
+                else
+                {
+                    ConfirmMessage.Text = "Book not available for loan!";
+                }
+
+                // Save the changes back to the database
+                db.SaveChanges();
+            }
+
         }
 
         private void btnAddToWishList_Click(object sender, RoutedEventArgs e)
@@ -84,17 +106,28 @@ namespace Library_Application
             // insert an entry into the Wishlist table
             using (var db = new DataContext())
             {
-                Wishlist wlItem = new Wishlist();
-                wlItem.AddedDate = DateTime.Now;
-                wlItem.BookID = Convert.ToInt32(BookItem.bookID);
-                wlItem.ID = GetNewPKFromWishlistTable(); // need to get the latest PK ID.
 
-                // temporarily hard coded. It will be necessary to access the global variable that will be added later.
-                wlItem.UserID = 4;
+                // Check to see if entry already exists
+                Wishlist wishListBook = db.Wishlist.FirstOrDefault(wb => wb.BookID == Convert.ToInt32(BookItem.bookID));
 
-                db.Add(wlItem);
-                db.SaveChanges();
+                if (wishListBook == null) //If it doesn't exist in users wishlist add it
+                {
+                    Wishlist wlItem = new Wishlist();
+                    wlItem.AddedDate = DateTime.Now;
+                    wlItem.BookID = Convert.ToInt32(BookItem.bookID);
+                    wlItem.ID = GetNewPKFromWishlistTable(); // need to get the latest PK ID.
+                    wlItem.UserID = loggedInUserID; // Use logged in user ID
 
+                    db.Add(wlItem);
+                    db.SaveChanges();
+
+                    ConfirmMessage.Text = "Book added to wishlist!";
+
+                }
+                else
+                {
+                    ConfirmMessage.Text = "Book already in wishlist!";
+                }
             }
         }
 

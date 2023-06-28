@@ -30,6 +30,9 @@ namespace Library_Application
 
         public void LoadUserDetails(int loggedInUserID)
         {
+
+            App.LoggedInUserID = loggedInUserID; 
+
             using (var db = new DataContext())
             {
                 UserDetails loadedUserDetails = (from u in db.Users
@@ -154,3 +157,4 @@ public class UserDetailsEventArgs : EventArgs
         UserDetails = userDetails;
     }
 }
+
