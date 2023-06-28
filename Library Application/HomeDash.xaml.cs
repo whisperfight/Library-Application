@@ -73,7 +73,7 @@ namespace Library_Application
                     liItem.genre = loanedBooks[i].GenreTags;
                     liItem.title = loanedBooks[i].Title;
                     liItem.imgURL = loanedBooks[i].CoverImageURL;
-                    liItem.loanstate = ConvertLoanState(loanedBooks[i].AvailableToLoan);
+                    liItem.loanState = ConvertLoanState(loanedBooks[i].AvailableToLoan);
 
                     loanedbookstoshow.Add(liItem);
                 }

@@ -30,12 +30,7 @@ namespace Library_Application
         public BrowseBookPage()
         {
             InitializeComponent();
-
-            UserName = "Robert";
             this.DataContext = this;
-
-            search_text = "empty";
-
             LoadBookListings();
         }
 
