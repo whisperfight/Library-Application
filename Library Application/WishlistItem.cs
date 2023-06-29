@@ -3,42 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace Library_Application
 {
     public class WishlistItem
     {
-        string _imgurl = "";
-        string _title = "";
-        string _genre = "";
-        string _loanState = "";
+        public int bookID { get; set; }
+        public string title { get; set; }
+        public string author { get; set; }
+        public string summary { get; set; }
+        public string timeToRead { get; set; }
+        public string rating { get; set; }
+        public string genre { get; set; }
+        public string imgURL { get; set; }
+        public string loanState { get; set; }
+        public string newRelease { get; set; }
+        public string dueDate { get; set; }
 
-        public string imgURL
-        {
-            get { return _imgurl; }
-            set { _imgurl = value; }
-        }
-
-        public string title
-        {
-            get { return _title; }
-            set { _title = value; }
-        }
-
-        public string genre
-        {
-            get { return _genre; }
-            set { _genre = value; }
-        }
-        public string loanstate
+        public Brush LoanStatusFill
         {
             get
             {
-                return _loanState;
-            }
-            set
-            {
-                _loanState = value;
+                if (loanState == "On Loan")
+                {
+                    return new SolidColorBrush(Color.FromRgb(114, 114, 114));
+                }
+                else
+                {
+                    return new SolidColorBrush(Color.FromRgb(58, 177, 155));
+                }
             }
         }
     }

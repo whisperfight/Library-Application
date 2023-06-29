@@ -199,6 +199,7 @@
                      VerticalContentAlignment="Center"
                      HorizontalContentAlignment="Center"
                      Margin="0,0,0,0"
+                     SelectionChanged="GenreDropdown_SelectionChanged"
                      Style="{StaticResource FilterComboBoxes}">
 
 
@@ -231,7 +232,7 @@
                           Width="200" Height="40"
                           VerticalContentAlignment="Center"
                           HorizontalContentAlignment="Center"
-
+                          SelectionChanged="GenreDropdown_SelectionChanged"
                           Margin="20,0,0,0"
                           Style="{StaticResource FilterComboBoxes}">
 
@@ -247,7 +248,7 @@
                           Width="200" Height="40"
                           VerticalContentAlignment="Center"
                           HorizontalContentAlignment="Center"
-
+                          SelectionChanged="GenreDropdown_SelectionChanged"
                           Margin="20,0,0,0"
                           Style="{StaticResource FilterComboBoxes}">
 
@@ -273,6 +274,7 @@
         <!--Listview Template for displaying all the catalog entries withing the library's database-->
         <ListView x:Name="BookListView"
                   SelectionChanged="BookList_SelectionChanged"
+                  MinWidth="1000"
                   Grid.Row="1"  
                   Margin="50,0,0,0"
                   BorderThickness="0"

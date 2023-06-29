@@ -50,7 +50,6 @@ namespace Library_Application
 
                 List<User> selUser = db.Users.Where(x => x.ID == userID).ToList();
 
-
                 // Update text fields to selected member
                 FirstNameField.Text = selUser[0].FirstName;
                 LastNameField.Text = selUser[0].LastName;

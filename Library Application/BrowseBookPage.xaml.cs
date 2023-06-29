@@ -30,12 +30,7 @@ namespace Library_Application
         public BrowseBookPage()
         {
             InitializeComponent();
-
-            UserName = "Robert";
             this.DataContext = this;
-
-            search_text = "empty";
-
             LoadBookListings();
         }
 
@@ -214,7 +209,6 @@ namespace Library_Application
 
                 // Pass the BookItem object to the new page via the constructor.
                 mainWindow.MainFrame.Content = new ViewBook(selectedBook);
-
             }
         }
 

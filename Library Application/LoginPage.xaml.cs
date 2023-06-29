@@ -18,54 +18,119 @@ namespace Library_Application
     /// <summary>
     /// Interaction logic for LoginPage.xaml
     /// </summary>
+    /// 
+
     public partial class LoginPage : Page
     {
+        string enteredLoginUserName;
+        string enteredPassword;
+        private SelectedUser selectedUser;
+        bool showLoginPage = true;
+
         public LoginPage()
         {
             InitializeComponent();
+            selectedUser = new SelectedUser();
+        }
 
-            string CurrentLoginUserName = UserNameField.Text;
-            string type = PasswordField.Text;
+        private void Check_Credentials()
+        {
+            // Get field values
+            enteredLoginUserName = UserNameField.Text;
+            enteredPassword = PasswordField.Text;
 
-            //string CurrentLoginUserName = (string)App.Current.Properties["CurrentLoginUserName"];
-            //string type = (string)App.Current.Properties["CurrentLoginUserNameType"];
-            //int ID = (int)App.Current.Properties["CurrentLoginUserNameID"];
-
-            // Display the user's name on the form.
-            List<User> ulist = null;
             using (var db = new DataContext())
             {
-                // Get the user's details from the database.
-                var userlist = db.Users.Where(x => x.Username == CurrentLoginUserName);
-                if (userlist != null)
-                {
-                    ulist = userlist.ToList();
-                }
+                selectedUser = (from u in db.Users
+                                where u.Username == enteredLoginUserName
+                                select new SelectedUser
+                                {
+                                    UserID = u.ID,
+                                    Username = u.Username,
+                                    IsAdmin = u.IsAdmin,
+                                    IsEnabled = u.IsEnabled,
+                                    Password = u.Password
+                                }).FirstOrDefault(); // Retrieve the first element from the selected collection.
             }
-            // this will be a row count of 1
-            if (ulist.Count > 0)
+
+            if (selectedUser != null)
             {
-                if (type == "admin")
+
+                if (selectedUser.Password == enteredPassword && selectedUser.IsEnabled == true) //Check password and if account is enabled
                 {
-                    lblUsersname.Content += "Administrator" + Environment.NewLine;
-                    lblUsersname.Content += ulist[0].FirstName + " " + ulist[0].LastName;
+                    // Password correct - allow hiding of login page
+                    showLoginPage = false;
+
+                    if (selectedUser.IsAdmin == true) //Admin = true
+                    {
+                        // Toggle button view states
+                        ((MainWindow)App.Current.MainWindow).AdminButtons.Visibility = Visibility.Visible;
+                        ((MainWindow)App.Current.MainWindow).MemberButtons.Visibility = Visibility.Hidden;
+                    }
+                    else
+                    {
+                        ((MainWindow)App.Current.MainWindow).MemberButtons.Visibility = Visibility.Visible;
+                        ((MainWindow)App.Current.MainWindow).AdminButtons.Visibility = Visibility.Hidden;
+                    }
+
                 }
                 else
                 {
-                    lblUsersname.Content = ulist[0].FirstName + " " + ulist[0].LastName;
+                    // Display error message below entry fields
+                    ErrorMessage.Text = "Incorrect details, try again!";
+                }
+            }
+            else
+            {
+                // Display error message below entry fields
+                ErrorMessage.Text = "No details entered, try again!";
+            }
+        }
+
+        private void Submit_Button_Click(object sender, RoutedEventArgs e)
+        {
+            // Run compare password check and toggle settings
+            Check_Credentials();
+
+            // Hide page if credentials pass
+            if (showLoginPage == false)
+            {
+                // Toggle visibility states
+                ((MainWindow)App.Current.MainWindow).LoginFrame.Visibility = Visibility.Hidden;
+                ((MainWindow)App.Current.MainWindow).AfterLogin.Visibility = Visibility.Visible;
+
+                // In the other page where LoadUserDetails is called
+                MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
+                if (mainWindow != null)
+                {
+                    mainWindow.UserDetailsLoaded += MainWindow_UserDetailsLoaded;
+                    mainWindow.LoadUserDetails(selectedUser.UserID); //Pass logged in userID to loaduser method
                 }
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)  // Handles the click event for the SUBMIT button
+        private void MainWindow_UserDetailsLoaded(object sender, UserDetailsEventArgs e)
         {
-           
-            
+            // Update the displayed content using the loaded user details
+            UserDetails loadedUserDetails = e.UserDetails;
+            // Update the content in the other page based on the loaded user details
+            // ...
         }
 
-        private void MainFrame_Navigated(object sender, NavigationEventArgs e)
+        private void UserInput_GotFocus(object sender, RoutedEventArgs e)
         {
-
+            TextBox textBox = (TextBox)sender;
+            textBox.Text = "";      
         }
     }
 }
+
+public class SelectedUser
+{
+    public int UserID { get; set; }
+    public string Username { get; set; }
+    public bool IsAdmin { get; set; }
+    public bool IsEnabled { get; set; }
+    public string Password { get; set; }
+}
+

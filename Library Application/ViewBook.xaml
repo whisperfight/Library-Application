@@ -207,7 +207,7 @@
                 <TextBlock Text="{Binding BookItem.author}" Style="{StaticResource H3}"></TextBlock>
                 <TextBlock Text="{Binding BookItem.genre}" Style="{StaticResource H3}"></TextBlock>
 
-                <Grid HorizontalAlignment="Left">
+                <Grid HorizontalAlignment="Left" Margin="0,10,10,0">
                     <Border CornerRadius="10" Background="{Binding BookItem.LoanStatusFill}" Width="200" Height="20">
                         <Rectangle x:Name="LoanStatusRectangle"/>
                     </Border>
@@ -216,8 +216,6 @@
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Center">
                     </TextBlock>
-
-
                 </Grid>
 
                 <TextBlock Text="Book Description" Style="{StaticResource H2}"></TextBlock>
@@ -256,23 +254,23 @@
 
 
                 <WrapPanel Orientation="Horizontal" Margin="0,20,0,0">
-                    <Button Name="btnLoanBook" Content="Loan this book" Width="150" Height="30" Style="{StaticResource LoanButton}" Click="btnLoanBook_Click">
+                    <Button Name="btnLoanBook" Content="Loan this book" Width="180" Height="30" Style="{StaticResource LoanButton}" Click="btnLoanBook_Click">
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="15"/>
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button Name="btnAddToWishList" Content="Add to my wishlist" Margin="20,0,0,0" Width="150" Height="30" Style="{StaticResource AddWishlistButton}" Click="btnAddToWishList_Click">
+                    <Button Name="btnAddToWishList" Content="Add to my wishlist" Margin="20,0,0,0" Width="180" Height="30" Style="{StaticResource AddWishlistButton}" Click="btnAddToWishList_Click">
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="15"/>
                             </Style>
                         </Button.Resources>
                     </Button>
-
-
                 </WrapPanel>
+
+                <TextBlock x:Name="ConfirmMessage" Text="" TextAlignment="Center" Margin="0,20,0,0" Style="{StaticResource H3}"></TextBlock>
 
             </WrapPanel>
 

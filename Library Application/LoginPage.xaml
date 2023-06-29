@@ -24,8 +24,14 @@
         <Style x:Key="H3" TargetType="TextBox">
             <Setter Property="FontSize" Value="19" />
             <Setter Property="FontFamily" Value="Inter"/>
+            <Setter Property="Foreground" Value="#727272"/>
         </Style>
 
+        <Style x:Key="H4" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="19" />
+            <Setter Property="FontFamily" Value="Inter"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
 
         <Style x:Key="UsersName" TargetType="TextBlock">
             <Setter Property="Foreground" Value="White"/>
@@ -87,7 +93,7 @@
     </Page.Resources>
 
 
-    <Grid>
+    <Grid Background="White">
         
             <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -101,8 +107,7 @@
         
         
 
-        <Border Grid.Row="0" Grid.Column="1" Background="PaleVioletRed" VerticalAlignment="Center" HorizontalAlignment="Center"
-                BorderBrush="Black" BorderThickness="2,2,2,2" 
+        <Border Grid.Row="0" Grid.Column="1" Background="PaleVioletRed" VerticalAlignment="Center" HorizontalAlignment="Center" 
                 CornerRadius="20">
             <Grid>
                 <Grid.RowDefinitions>
@@ -111,44 +116,49 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
 
-                <Image Height="150" Margin="0,20,0,0" Grid.Row="0" Source="Ellipse 1.png"/>
-                <TextBlock Foreground="White" 
+                <Image Height="150" Margin="0,20,0,0" Grid.Row="0" Source="YoobeeLogo.png"/>
+                <TextBlock Foreground="White"
                            Style="{StaticResource H1}"
                            Margin="30,30,30,20" Text="Yoobee Campus Library" 
                            HorizontalAlignment="Center" Grid.Row="1"/>
-                
+
                 <TextBox x:Name="UserNameField" 
-                         Text="User Name" 
+                         Text="Username" 
+                         GotFocus="UserInput_GotFocus"
                          TextAlignment="Center" 
                          VerticalContentAlignment="Center"
                          Margin="20,20" Width="300" Height="40" 
                          Style="{StaticResource H3}"  Grid.Row="2"/>
 
                 <TextBox x:Name="PasswordField" 
-                         Text="Password" 
+                         Text="Password"
+                         GotFocus="UserInput_GotFocus"
                          TextAlignment="Center" 
                          Margin="10,10" 
                          VerticalContentAlignment="Center"
                          Height="40" Width="300" 
                          Style="{StaticResource H3}" Grid.Row="3"/>
 
-                <Button Name="lblUsersname" 
+                <Button x:Name="Submit_Button" 
                         Content="Submit" Width="120" Height="40" 
-                        Margin="20,30" Grid.Row="4" 
-                        Click="Button_Click" Style="{StaticResource SubmitButton}">
+                        Margin="0,20,0,20" Grid.Row="4" 
+                        Click="Submit_Button_Click" Style="{StaticResource SubmitButton}">
                     <Button.Resources>
                         <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="10"/>
+                            <Setter Property="CornerRadius" Value="20"/>
                         </Style>
                     </Button.Resources>
                 </Button>
+
+                <TextBlock x:Name="ErrorMessage" Text="" TextAlignment="Center" Margin="0,0,0,20" Grid.Row="5"  Style="{StaticResource H4}"></TextBlock>
+
             </Grid>
         </Border>
 
-        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"   Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Navigated="MainFrame_Navigated"  />
-        <!--<Label Name="lblUsersname" Foreground="Green"  Background="AliceBlue"  Width="100" Content="hellooo" HorizontalAlignment="Left" Margin="75,100,0,0" VerticalAlignment="Top"/>-->
-        
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"   Grid.Column="1" Grid.Row="0" Grid.RowSpan="2"/>
+ 
     </Grid>
 </Page>
