@@ -165,7 +165,7 @@ namespace Library_Application
 
         private void EditSelected_Click(object sender, RoutedEventArgs e)
         {
-            Book selectedBook = (Book)ContentListControl.SelectedItem;
+            BookListing selectedBook = (BookListing)ContentListControl.SelectedItem;
 
             if (selectedBook != null)
             {
