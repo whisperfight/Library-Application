@@ -123,7 +123,7 @@
             <!--User profile and name-->
             <WrapPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center">
 
-                <Image Source="{Binding userDetails.ImageURL}" Width="150" Height="150" Margin="0,50,0,10">
+                <Image Source="{Binding userDetails.ImageURL}" Width="150" Height="150" Margin="0,50,0,10" Stretch="UniformToFill">
                     <Image.Clip>
                         <EllipseGeometry RadiusX="75" RadiusY="75" Center="75,75"/>
                     </Image.Clip>
